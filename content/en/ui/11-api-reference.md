@@ -5,7 +5,7 @@ position: 11
 category: 'Policy Reporter UI'
 ---
 
-Reference of all available HTTP Endpoints provided by Policy Reporter UI
+Reference of all available HTTP endpoints provided by the Policy Reporter UI.
 
 ## Core APIs
 
@@ -13,7 +13,7 @@ Reference of all available HTTP Endpoints provided by Policy Reporter UI
 
 | Method | API          | Description                                                   | Codes |
 |--------|--------------|---------------------------------------------------------------|----------------|
-| `POST`  | `/api/push` | Receive a single PolicyReport Result and stores it in memory  | `200`, `500`   |
+| `POST`  | `/api/push` | Receive a single PolicyReport result and store it in memory.  | `200`, `500`   |
 
 #### Example
 
@@ -50,7 +50,7 @@ Body JSON
 {}
 ```
 
-* Response `500` 
+* Response `500`
 
 ```json
 { "message": "Error Message" }
@@ -60,7 +60,7 @@ Body JSON
 
 | Method | API               | Description                           | Codes |
 |--------|-------------------|---------------------------------------|----------------|
-| `GET`  | `/api/result-log` | Returns the logs of received Results  | `200`, `500`   |
+| `GET`  | `/api/result-log` | Returns the logs of received results.  | `200`, `500`   |
 
 #### Example
 
@@ -92,7 +92,7 @@ curl -X GET "http://localhost:8080/api/result-log"
 ]
 ```
 
-* Response `500` 
+* Response `500`
 
 ```json
 { "message": "Error Message" }
@@ -102,7 +102,7 @@ curl -X GET "http://localhost:8080/api/result-log"
 
 | Method | API           | Description                                            | Codes |
 |--------|---------------|--------------------------------------------------------|----------------|
-| `GET`  | `/api/config` | Returns configured Plugins and the default DisplayMode | `200`, `500`   |
+| `GET`  | `/api/config` | Returns configured plugins and the default displayMode. | `200`, `500`   |
 
 #### Example
 
@@ -121,7 +121,7 @@ curl -X GET "http://localhost:8080/api/config"
 }
 ```
 
-* Response `500` 
+* Response `500`
 
 ```json
 { "message": "Error Message" }
@@ -133,7 +133,7 @@ curl -X GET "http://localhost:8080/api/config"
 
 | Method | API         | Description                                       |
 |--------|-------------|---------------------------------------------------|
-| `GET`  | `/api/v1/*` | Proxy to the configured Policy Reporter Host URL  |
+| `GET`  | `/api/v1/*` | Proxy to the configured Policy Reporter host URL.  |
 
 See [Policy Reporter - API Reference](/core/07-api-reference#v1-general-apis) for all available endpoints.
 
@@ -141,6 +141,6 @@ See [Policy Reporter - API Reference](/core/07-api-reference#v1-general-apis) fo
 
 | Method | API         | Description                                       |
 |--------|-------------|---------------------------------------------------|
-| `GET`  | `/api/kyverno/*` | Proxy to the configured Policy Reporter Kyverno Plugin Host URL  |
+| `GET`  | `/api/kyverno/*` | Proxy to the configured Policy Reporter Kyverno plugin host URL.  |
 
 See [Kyverno Plugin - API Reference](/kyverno-plugin/14-api-reference#v1-general-apis) for all available endpoints.

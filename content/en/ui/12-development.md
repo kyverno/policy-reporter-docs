@@ -8,10 +8,11 @@ category: 'Policy Reporter UI'
 ## Go Backend
 
 The Go Backend acts as:
-* Backend Store and API for the Policy Report pushes
-* FileServer for the NuxtJS Single Plage Application (the actual UI)
-* HTTP Proxy for the Policy Reporter REST API
-* HTTP Proxy for the Kyverno Plugin REST API (if enabled)
+
+* Backend store and API for the Policy Report pushes
+* File server for the NuxtJS single page application (the actual UI)
+* HTTP proxy for the Policy Reporter REST API
+* HTTP proxy for the Kyverno plugin REST API (if enabled)
 
 ### Requirements
 
@@ -37,16 +38,16 @@ go get ./...
 go run main.go -no-ui -dev -port=8082
 ```
 
-### Argument Referece
+### Argument Reference
 
-| Argument            | Discription                                                                                  |Default       |
+| Argument            | Description                                                                                  |Default       |
 |---------------------|----------------------------------------------------------------------------------------------|------------- |
 | `-config`           | path to the Policy Reporter UI config file                                                   |`config.yaml` |
-| `-dev`              | add the __Access-Control-Allow-Origin__ HTTP Header<br>to all APIs to avaid CORS errors      |`false`       |
-| `-no-ui`            | disable the SPA Handler to start the backend without the UI,<br>only for development purpose |`false`       |
-| `-policy-reporter`  | Host URL to Policy Reporter,<br>used to proxy API requests to from the UI                    |              |
-| `-kyverno-plugin`   | Host URL to Policy Reporter Kyverno Plugin,<br>used to proxy API requests to from the UI     |              |
-| `-port`             | used port for the HTTP Server                                                                |`8080`        |
+| `-dev`              | adds the __Access-Control-Allow-Origin__ HTTP header<br>to all APIs to avoid CORS errors      |`false`       |
+| `-no-ui`            | disables the SPA handler to start the backend without the UI,<br>only for development purposes |`false`       |
+| `-policy-reporter`  | Host URL to Policy Reporter,<br>used to proxy API requests to and from the UI                    |              |
+| `-kyverno-plugin`   | Host URL to Policy Reporter Kyverno plugin,<br>used to proxy API requests to and from the UI     |              |
+| `-port`             | used port for the HTTP server                                                                |`8080`        |
 
 ### Compile and run Policy Reporter UI
 
@@ -63,25 +64,25 @@ The actual frontend is a single page application based on <a href="https://nuxtj
 ### Requirements
 
 * NodeJS >= v16
-* Local running Policy Reporter UI Backend
-* Accessable Policy Reporter REST API
-* Accessable Kyverno Plugin REST API (optional)
+* Local running Policy Reporter UI backend
+* Accessible Policy Reporter REST API
+* Accessible Kyverno plugin REST API (optional)
 
 ### Preparation
 
-Access Policy Reporter via Port Forward: 
+Access Policy Reporter via port forwarding:
 
 ```bash
 kubectl port-forward service/policy-reporter 8080:8080 -n policy-reporter
 ```
 
-Access Policy Reporter Kyverno Plugin via Port Forward: 
+Access Policy Reporter Kyverno plugin via port forwarding:
 
 ```bash
 kubectl port-forward service/policy-reporter-kyverno-plugin 8083:8080 -n policy-reporter
 ```
 
-Start the Policy Reporter UI Server in development mode without the UI. The server has to be started in the `server` directory of the Policy Reporter UI project.
+Start the Policy Reporter UI server in development mode without the UI. The server has to be started in the `server` directory of the Policy Reporter UI project.
 
 ```bash
 go run main.go -no-ui -dev -port=8082 -policy-reporter http://localhost:8080 -kyverno-plugin http://localhost:8083
@@ -97,7 +98,7 @@ npm install
 
 ### Running Policy Reporter UI
 
-Create a .env File to configure the Policy Reporter UI - Backend URL. With this setup you can just copy the prepared `.env.example`.
+Create a .env file to configure the Policy Reporter UI backend URL. With this setup you can just copy the prepared `.env.example`.
 
 ```bash
 cp .env.example .env

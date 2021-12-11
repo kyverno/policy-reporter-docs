@@ -5,7 +5,7 @@ position: 7
 category: 'Policy Reporter'
 ---
 
-Reference of all available HTTP Endpoints provided by Policy Reporter
+Reference of all available HTTP endpoints provided by Policy Reporter.
 
 ## Core APIs
 
@@ -27,7 +27,7 @@ curl -X GET "http://localhost:8080/healthz"
 {}
 ```
 
-* Response `503` 
+* Response `503`
 
 ```json
 { "error": "No PolicyReport CRDs found" }
@@ -310,7 +310,7 @@ curl -X GET "http://localhost:8080/v1/namespaced-resources/sources"
 ```json
 [
    "Kyverno",
-   "Kube Benchh"
+   "Kube Bench"
 ]
 ```
 
@@ -337,7 +337,6 @@ curl -X GET "http://localhost:8080/v1/namespaced-resources/sources"
 | __policies__    | `string[]`    | Filter by a list of policies   |                                         |
 | __status__      | `string[]`    | Filter by a list of status     | `fail`, `pass`, `warn`, `error`, `skip` |
 | __severities__  | `string[]`    | Filter by a list of severities | `low`, `medium`, `high`                 |
-
 
 #### Example
 
@@ -527,7 +526,7 @@ curl -X GET "http://localhost:8080/v1/cluster-resources/sources"
 ```json
 [
    "Kyverno",
-   "Kube Benchh"
+   "Kube Bench"
 ]
 ```
 
@@ -553,7 +552,6 @@ curl -X GET "http://localhost:8080/v1/cluster-resources/sources"
 | __policies__    | `string[]`    | Filter by a list of policies   |                                         |
 | __status__      | `string[]`    | Filter by a list of status     | `fail`, `pass`, `warn`, `error`, `skip` |
 | __severities__  | `string[]`    | Filter by a list of severities | `low`, `medium`, `high`                 |
-
 
 #### Example
 
@@ -598,7 +596,6 @@ curl -X GET "http://localhost:8080/v1/cluster-resources/status-counts?source=kyv
 | __policies__    | `string[]`    | Filter by a list of policies   |                                         |
 | __status__      | `string[]`    | Filter by a list of status     | `fail`, `pass`, `warn`, `error`, `skip` |
 | __severities__  | `string[]`    | Filter by a list of severities | `low`, `medium`, `high`                 |
-
 
 #### Example
 

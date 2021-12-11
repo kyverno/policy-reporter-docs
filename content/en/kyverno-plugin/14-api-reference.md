@@ -5,7 +5,7 @@ position: 14
 category: 'Kyverno Plugin'
 ---
 
-Reference of all available HTTP Endpoints provided by Policy Reporter
+Reference of all available HTTP endpoints provided by Policy Reporter.
 
 ## Core APIs
 
@@ -13,7 +13,7 @@ Reference of all available HTTP Endpoints provided by Policy Reporter
 
 | Method | API        | Description                                                    | Codes |
 |--------|------------|----------------------------------------------------------------|----------------|
-| `GET`  | `/healthz` | Returns if the App is healthy and required CRDs are installed  | `200`, `503`   |
+| `GET`  | `/healthz` | Returns if the app is healthy and required CRDs are installed  | `200`, `503`   |
 
 #### Example
 
@@ -27,7 +27,7 @@ curl -X GET "http://localhost:8080/healthz"
 {}
 ```
 
-* Response `503` 
+* Response `503`
 
 ```json
 { "error": "No Kyverno CRDs found" }
@@ -37,7 +37,7 @@ curl -X GET "http://localhost:8080/healthz"
 
 | Method | API      | Description                           | Codes |
 |--------|----------|---------------------------------------|----------------|
-| `GET`  | `/ready` | Returns if the App is up and running  | `200`          |
+| `GET`  | `/ready` | Returns if the app is up and running  | `200`          |
 
 #### Example
 
@@ -57,7 +57,7 @@ curl -X GET "http://localhost:8080/ready"
 
 | Method | API         | Description                                        | Codes |
 |--------|-------------|----------------------------------------------------|----------------|
-| `GET`  | `/policies` | List of all avilable Policies and ClusterPolicies  | `200`, `500`   |
+| `GET`  | `/policies` | List of all available Policies and ClusterPolicies  | `200`, `500`   |
 
 #### Example
 
@@ -122,7 +122,7 @@ curl -X GET "http://localhost:8080/policies"
 
 ### kyverno_policy
 
-Gauge: One Entry represent one __Rule__ of a Policy or ClusterPolicy. Deleted Policies and Rules will also be removed from the Metrics
+Gauge: One entry represents one __Rule__ of a Policy or ClusterPolicy. Deleted policies and rules will also be removed from the metrics.
 
 | Label                     | Description                                          |
 |---------------------------|------------------------------------------------------|

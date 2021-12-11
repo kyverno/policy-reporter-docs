@@ -5,7 +5,7 @@ position: 10
 category: 'Policy Reporter'
 ---
 
-Configuration File Reference with all possible options.
+Configuration file reference with all possible options.
 
 ```yaml
 kubeconfig: '~/.kube/config' 
@@ -32,7 +32,7 @@ loki:
 elasticsearch:
   host: ""
   index: "policy-reporter"
-  rotation: "dayli"
+  rotation: "daily"
   minimumPriority: ""
   skipExistingOnStartup: true
   sources: []

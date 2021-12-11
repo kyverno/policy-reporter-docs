@@ -5,7 +5,7 @@ position: 13
 category: 'Policy Reporter UI'
 ---
 
-Configuration File Reference with all possible options.
+Configuration file reference with all possible options.
 
 ```yaml
 logSize: 200

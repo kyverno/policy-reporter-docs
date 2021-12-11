@@ -5,24 +5,25 @@ position: 6
 category: 'Policy Reporter'
 ---
 
-Policy Reporter supports different targets to send new PolicyReport Results too. This makes it possible to create a log or get notified as soon as a new validation Result was detected. The set of supported tools are based on personal needs and user requests. Feel free to create an issue or pull request if you want support for a new target.
+Policy Reporter supports different targets to send new PolicyReport results. This makes it possible to create a log or get notified as soon as a new validation result is detected. The set of supported tools are based on personal needs and user requests. Feel free to create an issue or pull request if you want support for a new target.
 
 ## Target Configurations
 
-Each Target has similar configuration values. Required is always a valid and accessable __host__ or __webhook__ configuration to be able to send the events.
+Each Target has similar configuration values. Required is always a valid and accessible __host__ or __webhook__ configuration to be able to send the events.
 
 Possible filters for events currently are:
-* __minimumPriority__: Only events with the given priority or higher are sent, by default each priority is sent. See [priority mapping](/core/08-priority-mapping) for details.
-* __sources__: Sent only Results of the configured sources, by default Results from all sources are sent.
-* __skipExistingOnStartup__: On startup Policy Reporter registers all existing Results in the cluster. By default this Results are ignored. If you also want to sent them to your target you can set this option to *false*.
+
+* __minimumPriority__: Only events with the given priority or higher are sent. By default each priority is sent. See [priority mapping](/core/08-priority-mapping) for details.
+* __sources__: Send only results of the configured sources. By default results from all sources are sent.
+* __skipExistingOnStartup__: On startup, Policy Reporter registers all existing results in the cluster. By default these results are ignored. If you also want to send them to your target, you can set this option to *false*.
 
 ## Grafana Loki
 
-Policy Reporter can send Results directly to Grafana Loki without the need of Promtail. Each Result includes all available information as labels as well as a *source* label with *policy-reporter* as value. To query all messages from Policy Reporter just use `{source="policy-reporter"}` as Query.
+Policy Reporter can send results directly to Grafana Loki without the need of Promtail. Each result includes all available information as labels as well as a `source` label with `policy-reporter` as value. To query all messages from Policy Reporter, use `{source="policy-reporter"}` as the query.
 
 ### Example
 
-The minimal configuration for Grafana Loki requires a valid and accessable host.
+The minimal configuration for Grafana Loki requires a valid and accessible host.
 
 ```yaml
 loki:
@@ -40,15 +41,16 @@ loki:
 
 ## Elasticsearch
 
-Policy Reporter sends Results in a JSON representation and all available information to a customizable index. This index can be expanded by selecting one of the different rotations or *none* to disable this function.. By default Policy Reporter creates a new index on daily bases.
+Policy Reporter sends results in a JSON representation and all available information to a customizable index. This index can be expanded by selecting one of the different rotations or *none* to disable this function. By default Policy Reporter creates a new index on a daily basis.
 
 ### Additional configuration
-* __index__ is used as index name, uses `policy-reporter` if not configured
-* __rotation__ is used to create rotating indexes by adding the rotation date as suffix to the index name. Possible values are `daily`, `monthly`, `annually` and `none`, uses `daily` if not configured
+
+* __index__ is used as an index name. Uses `policy-reporter` if not configured.
+* __rotation__ is used to create rotating indexes by adding the rotation date as suffix to the index name. Possible values are `daily`, `monthly`, `annually` and `none`. Uses `daily` if not configured.
 
 ### Example
 
-The minimal configuration for Elasticsearch requires a valid and accessable host.
+The minimal configuration for Elasticsearch requires a valid and accessible host.
 
 ```yaml
 elasticsearch:
@@ -69,11 +71,11 @@ elasticsearch:
 
 ## Microsoft Teams
 
-Send new PolicyReportResults with all available information over the Webhook API to Microsoft Teams.
+Send new PolicyReportResults with all available information over the webhook API to Microsoft Teams.
 
 ### Example
 
-The minimal configuration for Microsoft Teams requires a valid and accessable webhook URL.
+The minimal configuration for Microsoft Teams requires a valid and accessible webhook URL.
 
 ```yaml
 teams:
@@ -91,11 +93,11 @@ teams:
 
 ## Slack
 
-Send new PolicyReportResults with all available information over the Webhook API to Slack.
+Send new PolicyReportResults with all available information over the webhook API to Slack.
 
 ### Example
 
-The minimal configuration for Slack requires a valid and accessable webhook URL.
+The minimal configuration for Slack requires a valid and accessible webhook URL.
 
 ```yaml
 slack:
@@ -113,11 +115,11 @@ slack:
 
 ## Discord
 
-Send new PolicyReportResults with all available information over the Webhook API to Discord.
+Send new PolicyReportResults with all available information over the webhook API to Discord.
 
 ### Example
 
-The minimal configuration for Discord requires a valid and accessable webhook URL.
+The minimal configuration for Discord requires a valid and accessible webhook URL.
 
 ```yaml
 discord:
@@ -135,13 +137,13 @@ discord:
 
 ## Policy Reporter UI
 
-Send new PolicyReportResults with all available information as JSON to the REST API of Policy Reporter UI. You can find the received Results in the __Logs__ view of the UI. The results are stored in memory, the max number of stored results can be configured by in Policy Reporter UI.
+Send new PolicyReportResults with all available information as JSON to the REST API of Policy Reporter UI. You can find the received Results in the __Logs__ view of the UI. The results are stored in memory. The max number of stored results can be configured in the Policy Reporter UI.
 
-If Policy Reporter UI is installed via the Helm Charts it is configured as Target by default with a minimumPriority of *warning* and a maximal logSize of *200*. The LogSize can be coniured in the [Policy Reporter UI Subchart](/guide/04-helm-chart-core#log-size).
+If the Policy Reporter UI is installed via Helm Chart, it is configured as a target by default with a minimumPriority of `warning` and a maximum logSize of `200`. The logSize can be configured in the [Policy Reporter UI Subchart](/guide/04-helm-chart-core#log-size).
 
 ### Example
 
-The minimal configuration for Discord requires a valid and accessable webhook URL.
+The minimal configuration for Discord requires a valid and accessible webhook URL.
 
 ```yaml
 ui:
@@ -163,9 +165,9 @@ ui:
 
 ## S3 compatible Storage
 
-Policy Reporter can also send Results to S3 compatible Services like __MinIO__, __Yandex__ or __AWS S3__.
+Policy Reporter can also send results to S3 compatible services like __MinIO__, __Yandex__ or __AWS S3__.
 
-It persists each Result als JSON in the following structure: `s3://<bucket>/<prefix>/YYYY-MM-DD/<policy-name>-<result-id>-YYYY-MM-DDTHH:mm:ss.json`
+It persists each result as JSON in the following structure: `s3://<bucket>/<prefix>/YYYY-MM-DD/<policy-name>-<result-id>-YYYY-MM-DDTHH:mm:ss.json`
 
 ### Additional Configure
 
@@ -173,7 +175,7 @@ It persists each Result als JSON in the following structure: `s3://<bucket>/<pre
 * __accessKeyID__ and __secretAccessKey__ for authentication with the required write permissions for the selected bucket
 * __bucket__ in which the results are persisted
 * __region__ of the bucket
-* __prefix__ of the file path, uses "policy-reporter" as default
+* __prefix__ of the file path. Uses `policy-reporter` as default
 
 ### Example
 
@@ -230,7 +232,7 @@ s3:
     elasticsearch:
       host: ""
       index: "policy-reporter"
-      rotation: "dayli"
+      rotation: "daily"
       minimumPriority: ""
       skipExistingOnStartup: true
       sources: []
@@ -284,7 +286,7 @@ s3:
   elasticsearch:
     host: ""
     index: "policy-reporter"
-    rotation: "dayli"
+    rotation: "daily"
     minimumPriority: ""
     skipExistingOnStartup: true
     sources: []

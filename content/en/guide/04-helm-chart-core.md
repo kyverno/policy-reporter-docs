@@ -5,11 +5,11 @@ position: 4
 category: Guide
 ---
 
-The available Helm Chart is the easiest way to install and configure Policy Reporter. Depending on your usage it provides several values to configure the features you are using and disable anything else.
+The available Helm Chart is the easiest way to install and configure Policy Reporter. Depending on your usage, it provides several values to configure features and disable anything else.
 
 <alert>
 
-The following explanations focus on feature based configurations. Additional configurations like __resource limits__, __nodeSelector__, etc. are also possible for each component. See the `values.yaml` of the related chart for reference.
+The following explanations focus on feature-based configurations. Additional configurations like __resource limits__, __nodeSelector__, etc. are also possible for each component. See the `values.yaml` of the related chart for reference.
 
 </alert>
 
@@ -21,6 +21,7 @@ The following explanations focus on feature based configurations. Additional con
 helm repo add policy-reporter https://kyverno.github.io/policy-reporter
 helm repo update
 ```
+
 ### Installation
 
 ```bash
@@ -29,7 +30,7 @@ helm install policy-reporter policy-reporter/policy-reporter -f values.yaml --cr
 
 ## Configuration
 
-By default all available features are disabled. So it's up to the user to enable or configure the features you need. This approach reduces the required resources to a bare minimum.
+By default all available features are disabled. So it's up to the user to enable or configure the features needed. This approach reduces the required resources to a bare minimum.
 
 <alert>
 
@@ -57,7 +58,7 @@ rest:
 
 ### Priority Mapping
 
-Define a custom mapping for fail results based on the related __policy__, you can also overwrite the default priority for fail results without a severity. See [priority mapping](/core/08-priority-mapping) for details.
+Define a custom mapping for fail results based on the related __policy__. You can also overwrite the default priority for fail results without a severity. See [priority mapping](/core/08-priority-mapping) for details.
 
 ```yaml
 policyPriorities:
@@ -69,9 +70,9 @@ policyPriorities:
 
 ### Enable Targets / Notification
 
-Policy Reporter supports different targets to send notifications too. You can configure as many targets as you like, you can also configure different targets for different priorities or sources (like Kyverno, Kube Bench or Falco).
+Policy Reporter supports different targets to send notifications. You can configure as many targets as you like, and also configure different targets for different priorities or sources (like Kyverno, Kube Bench or Falco).
 
-As example you can configure Grafana Loki by providing an accessable host:
+For example, you can configure Grafana Loki by providing an accessible host:
 
 ```yaml
 target:
@@ -96,7 +97,7 @@ See [Targets](/core/06-targets) for all available targets and how to configure t
 
 ### Enable NetworkPolicy
 
-If enabled the Helm Chart creates an NetworkPolicy to allow Policy Reporter egress traffic to the Kubernetes API (defaults to port `6443`) and ingress traffic to the Policy Reporter REST API from the Policy Reporter UI. Ingress- and Egress rules for additional targets or monitoring tools can be extended as needed.
+If enabled, the Helm Chart creates a NetworkPolicy resource to allow Policy Reporter egress traffic to the Kubernetes API (defaults to port `6443`) as well as ingress traffic to the Policy Reporter REST API from the Policy Reporter UI. Ingress and egress rules for additional targets or monitoring tools can be extended as needed.
 
 ```yaml
 networkPolicy:
@@ -111,7 +112,7 @@ networkPolicy:
 
 ## Subcharts
 
-Extend Policy Reporter with the __Policy Reporter UI__ and __Kyverno Plugin__ subcharts. The __Monitoring__ subchart helps you to link Policy Reporter to your <a href="https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack" target="_blank">Prometheus Operator</a> setup.
+Extend Policy Reporter with the __Policy Reporter UI__ and __Kyverno Plugin__ subcharts. The __Monitoring__ subchart helps you link Policy Reporter to your <a href="https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack" target="_blank">Prometheus Operator</a> setup.
 
 ## Policy Reporter UI
 
@@ -127,7 +128,6 @@ See the complete <a href="https://raw.githubusercontent.com/kyverno/policy-repor
 
 </alert>
 
-
 Enable the Policy Reporter UI subchart and the required Policy Reporter REST API.
 
 ```yaml
@@ -137,16 +137,16 @@ ui:
 
 ### Display Mode
 
-Policy Reporter supports a light- and dark mode. The default depends on your System/Browser configuration. To enforce a default mode configure it with:
+Policy Reporter supports a light and dark mode. The default depends on your system/browser configuration. To enforce a default mode, configure it with:
 
 ```yaml
 ui:
-  displayMode: dark # available opions: dark / light
+  displayMode: dark # available options: dark / light
 ```
 
 ### Log size
 
-Configure the maximal size of the Log in Policy Reporter UI
+Configure the maximum size of the log in the Policy Reporter UI:
 
 ```yaml
 ui:
@@ -187,7 +187,7 @@ ui:
 
 ### Enable NetworkPolicy
 
-If enabled it creates an additional NetworkPolicy to allow ingress traffic to the Policy Reporter UI on the default Port `8080` and egress traffic to Policy Reporter and the Kyverno Plugin if enabled. Egress rules can be extended as needed.
+If enabled, it creates an additional NetworkPolicy to allow ingress traffic to the Policy Reporter UI on the default Port `8080` and egress traffic to Policy Reporter and the Kyverno Plugin if enabled. Egress rules can be extended as needed.
 
 ```yaml
 ui:
@@ -241,7 +241,7 @@ kyvernoPlugin:
 
 ### Enable NetworkPolicy
 
-If enabled the Helm Chart creates an NetworkPolicy to allow Policy Reporter Kyverno Plugin egress traffic to the Kubernetes API (defaults to port `6443`) and ingress traffic to the REST API from Policy Reporter UI. Ingress- and Egress rules can be extended as needed.
+If enabled, the Helm Chart creates a NetworkPolicy resource to allow Policy Reporter Kyverno Plugin egress traffic to the Kubernetes API (defaults to port `6443`) as well as ingress traffic to the REST API from the Policy Reporter UI. Ingress and egress rules can be extended as needed.
 
 ```yaml
 kyvernoPlugin:
@@ -270,7 +270,7 @@ See the complete <a href="https://raw.githubusercontent.com/kyverno/policy-repor
 
 The Monitoring Subchart integrates Policy Reporter into the <a href="https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack" target="_blank">Prometheus Operator</a>.
 
-This Subchart creates a ServiceMonitor for the available `/metrics` endpoint of Policy Reporter to be fetched from Prometheus and 3 preconfigured Dashboards as ConfigMaps for the provided Grafana.
+This Subchart creates a ServiceMonitor for the available `/metrics` endpoint of Policy Reporter to be fetched from Prometheus along with three preconfigured dashboards (as ConfigMaps) for the provided Grafana.
 
 Enable the Policy Reporter Monitoring subchart.
 
@@ -281,7 +281,7 @@ monitoring:
 
 ### Configure the ServiceMonitor
 
-By default the ServiceMonitor is created in the HelmRelease namespace without additional labels. Depending on your installation you have to add labels to match the `serviceMonitorSelector` of your Prometheus CRD. If you use the Helm Chart of the Prometheus Community as linked above you need a label `release` with the release name of your Prometheus Operator installation. The `serviceMonitor.namespace` configuration is optional and can be changed as needed.
+By default, the ServiceMonitor is created in the HelmRelease namespace without additional labels. Depending on your installation you may have to add labels to match the `serviceMonitorSelector` of your Prometheus CRD. If you use the Helm Chart from the Prometheus community as linked above, you need a label `release` with the release name of your Prometheus operator installation. The `serviceMonitor.namespace` configuration is optional and can be changed as needed.
 
 ```yaml
 monitoring:
@@ -299,7 +299,7 @@ Requires the `kyvernoPlugin` subchart to be enabled.
 
 </alert>
 
-If enabled a second ServiceMonitor will be created for the `/metrics` endpoint of the Kyerno Plugin. This ServiceMonitor uses also the configuration provided by `monitoring.serviceMonitor`
+If enabled, a second ServiceMonitor will be created for the `/metrics` endpoint of the Kyverno Plugin. This ServiceMonitor also uses the configuration provided by `monitoring.serviceMonitor`.
 
 ```yaml
 monitoring:
@@ -309,9 +309,9 @@ monitoring:
 
 ### Configure Grafana Dashboards
 
-To ensure that the ConfigMaps are identified as Dashboards for Grafana they need a special label `grafana_dashboard` and have to be in the namespace of the Grafana installation.
+To ensure that the ConfigMaps are identified as dashboards for Grafana, they need a special label `grafana_dashboard` and must be in the namespace of the Grafana installation.
 
-The required label is preconfigured but can be changed if needed. The namespace of has to be set. It is also possible to disable the ConfigMaps entirely.
+The required label is preconfigured but can be changed if needed. The namespace must set. It is also possible to disable the ConfigMaps entirely.
 
 ```yaml
 monitoring:
@@ -333,7 +333,7 @@ monitoring:
 
 ### Configure the Dashboard Views
 
-Depending on your Policy Reports some Result Types like `skipped` or `error` are not supported. Also depending on the size of your cluster and the amount of namespaces some parts are to small to be clearly arranged. To be flexible the Subchart allows you to hide parts of the Dashboard and change the hight of the different components.
+Depending on your Policy Reports, some result types like `skipped` or `error` are not supported. Also, depending on the size of your cluster and the number of namespaces, some parts are too small to be clearly arranged. To be flexible, the Subchart allows you to hide parts of the dashboard and change the height of the different components.
 
 ```yaml
 monitoring:
