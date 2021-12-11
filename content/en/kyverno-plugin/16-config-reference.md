@@ -5,7 +5,7 @@ position: 16
 category: 'Kyverno Plugin'
 ---
 
-Configuration File Reference with all possible options.
+Configuration file reference with all possible options.
 
 ```yaml
 kubeconfig: '~/.kube/config' 

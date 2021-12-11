@@ -5,7 +5,7 @@ position: 2
 category: Guide
 ---
 
-Policy Reporter can easily installed with Helm 3 or with the provided static [manifest files](https://github.com/kyverno/policy-reporter/tree/main/manifest). It consists of 4 Parts and can be installed and configured as needed.
+Policy Reporter can easily installed with Helm 3 or with the provided static [manifest files](https://github.com/kyverno/policy-reporter/tree/main/manifest). It consists of four parts and can be installed and configured as needed.
 
 ## Installation
 
@@ -18,7 +18,7 @@ Policy Reporter can easily installed with Helm 3 or with the provided static [ma
 
 ### Core Installation
 
-Install only the core application to get REST APIs and/or an metrics endpoint, both are optional and disabled by default.
+Install only the core application to get REST APIs and/or a metrics endpoint. Both are optional and disabled by default.
 
 <code-group>
   <code-block label="Helm 3" active>
@@ -42,7 +42,7 @@ Access your metrics endpoint on <a href="http://localhost:8080/metrics" target="
 kubectl port-forward service/policy-reporter 8080:8080 -n policy-reporter
 ```
 
-Access your REST API endpoints on <a href="http://localhost:8080/v1/targets" target="_blank">http://localhost:8080/v1/targets</a> via Port Forward:
+Access your REST API endpoints at <a href="http://localhost:8080/v1/targets" target="_blank">http://localhost:8080/v1/targets</a> via port forwarding:
 
 ```bash
 kubectl port-forward service/policy-reporter 8080:8080 -n policy-reporter
@@ -52,8 +52,8 @@ See [API Reference](/core/07-api-reference) for all available endpoints.
 
 ### Core + Policy Reporter UI
 
-Install the Policy Reporter core application and the Policy Reporter UI. 
-This installation also sets Policy Reporter UI as alert target for new violations.
+Install the Policy Reporter core application and the Policy Reporter UI.
+This installation also sets Policy Reporter UI as an alert target for new violations.
 
 <code-group>
   <code-block label="Helm 3" active>
@@ -73,7 +73,7 @@ This installation also sets Policy Reporter UI as alert target for new violation
   </code-block>
 </code-group>
 
-Access Policy Reporter on <a href="http://localhost:8081" target="_blank">http://localhost:8081</a> via Port Forward:
+Access Policy Reporter at <a href="http://localhost:8081" target="_blank">http://localhost:8081</a> via port forwarding:
 
 ```bash
 kubectl port-forward service/policy-reporter-ui 8081:8080 -n policy-reporter
@@ -84,8 +84,8 @@ kubectl port-forward service/policy-reporter-ui 8081:8080 -n policy-reporter
 
 ### Core + Policy Reporter UI + Kyverno Plugin
 
-Install the Policy Reporter core application, Policy Reporter Kyverno Plugin and the Policy Reporter UI with the Kyverno views enabled. 
-This installation also sets Policy Reporter UI as alert target for new violations.
+Install the Policy Reporter core application, Policy Reporter Kyverno Plugin, and the Policy Reporter UI with the Kyverno views enabled.
+This installation also sets Policy Reporter UI as an alert target for new violations.
 
 <code-group>
   <code-block label="Helm 3" active>
@@ -105,7 +105,7 @@ This installation also sets Policy Reporter UI as alert target for new violation
   </code-block>
 </code-group>
 
-Access Policy Reporter on <a href="http://localhost:8081" target="_blank">http://localhost:8081</a> via Port Forward:
+Access Policy Reporter at <a href="http://localhost:8081" target="_blank">http://localhost:8081</a> via port forwarding:
 
 ```bash
 kubectl port-forward service/policy-reporter-ui 8081:8080 -n policy-reporter
@@ -116,7 +116,7 @@ kubectl port-forward service/policy-reporter-ui 8081:8080 -n policy-reporter
 
 ### Policy Reporter + Prometheus Operator
 
-Install Policy Reporter core application with metrics enabled and the monitoring subchart to install a ServiceMonitor and 3 preconfigured Grafana Dashboards. Change the `monitoring.grafana.namespace` as needed as well `monitoring.serviceMonitor.labels` to match the `serviceMonitorSelector` of your Prometheus CRD.
+Install Policy Reporter core application with metrics enabled and the monitoring subchart to install a ServiceMonitor and three pre-configured Grafana Dashboards. Change the `monitoring.grafana.namespace` as needed as well as `monitoring.serviceMonitor.labels` to match the `serviceMonitorSelector` of your Prometheus CRD.
 
 See <a href="/guide/04-helm-chart-core#configure-the-servicemonitor" target="_blank">Helm Chart - Monitoring</a> for details.
 

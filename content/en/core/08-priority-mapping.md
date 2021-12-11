@@ -5,11 +5,11 @@ position: 8
 category: 'Policy Reporter'
 ---
 
-Priorities are used to decide if a Result should send to a __Target__ with configured `minimumPriority` and how it should be displayed.
+Priorities are used to decide if a result should be sent to a __Target__ with configured `minimumPriority` and how it should be displayed.
 
-## How Priority are determined
+## How Priority is determined
 
-The __priority__ of an PolicyReportResult depends by default on its __result__ and __severity__ value.
+The __priority__ of a PolicyReportResult depends by default on its __result__ and __severity__ value.
 
 Options in ascending order are: `debug` < `info` < `warning` < `critical` < `error`
 
@@ -23,9 +23,9 @@ Options in ascending order are: `debug` < `info` < `warning` < `critical` < `err
 * Fail results with medium severity have __warning__ priority
 * Fail results with high severity have __critical__ priority
 
-### Custom Poplicy Priorities
+### Custom Policy Priorities
 
-If you want to change the priority of PolicyReportResults based on the __Policy__, you can configure a __priority map__. This map can assign one priority per policy or a default priority which is used for all results without severity or a concrete mapping to there related policy.
+If you want to change the priority of PolicyReportResults based on the __Policy__, you can configure a __priority map__. This map can assign one priority per policy or a default priority which is used for all results without severity or a concrete mapping to their related policy.
 
 <code-group>
   <code-block label="Helm 3" active>
@@ -55,6 +55,6 @@ If you want to change the priority of PolicyReportResults based on the __Policy_
 
 ## Severity of Kyverno Policies
 
-Kyverno supports several annotations for its Policy CRDs to set additional information in the related PolicyReports. One of this annotations is `policies.kyverno.io/severity` to set the Severity of the related PolicyReportResults. Possible Options are `low`, `medium`, `high`.
+Kyverno supports several annotations for its policy CRDs to set additional information in the related PolicyReports. One of these annotations is `policies.kyverno.io/severity` used to set the severity of the related PolicyReportResults. Possible options are `low`, `medium`, and `high`.
 
-This allows you to define the priority of your results within the Kyverno Policy itself.
+This allows you to define the priority of your results within the Kyverno policy itself.
