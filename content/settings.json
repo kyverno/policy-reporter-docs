@@ -6,7 +6,8 @@
     "light": "https://kyverno.github.io/policy-reporter/images/logo-light.png",
     "dark": "https://kyverno.github.io/policy-reporter/images/logo-dark.png"
   },
-  "github": "kyverno/policy-reporter-docs",
+  "github": "https://github.com/kyverno/policy-reporter-docs",
+  "githubApi": "https://api.github.com/repos/kyverno/policy-reporter",
   "defaultBranch": "main",
   "menuTitle": "Policy Reporter"
 }
