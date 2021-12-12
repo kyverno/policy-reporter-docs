@@ -11,10 +11,10 @@ Policy Reporter can easily installed with Helm 3 or with the provided static [ma
 
 ### Helm Repository
 
-  ```bash
-  helm repo add policy-reporter https://kyverno.github.io/policy-reporter
-  helm repo update
-  ```
+```bash
+helm repo add policy-reporter https://kyverno.github.io/policy-reporter
+helm repo update
+```
 
 ### Core Installation
 
