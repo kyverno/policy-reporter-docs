@@ -182,7 +182,7 @@ ui:
     hosts:
       - host: domain.com
         paths:
-        - "/(.*)"
+        - path: "/(.*)"
 ```
 
 ### Enable NetworkPolicy
