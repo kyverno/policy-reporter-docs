@@ -10,4 +10,10 @@ Configuration file reference with all possible options.
 ```yaml
 logSize: 200
 displayMode: "" # Possible options: "dark" / "light"
+views:
+  logs: true
+  policyReports: true
+  clusterPolicyReports: true
+  kyvernoPolicies: true
+  kyvernoVerifyImages: true
 ```

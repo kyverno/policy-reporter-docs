@@ -137,7 +137,7 @@ ui:
 
 ### Display Mode
 
-Policy Reporter supports a light and dark mode. The default depends on your system/browser configuration. To enforce a default mode, configure it with:
+Policy Reporter UI supports a light and dark mode. The default depends on your system/browser configuration. To enforce a default mode, configure it with:
 
 ```yaml
 ui:
@@ -151,6 +151,20 @@ Configure the maximum size of the log in the Policy Reporter UI:
 ```yaml
 ui:
   logSize: 200 # 200 items are stored in memory
+```
+
+### Configure Views
+
+Policy Reporter UI has different views for different kinds of information. Each view, except the Dashboard as the entrypoint, can be enabled or disabled as needed.
+
+```yaml
+ui:
+  views:
+    logs: true # also remove the UI as target of policy reporter
+    policyReports: true
+    clusterPolicyReports: true
+    kyvernoPolicies: true
+    kyvernoVerifyImages: true
 ```
 
 ### Kyverno Plugin integration

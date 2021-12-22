@@ -114,6 +114,42 @@ curl -X GET "http://localhost:8080/policies"
 { "message": "Error Message" }
 ```
 
+### VerifyImage Rules API
+
+| Method | API                   | Description                                           | Codes |
+|--------|-----------------------|-------------------------------------------------------|----------------|
+| `GET`  | `/verify-image-rules` | List of all VerifyImages rules applied to the cluster | `200`, `500`   |
+
+#### Example
+
+```bash
+curl -X GET "http://localhost:8080/verify-image-rules"
+```
+
+* Response `200`
+
+```json
+[
+    {
+        "policy": {
+            "name": "check-image",
+            "uid": "b623d896-cfdb-4926-86c8-1bddaf93371f"
+        },
+        "rule": "check-image",
+        "repository": "registry.io/signatures",
+        "image": "ghcr.io/kyverno/test-verify-image:*",
+        "key": "-----BEGIN PUBLIC KEY-----\nMFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE8nXRh950IZbRj8Ra/N9sbqOPZrfM\n5/KAQN0/KjHcorm/J5yctVd7iEcnessRQjU917hmKO6JWVGHpDguIyakZA==\n-----END PUBLIC KEY-----",
+        "attestations": "attestations:\n- conditions:\n  - all:\n    - key: '{{ repo.uri }}'\n      operator: Equals\n      value: https://git-repo.com/org/app\n    - key: '{{ repo.branch }}'\n      operator: Equals\n      value: main\n    - key: '{{ reviewers }}'\n      operator: In\n      value:\n      - ana@example.com\n      - bob@example.com\n  predicateType: https://example.com/CodeReview/v1\n"
+    }
+]
+```
+
+* Response `500`
+
+```json
+{ "message": "Error Message" }
+```
+
 ## Metrics
 
 | Method | API        | Description             | Codes   |
