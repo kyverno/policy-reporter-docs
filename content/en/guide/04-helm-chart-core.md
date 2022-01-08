@@ -155,11 +155,14 @@ ui:
 
 ### Configure Views
 
-Policy Reporter UI has different views for different kinds of information. Each view, except the Dashboard as the entrypoint, can be enabled or disabled as needed.
+Policy Reporter UI has different views for different kinds of information. Each view, except the dashboard as the entrypoint, can be enabled or disabled as needed. The dashboard can be customized by disabling ClusterPolicyReport or PolicyReport information.
 
 ```yaml
 ui:
   views:
+    dashboard:
+      policyReports: true
+      clusterPolicyReports: true
     logs: true # also remove the UI as target of policy reporter
     policyReports: true
     clusterPolicyReports: true

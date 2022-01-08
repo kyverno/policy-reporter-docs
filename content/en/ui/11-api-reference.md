@@ -113,8 +113,19 @@ curl -X GET "http://localhost:8080/api/config"
 * Response `200`
 
 ```json
-{
-   "displayMode":"",
+{{
+  "views": {
+    "dashboard": {
+      "policyReports": true,
+      "clusterPolicyReports": true
+    },
+    "logs": true,
+    "policyReports": true,
+    "clusterPolicyReports": true,
+    "kyvernoPolicies": true,
+    "kyvernoVerifyImages": true
+  },
+  "displayMode": "",
    "plugins":[
       "kyverno"
    ]

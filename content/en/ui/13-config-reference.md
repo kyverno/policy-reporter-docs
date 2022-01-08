@@ -11,6 +11,9 @@ Configuration file reference with all possible options.
 logSize: 200
 displayMode: "" # Possible options: "dark" / "light"
 views:
+  dashboard:
+    policyReports: true
+    clusterPolicyReports: true
   logs: true
   policyReports: true
   clusterPolicyReports: true
