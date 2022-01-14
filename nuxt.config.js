@@ -32,8 +32,8 @@ const config = theme({
   content: {
     markdown: {
       rehypePlugins: [
-        ['rehype-urls', (url) => {
-          if (!baseURL) return;
+        ['rehype-urls', (url, element) => {
+          if (!baseURL || element.tagName !== 'img') return;
           if (url.href && url.href.startsWith('/images/')) return path.join(baseURL, url.href);
         }]
       ]
