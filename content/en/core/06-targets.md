@@ -35,7 +35,7 @@ loki:
 ```
 
 ### Screenshot
-<a href="/images/targets/grafana-loki.png" target="_blank">
+<a href="images/targets/grafana-loki.png" target="_blank">
     <img src="/images/targets/grafana-loki.png" style="border: 1px solid #555" alt="Grafana Loki Screenshot with PolicyReportResults" />
 </a>
 
@@ -65,7 +65,7 @@ elasticsearch:
 
 ### Screenshot
 
-<a href="/images/targets/elasticsearch.png" target="_blank">
+<a href="images/targets/elasticsearch.png" target="_blank">
     <img src="/images/targets/elasticsearch.png" style="border: 1px solid #555" alt="Elasticvue Screenshot with PolicyReportResults" />
 </a>
 
@@ -87,7 +87,7 @@ teams:
 ```
 
 ### Screenshot
-<a href="/images/targets/ms-teams.png" target="_blank">
+<a href="images/targets/ms-teams.png" target="_blank">
     <img src="/images/targets/ms-teams.png" style="border: 1px solid #555" alt="MS Teams Notification for a PolicyReportResult" />
 </a>
 
@@ -109,7 +109,7 @@ slack:
 ```
 
 ### Screenshot
-<a href="/images/targets/slack.png" target="_blank">
+<a href="images/targets/slack.png" target="_blank">
     <img src="/images/targets/slack.png" style="border: 1px solid #555" alt="Slack Notification for a PolicyReportResult" />
 </a>
 
@@ -131,7 +131,7 @@ discord:
 ```
 
 ### Screenshot
-<a href="/images/targets/discord.png" target="_blank">
+<a href="images/targets/discord.png" target="_blank">
     <img src="/images/targets/discord.png" style="border: 1px solid #555" alt="Discord Notification for a PolicyReportResult" />
 </a>
 
@@ -155,11 +155,11 @@ ui:
 ```
 
 ### Screenshot
-<a href="/images/targets/policy-reporter-log-dark.png" target="_blank" class="dark-img">
+<a href="images/targets/policy-reporter-log-dark.png" target="_blank" class="dark-img">
     <img src="/images/targets/policy-reporter-log-dark.png" style="border: 1px solid #555" alt="Policy Reporter UI - Logs View dark mode" />
 </a>
 
-<a href="/images/targets/policy-reporter-log-light.png" target="_blank" class="light-img">
+<a href="images/targets/policy-reporter-log-light.png" target="_blank" class="light-img">
     <img src="/images/targets/policy-reporter-log-light.png" style="border: 1px solid #555" alt="Policy Reporter UI - Logs View light mode" />
 </a>
 
