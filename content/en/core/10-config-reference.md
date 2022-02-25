@@ -27,6 +27,7 @@ loki:
   host: ""
   minimumPriority: "warning"
   skipExistingOnStartup: true
+  customLabels: {}
   sources: []
 
 elasticsearch:

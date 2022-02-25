@@ -84,6 +84,8 @@ target:
     # Skip already existing PolicyReportResults on startup
     skipExistingOnStartup: true
     # Send only results from the given sources
+    customLabels:
+      cluster: rancher-desktop
     source:
     - kyverno
     - falco

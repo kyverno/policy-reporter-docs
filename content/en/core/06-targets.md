@@ -227,6 +227,7 @@ s3:
       host: ""
       minimumPriority: ""
       skipExistingOnStartup: true
+      customLabels: {}
       sources: []
 
     elasticsearch:
@@ -281,6 +282,7 @@ s3:
     host: ""
     minimumPriority: ""
     skipExistingOnStartup: true
+    customLabels: {}
     sources: []
 
   elasticsearch:
