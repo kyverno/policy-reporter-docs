@@ -102,7 +102,7 @@ curl -X GET "http://localhost:8080/v1/targets"
 
 | Filter      | Type          | Description                 |
 |-------------|---------------|-----------------------------|
-| __source__  | `string[]`    | Filter by a list of sources |
+| __sources__ | `string[]`    | Filter by a list of sources |
 
 #### Example
 
@@ -133,9 +133,11 @@ curl -X GET "http://localhost:8080/v1/categories?source=kyverno"
 
 #### Query Filter Parameters
 
-| Filter      | Type          | Description                 |
-|-------------|---------------|-----------------------------|
-| __source__  | `string[]`    | Filter by a list of sources |
+| Filter         | Type       | Description                   |
+|----------------|------------|-------------------------------|
+| __sources__    | `string[]` | Filter by a list of sources   |
+| __categories__ | `string[]` | Filter by a list of categories|
+| __policies__   | `string[]` | Filter by a list of policies  |
 
 #### Example
 
@@ -221,9 +223,10 @@ curl -X GET "http://localhost:8080/v1/rule-status-count?policy=require-non-root-
 
 #### Query Filter Parameters
 
-| Filter      | Type       | Description      |
-|-------------|------------|------------------|
-| __source__  | `string`   | Filter by source |
+| Filter         | Type          | Description                    |
+|----------------|---------------|--------------------------------|
+| __sources__    | `string[]`    | Filter by a list of sources    |
+| __categories__ | `string[]`    | Filter by a list of categories |
 
 #### Example
 
@@ -266,9 +269,11 @@ curl -X GET "http://localhost:8080/v1/namespaced-resources/policies?source=kyver
 
 #### Query Filter Parameters
 
-| Filter      | Type       | Description      |
-|-------------|------------|------------------|
-| __source__  | `string`   | Filter by source |
+| Filter         | Type          | Description                    |
+|----------------|---------------|--------------------------------|
+| __sources__    | `string[]`    | Filter by a list of sources    |
+| __categories__ | `string[]`    | Filter by a list of categories |
+| __policies__   | `string[]`    | Filter by a list of policies   |
 
 #### Example
 
@@ -284,6 +289,45 @@ curl -X GET "http://localhost:8080/v1/namespaced-resources/kinds?source=kyverno"
    "Deployment",
    "Pod",
    "StatefulSet"
+]
+```
+
+* Response `500`
+
+```json
+{ "message": "Error Message" }
+```
+
+### Resources API
+
+| Method | API                                  | Description                                             | Codes |
+|--------|--------------------------------------|---------------------------------------------------------|----------------|
+| `GET`  | `/v1/namespaced-resources/resources` | List of all Resources<br>with namespaced scoped results | `200`, `500`   |
+
+#### Query Filter Parameters
+
+| Filter         | Type          | Description                    |
+|----------------|---------------|--------------------------------|
+| __sources__    | `string[]`    | Filter by a list of sources    |
+| __categories__ | `string[]`    | Filter by a list of categories |
+| __policies__   | `string[]`    | Filter by a list of policies   |
+| __namespaces__ | `string[]`    | Filter by a list of namespaces |
+| __kinds__      | `string[]`    | Filter by a list of kinds      |
+
+#### Example
+
+```bash
+curl -X GET "http://localhost:8080/v1/namespaced-resources/resources?source=kyverno"
+```
+
+* Response `200`
+
+```json
+[
+   {
+      "kind": "Pod",
+      "name": "nginx"
+   }
 ]
 ```
 
@@ -330,9 +374,10 @@ curl -X GET "http://localhost:8080/v1/namespaced-resources/sources"
 
 | Filter          | Type          | Description                    | Enum                                    |
 |-----------------|---------------|--------------------------------|-----------------------------------------|
-| __source__      | `string[]`    | Filter by a list of sources    |                                         |
+| __sources__     | `string[]`    | Filter by a list of sources    |                                         |
 | __namespaces__  | `string[]`    | Filter by a list of namespaces |                                         |
 | __kinds__       | `string[]`    | Filter by a list of kinds      |                                         |
+| __resources__   | `string[]`    | Filter by a list of resources  |                                         |
 | __categories__  | `string[]`    | Filter by a list of categories |                                         |
 | __policies__    | `string[]`    | Filter by a list of policies   |                                         |
 | __status__      | `string[]`    | Filter by a list of status     | `fail`, `pass`, `warn`, `error`, `skip` |
@@ -405,9 +450,10 @@ curl -X GET "http://localhost:8080/v1/namespaced-resources/status-counts?source=
 
 | Filter          | Type          | Description                    | Enum                                    |
 |-----------------|---------------|--------------------------------|-----------------------------------------|
-| __source__      | `string[]`    | Filter by a list of sources    |                                         |
+| __sources__     | `string[]`    | Filter by a list of sources    |                                         |
 | __namespaces__  | `string[]`    | Filter by a list of namespaces |                                         |
 | __kinds__       | `string[]`    | Filter by a list of kinds      |                                         |
+| __resources__   | `string[]`    | Filter by a list of resources  |                                         |
 | __categories__  | `string[]`    | Filter by a list of categories |                                         |
 | __policies__    | `string[]`    | Filter by a list of policies   |                                         |
 | __status__      | `string[]`    | Filter by a list of status     | `fail`, `pass`, `warn`, `error`, `skip` |
@@ -429,6 +475,7 @@ curl -X GET "http://localhost:8080/v1/namespaced-resources/results?source=kyvern
       "namespace":"test",
       "kind":"Pod",
       "name":"nginx",
+      "category":"Pod Security Standards (Restricted)",
       "message":"validation error: Running as root is not allowed. The fields spec.securityContext.runAsNonRoot, spec.containers[*].securityContext.runAsNonRoot, and spec.initContainers[*].securityContext.runAsNonRoot must be `true`. Rule check-containers[0] failed at path /spec/securityContext/runAsNonRoot/. Rule check-containers[1] failed at path /spec/containers/0/securityContext/.",
       "policy":"require-run-as-non-root",
       "rule":"check-containers",
@@ -453,9 +500,10 @@ curl -X GET "http://localhost:8080/v1/namespaced-resources/results?source=kyvern
 
 #### Query Filter Parameters
 
-| Filter      | Type       | Description      |
-|-------------|------------|------------------|
-| __source__  | `string`   | Filter by source |
+| Filter         | Type          | Description                    |
+|----------------|---------------|--------------------------------|
+| __sources__    | `string[]`    | Filter by a list of sources    |
+| __categories__ | `string[]`    | Filter by a list of categories |
 
 #### Example
 
@@ -485,9 +533,11 @@ curl -X GET "http://localhost:8080/v1/cluster-resources/policies?source=kyverno"
 
 #### Query Filter Parameters
 
-| Filter      | Type       | Description      |
-|-------------|------------|------------------|
-| __source__  | `string`   | Filter by source |
+| Filter         | Type          | Description                    |
+|----------------|---------------|--------------------------------|
+| __sources__    | `string[]`    | Filter by a list of sources    |
+| __categories__ | `string[]`    | Filter by a list of categories |
+| __policies__   | `string[]`    | Filter by a list of policies   |
 
 #### Example
 
@@ -500,6 +550,44 @@ curl -X GET "http://localhost:8080/v1/cluster-resources/kinds?source=kyverno"
 ```json
 [
    "Namespace"
+]
+```
+
+* Response `500`
+
+```json
+{ "message": "Error Message" }
+```
+
+### Resources API
+
+| Method | API                               | Description                                          | Codes |
+|--------|-----------------------------------|------------------------------------------------------|----------------|
+| `GET`  | `/v1/cluster-resources/resources` | List of all Resources<br>with cluster scoped results | `200`, `500`   |
+
+#### Query Filter Parameters
+
+| Filter         | Type          | Description                    |
+|----------------|---------------|--------------------------------|
+| __sources__    | `string[]`    | Filter by a list of sources    |
+| __categories__ | `string[]`    | Filter by a list of categories |
+| __policies__   | `string[]`    | Filter by a list of policies   |
+| __kinds__      | `string[]`    | Filter by a list of kinds      |
+
+#### Example
+
+```bash
+curl -X GET "http://localhost:8080/v1/cluster-resources/resources?source=kyverno"
+```
+
+* Response `200`
+
+```json
+[
+   {
+      "kind": "Namespace",
+      "name": "test"
+   }
 ]
 ```
 
@@ -546,7 +634,7 @@ curl -X GET "http://localhost:8080/v1/cluster-resources/sources"
 
 | Filter          | Type          | Description                    | Enum                                    |
 |-----------------|---------------|--------------------------------|-----------------------------------------|
-| __source__      | `string[]`    | Filter by a list of sources    |                                         |
+| __sources__     | `string[]`    | Filter by a list of sources    |                                         |
 | __kinds__       | `string[]`    | Filter by a list of kinds      |                                         |
 | __categories__  | `string[]`    | Filter by a list of categories |                                         |
 | __policies__    | `string[]`    | Filter by a list of policies   |                                         |
@@ -590,7 +678,7 @@ curl -X GET "http://localhost:8080/v1/cluster-resources/status-counts?source=kyv
 
 | Filter          | Type          | Description                    | Enum                                    |
 |-----------------|---------------|--------------------------------|-----------------------------------------|
-| __source__      | `string[]`    | Filter by a list of sources    |                                         |
+| __sources__     | `string[]`    | Filter by a list of sources    |                                         |
 | __kinds__       | `string[]`    | Filter by a list of kinds      |                                         |
 | __categories__  | `string[]`    | Filter by a list of categories |                                         |
 | __policies__    | `string[]`    | Filter by a list of policies   |                                         |
@@ -611,6 +699,7 @@ curl -X GET "http://localhost:8080/v1/cluster-resources/results?source=kyverno&s
       "id":"ca7c83998f8633b4e0da1de36e2996202e14e7a4",
       "kind":"Namespace",
       "name":"blog",
+      "category":"Convention",
       "message":"validation error: The label `thisshouldntexist` is required. Rule check-for-labels-on-namespace failed at path /metadata/labels/thisshouldntexist/",
       "policy":"require-ns-labels",
       "rule":"check-for-labels-on-namespace",
