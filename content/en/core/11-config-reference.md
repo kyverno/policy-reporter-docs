@@ -28,7 +28,7 @@ reportFilter:
     include: []
     exclude: []
   clusterReports:
-    enabled: true
+    disabled: false
 
 loki:
   host: ""
