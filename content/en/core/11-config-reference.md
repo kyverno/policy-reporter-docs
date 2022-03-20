@@ -1,7 +1,7 @@
 ---
 title: Config Reference
 description: ''
-position: 10
+position: 11
 category: 'Policy Reporter'
 ---
 
@@ -22,6 +22,13 @@ metrics:
 dbfile: "sqlite-database.db"
 
 priorityMap: {}
+
+reportFilter:
+  namespaces:
+    include: []
+    exclude: []
+  clusterReports:
+    enabled: true
 
 loki:
   host: ""

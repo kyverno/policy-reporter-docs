@@ -97,6 +97,24 @@ See [Targets](/core/06-targets) for all available targets and how to configure t
 
 </alert>
 
+### PolicyReport CRD Filter
+
+Filter processed PolicyReport resources by namespace - you can either define an include or exclude list of namespaces with wildacard support. See [report filter](/core/09-report-filter) for details.
+
+```yaml
+# Filter PolicyReport resources to process
+reportFilter:
+  namespaces:
+    # Process only PolicyReport resources from an included namespace, wildcards are supported
+    include: []
+    # Ignore all PolicyReport resources from a excluded namespace, wildcards are supported
+    # exclude will be ignored if an include filter exists
+    exclude: []
+  clusterReports:
+    # Enable the processing of ClusterPolicyReports, enabled by default
+    enabled: true
+```
+
 ### Enable NetworkPolicy
 
 If enabled, the Helm Chart creates a NetworkPolicy resource to allow Policy Reporter egress traffic to the Kubernetes API (defaults to port `6443`) as well as ingress traffic to the Policy Reporter REST API from the Policy Reporter UI. Ingress and egress rules for additional targets or monitoring tools can be extended as needed.

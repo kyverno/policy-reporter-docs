@@ -1,7 +1,7 @@
 ---
 title: Local Development
 description: ''
-position: 9
+position: 10
 category: 'Policy Reporter'
 ---
 
@@ -36,7 +36,7 @@ go test -v ./... -timeout=10s
 
 ## Running Policy Reporter
 
-To run Policy Reporter locally, you must connect it to a Kubernetes cluster. This is required because it connects to the Kubernetes API to watch for PolicyReports and ClusterPolicyReports. The configuration can be done via CLI arguments, <a href="/core/10-config-reference" target="_blank">config.yaml</a>, or a mix of both.
+To run Policy Reporter locally, you must connect it to a Kubernetes cluster. This is required because it connects to the Kubernetes API to watch for PolicyReports and ClusterPolicyReports. The configuration can be done via CLI arguments, <a href="/core/11-config-reference" target="_blank">config.yaml</a>, or a mix of both.
 
 ```bash
 go run main.go run -k ~/.kube/config
