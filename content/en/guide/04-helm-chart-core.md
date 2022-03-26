@@ -99,7 +99,7 @@ See [Targets](/core/06-targets) for all available targets and how to configure t
 
 ### PolicyReport CRD Filter
 
-Filter processed PolicyReport resources by namespace - you can either define an include or exclude list of namespaces with wildacard support. See [report filter](/core/09-report-filter) for details.
+Filter processed PolicyReport resources by namespace - you can either define an include or exclude list of namespaces with wildcard support. See [report filter](/core/09-report-filter) for details.
 
 ```yaml
 # Filter PolicyReport resources to process
@@ -111,8 +111,8 @@ reportFilter:
     # exclude will be ignored if an include filter exists
     exclude: []
   clusterReports:
-    # Enable the processing of ClusterPolicyReports, enabled by default
-    enabled: true
+    # Disable the processing of ClusterPolicyReports
+    disabled: false
 ```
 
 ### Enable NetworkPolicy
