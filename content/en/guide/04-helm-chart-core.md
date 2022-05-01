@@ -70,15 +70,15 @@ policyPriorities:
 
 ### Enable Targets / Notification
 
-Policy Reporter supports different targets to send notifications. You can configure as many targets as you like, and also configure different targets for different priorities or sources (like Kyverno, Kube Bench or Falco).
+Policy Reporter supports several targets to which notifications can be sent. You can configure as many targets as you like, and also configure different targets for different priorities or sources (like Kyverno, Kube Bench or Falco). Channels in combination with filters allow you to configure multiple clients of the same type of targets. This is useful, for example, to forward different priorities or results of certain namespaces to a separate Slack channel.
 
-For example, you can configure Grafana Loki by providing an accessible host:
+For example, you can configure Grafana Loki by providing an accessible host or Slack with different channels:
 
 ```yaml
 target:
   loki:
     # loki host address
-    host: "http://loki.loki-stack.3100"
+    host: "http://loki.loki-stack:3100"
     # minimum priority "" < info < warning < critical < error
     minimumPriority: "warning"
     # Skip already existing PolicyReportResults on startup
@@ -86,9 +86,22 @@ target:
     # Send only results from the given sources
     customLabels:
       cluster: rancher-desktop
-    source:
+    sources:
     - kyverno
     - falco
+  
+  slack:
+    minimumPriority: "warning"
+    skipExistingOnStartup: true
+    channels:
+    - webhook: "https://hooks.slack.com/services/123..."
+      filters:
+        namespaces:
+          include: ["team-a-*"]
+    - webhook: "https://hooks.slack.com/services/456..."
+      filters:
+        namespaces:
+          include: ["team-b-*"]
 ```
 
 <alert>

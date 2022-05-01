@@ -36,6 +36,17 @@ loki:
   skipExistingOnStartup: true
   customLabels: {}
   sources: []
+  filters:
+    namespaces:
+      include: []
+      exclude: []
+    policies:
+      include: []
+      exclude: []
+    priorities:
+      include: []
+      exclude: []
+    channels: []
 
 elasticsearch:
   host: ""
@@ -44,30 +55,92 @@ elasticsearch:
   minimumPriority: ""
   skipExistingOnStartup: true
   sources: []
+  filters:
+    namespaces:
+      include: []
+      exclude: []
+    policies:
+      include: []
+      exclude: []
+    priorities:
+      include: []
+      exclude: []
+    channels: []
 
 slack:
   webhook: ""
   minimumPriority: ""
   skipExistingOnStartup: true
   sources: []
+  filters:
+    namespaces:
+      include: []
+      exclude: []
+    policies:
+      include: []
+      exclude: []
+    priorities:
+      include: []
+      exclude: []
+    channels: []
 
 discord:
   webhook: ""
   minimumPriority: ""
   skipExistingOnStartup: true
   sources: []
+  filters:
+    namespaces:
+      include: []
+      exclude: []
+    policies:
+      include: []
+      exclude: []
+    priorities:
+      include: []
+      exclude: []
+    channels: []
 
 teams:
   webhook: ""
   minimumPriority: ""
   skipExistingOnStartup: true
   sources: []
+  filters:
+    namespaces:
+      include: []
+      exclude: []
+    policies:
+      include: []
+      exclude: []
+    priorities:
+      include: []
+      exclude: []
+    channels: []
 
 ui:
   host: ""
   minimumPriority: "warning"
   skipExistingOnStartup: true
   sources: []
+
+webhook:
+  host: ""
+  headers: {}
+  minimumPriority: ""
+  skipExistingOnStartup: true
+  sources: []
+  filters:
+    namespaces:
+      include: []
+      exclude: []
+    policies:
+      include: []
+      exclude: []
+    priorities:
+      include: []
+      exclude: []
+    channels: []
 
 s3:
   endpoint: ""
@@ -78,4 +151,15 @@ s3:
   minimumPriority: "warning"
   skipExistingOnStartup: true
   sources: []
+  filters:
+    namespaces:
+      include: []
+      exclude: []
+    policies:
+      include: []
+      exclude: []
+    priorities:
+      include: []
+      exclude: []
+    channels: []
 ```
