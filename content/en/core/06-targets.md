@@ -27,7 +27,7 @@ Send only results of the configured sources. By default results from all sources
 
 On startup, Policy Reporter registers all existing results in the cluster. By default these results are ignored. If you also want to send them to your target, you can set this option to *false*.
 
-#### filters *(new)*
+#### filters *(since AppVersion 2.5.0)*
 
 The new filters option allows you to define include and exclude rules for the namespaces, policies and priorities of a result. Filters for namespaces and policies have wildcard support.
 
@@ -44,7 +44,7 @@ slack:
       include: ["require-*"]
 ```
 
-### Channels *(new)*
+### Channels *(since AppVersion 2.5.0)*
 
 The new `channels` option allows you to define multiple configurations of the same type of target. Thus, in combination with filters, you can route your notifications to different target configurations. Channels have the same configuration properties as the root target configuration.
 
