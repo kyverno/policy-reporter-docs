@@ -217,7 +217,7 @@ Channels uses the same `minimumPriority` and `skipExistingOnStartup` configurati
 #### Send notification based on namespace prefix to a dedicated Slack Channel
 
 ```yaml
-teams:
+slack:
   minimumPriority: "warning"
   skipExistingOnStartup: true
   channels:
@@ -260,7 +260,7 @@ Channels uses the same `minimumPriority` and `skipExistingOnStartup` configurati
 #### Send notification based on namespace prefix to a dedicated Discord Channel
 
 ```yaml
-teams:
+discord:
   minimumPriority: "warning"
   skipExistingOnStartup: true
   channels:
