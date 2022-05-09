@@ -27,15 +27,15 @@ Send only results of the configured sources. By default results from all sources
 
 On startup, Policy Reporter registers all existing results in the cluster. By default these results are ignored. If you also want to send them to your target, you can set this option to *false*.
 
-#### filters *(since AppVersion 2.5.0)*
+#### filter *(since AppVersion 2.5.0)*
 
-The new filters option allows you to define include and exclude rules for the namespaces, policies and priorities of a result. Filters for namespaces and policies have wildcard support.
+The new filter option allows you to define include and exclude rules for the namespaces, policies and priorities of a result. Filters for namespaces and policies have wildcard support.
 
 ```yaml
 slack:
   webhook: "https://hooks.slack.com/services/123..."
   skipExistingOnStartup: true
-  filters:
+  filter:
     namespaces:
       include: ["team-a-*"]
     priotiries:
@@ -48,7 +48,7 @@ slack:
 
 The new `channels` option allows you to define multiple configurations of the same type of target. Thus, in combination with filters, you can route your notifications to different target configurations. Channels have the same configuration properties as the root target configuration.
 
-See the different available targets for concrete example and usage of `channels` and `filters`.
+See the different available targets for concrete example and usage of `channels` and `filter`.
 
 ## Grafana Loki
 
@@ -79,12 +79,12 @@ loki:
   minimumPriority: "warning"
   skipExistingOnStartup: true
   channels:
-  - filters:
+  - filter:
       namespaces:
         include: ["teame-a-*"]
     customLabels:
       team: "Team A"
-  - filters:
+  - filter:
       namespaces:
         include: ["teame-b-*"]
     customLabels:
@@ -133,13 +133,13 @@ elasticsearch:
   rotation: "weekly"
   minimumPriority: "warning"
   skipExistingOnStartup: true
-  filters:
+  filter:
     priorities:
       exclude: ["critical"]
   channels:
   - index: "critical-violations"
     rotation: "daily"
-    filters:
+    filter:
       priorities:
         include: ["critical"]
 ```
@@ -179,11 +179,11 @@ teams:
   skipExistingOnStartup: true
   channels:
   - webhook: "https://m365x682156.webhook.office.com/1"
-    filters:
+    filter:
       namespaces:
         include: ["team-a-*"]
   - webhook: "https://m365x682156.webhook.office.com/2"
-    filters:
+    filter:
       namespaces:
         include: ["team-b-*"]
 ```
@@ -222,11 +222,11 @@ slack:
   skipExistingOnStartup: true
   channels:
   - webhook: "https://hooks.slack.com/services/T1..."
-    filters:
+    filter:
       namespaces:
         include: ["team-a-*"]
   - webhook: "https://hooks.slack.com/services/T2..."
-    filters:
+    filter:
       namespaces:
         include: ["team-b-*"]
 ```
@@ -265,11 +265,11 @@ discord:
   skipExistingOnStartup: true
   channels:
   - webhook: "https://discordapp.com/api/webhooks/1..."
-    filters:
+    filter:
       namespaces:
         include: ["team-a-*"]
   - webhook: "https://discordapp.com/api/webhooks/2..."
-    filters:
+    filter:
       namespaces:
         include: ["team-b-*"]
 ```
@@ -340,11 +340,11 @@ webhook:
     Authorization: "Bearer XXXXXX"
   channels:
   - host: "https://webhook.team-a.de"
-    filters:
+    filter:
       namespaces:
         include: ["team-a-*"]
   - host: "https://webhook.team-b.de"
-    filters:
+    filter:
       namespaces:
         include: ["team-b-*"]
 ```
@@ -416,7 +416,7 @@ s3:
   skipExistingOnStartup: true
   channels:
   - bucket: "privileged-containers-violations"
-    filters:
+    filter:
       priorities:
         include: ["critical"]
       policies:
@@ -462,7 +462,7 @@ s3:
       skipExistingOnStartup: true
       customLabels: {}
       sources: []
-      filters:
+      filter:
         namespaces:
           include: []
           exclude: []
@@ -481,7 +481,7 @@ s3:
       minimumPriority: ""
       skipExistingOnStartup: true
       sources: []
-      filters:
+      filter:
         namespaces:
           include: []
           exclude: []
@@ -498,7 +498,7 @@ s3:
       minimumPriority: ""
       skipExistingOnStartup: true
       sources: []
-      filters:
+      filter:
         namespaces:
           include: []
           exclude: []
@@ -515,7 +515,7 @@ s3:
       minimumPriority: ""
       skipExistingOnStartup: true
       sources: []
-      filters:
+      filter:
         namespaces:
           include: []
           exclude: []
@@ -532,7 +532,7 @@ s3:
       minimumPriority: ""
       skipExistingOnStartup: true
       sources: []
-      filters:
+      filter:
         namespaces:
           include: []
           exclude: []
@@ -556,7 +556,7 @@ s3:
       minimumPriority: ""
       skipExistingOnStartup: true
       sources: []
-      filters:
+      filter:
         namespaces:
           include: []
           exclude: []
@@ -577,7 +577,7 @@ s3:
       minimumPriority: "warning"
       skipExistingOnStartup: true
       sources: []
-      filters:
+      filter:
         namespaces:
           include: []
           exclude: []
@@ -601,7 +601,7 @@ s3:
     skipExistingOnStartup: true
     customLabels: {}
     sources: []
-    filters:
+    filter:
       namespaces:
         include: []
         exclude: []
@@ -620,7 +620,7 @@ s3:
     minimumPriority: ""
     skipExistingOnStartup: true
     sources: []
-    filters:
+    filter:
       namespaces:
         include: []
         exclude: []
@@ -637,7 +637,7 @@ s3:
     minimumPriority: ""
     skipExistingOnStartup: true
     sources: []
-    filters:
+    filter:
       namespaces:
         include: []
         exclude: []
@@ -654,7 +654,7 @@ s3:
     minimumPriority: ""
     skipExistingOnStartup: true
     sources: []
-    filters:
+    filter:
       namespaces:
         include: []
         exclude: []
@@ -671,7 +671,7 @@ s3:
     minimumPriority: ""
     skipExistingOnStartup: true
     sources: []
-    filters:
+    filter:
       namespaces:
         include: []
         exclude: []
@@ -695,7 +695,7 @@ s3:
     minimumPriority: ""
     skipExistingOnStartup: true
     sources: []
-    filters:
+    filter:
       namespaces:
         include: []
         exclude: []
@@ -716,7 +716,7 @@ s3:
     minimumPriority: "warning"
     skipExistingOnStartup: true
     sources: []
-    filters:
+    filter:
       namespaces:
         include: []
         exclude: []

@@ -95,11 +95,11 @@ target:
     skipExistingOnStartup: true
     channels:
     - webhook: "https://hooks.slack.com/services/123..."
-      filters:
+      filter:
         namespaces:
           include: ["team-a-*"]
     - webhook: "https://hooks.slack.com/services/456..."
-      filters:
+      filter:
         namespaces:
           include: ["team-b-*"]
 ```

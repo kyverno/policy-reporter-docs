@@ -36,7 +36,7 @@ loki:
   skipExistingOnStartup: true
   customLabels: {}
   sources: []
-  filters:
+  filter:
     namespaces:
       include: []
       exclude: []
@@ -55,7 +55,7 @@ elasticsearch:
   minimumPriority: ""
   skipExistingOnStartup: true
   sources: []
-  filters:
+  filter:
     namespaces:
       include: []
       exclude: []
@@ -72,7 +72,7 @@ slack:
   minimumPriority: ""
   skipExistingOnStartup: true
   sources: []
-  filters:
+  filter:
     namespaces:
       include: []
       exclude: []
@@ -89,7 +89,7 @@ discord:
   minimumPriority: ""
   skipExistingOnStartup: true
   sources: []
-  filters:
+  filter:
     namespaces:
       include: []
       exclude: []
@@ -106,7 +106,7 @@ teams:
   minimumPriority: ""
   skipExistingOnStartup: true
   sources: []
-  filters:
+  filter:
     namespaces:
       include: []
       exclude: []
@@ -130,7 +130,7 @@ webhook:
   minimumPriority: ""
   skipExistingOnStartup: true
   sources: []
-  filters:
+  filter:
     namespaces:
       include: []
       exclude: []
@@ -151,7 +151,7 @@ s3:
   minimumPriority: "warning"
   skipExistingOnStartup: true
   sources: []
-  filters:
+  filter:
     namespaces:
       include: []
       exclude: []
