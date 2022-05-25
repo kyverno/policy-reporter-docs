@@ -38,7 +38,7 @@ slack:
   filter:
     namespaces:
       include: ["team-a-*"]
-    priotiries:
+    priorities:
       exclude: ["info", "debug"]
     policies:
       include: ["require-*"]
