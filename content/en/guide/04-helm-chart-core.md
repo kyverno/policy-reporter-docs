@@ -310,9 +310,9 @@ kyvernoPlugin:
 
 ### Enable enforce violation PolicyReports (requires Kyverno >= 1.7.0)
 
-Because Kyverno creates PolicyReports only for audit Policies, the KyvernoPlugin brings the possibility to create additional PolicyReports for blocked resources as well. This makes it possible to get also metrics and notification for resources blocked by an enforce Policy. KyvernoPlugin uses the Kubernetes Event as source for this PolicyReports.
+Because Kyverno creates PolicyReports only for audit Policies, Policy Reporters KyvernoPlugin brings the possibility to create additional PolicyReports for blocked resources as well. This makes it possible to get also metrics and notification about resources blocked by an enforce Policy.
 
-By default this PolicyReportResults are using another source (`Kyverno Event`) to shown on separate pages. This source is customizable, so you can change it for example to `Kyverno`, so the results are shown in the same dashboards as the audit results.
+By default PolicyReportResults are using another source (`Kyverno Event`) as audit results,  so that they are displayed on separate pages. This source is customizable, so you can change it for example to `Kyverno`, so the results are shown in the same dashboards as the audit results.
 
 ```yaml
 kyvernoPlugin:
@@ -326,6 +326,8 @@ kyvernoPlugin:
       maxPerReport: 200
       # keep only the latest result of the same violation in the report
       keepOnlyLatest: false
+    # source used for the PolicyReportResults
+    source: "Kyverno Event"
 ```
 
 ### Enable NetworkPolicy

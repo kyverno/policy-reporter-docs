@@ -25,4 +25,5 @@ blockReports:
   results: 
     maxPerReport: 200
     keepOnlyLatest: false
+  source: "Kyverno Event"
 ```
