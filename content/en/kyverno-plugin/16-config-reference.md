@@ -18,4 +18,11 @@ rest:
 
 metrics:
   enabled: false
+
+blockReports:
+  enabled: false
+  eventNamespace: default
+  results: 
+    maxPerReport: 200
+    keepOnlyLatest: false
 ```

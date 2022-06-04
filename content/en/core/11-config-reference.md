@@ -18,6 +18,23 @@ rest:
 
 metrics:
   enabled: false
+  filter:
+    sources:
+      exclude: []
+      include: []
+    status:
+      exclude: []
+      include: []
+    severities:
+      exclude: []
+      include: []
+    namespaces:
+      exclude: []
+      include: []
+    policies:
+      exclude: []
+      include: []
+
 
 dbfile: "sqlite-database.db"
 
@@ -29,6 +46,14 @@ reportFilter:
     exclude: []
   clusterReports:
     disabled: false
+
+redis:
+  enabled: false
+  address: "redis:6379"
+  database: 1
+  prefix: "policy-reporter"
+  username: ""
+  password: ""
 
 loki:
   host: ""

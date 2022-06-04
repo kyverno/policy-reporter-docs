@@ -458,6 +458,15 @@ curl -X GET "http://localhost:8080/v1/namespaced-resources/status-counts?source=
 | __policies__    | `string[]`    | Filter by a list of policies   |                                         |
 | __status__      | `string[]`    | Filter by a list of status     | `fail`, `pass`, `warn`, `error`, `skip` |
 | __severities__  | `string[]`    | Filter by a list of severities | `low`, `medium`, `high`                 |
+| __search__      | `string`      | Filter by search string        |                                         |
+
+#### Optional Query Pagination Parameters
+
+| Pagination      | Type          | Description                    | Enum                                    |
+|-----------------|---------------|--------------------------------|-----------------------------------------|
+| __page__        | `int`         | Requested List Page            |                                         |
+| __offset__      | `int`         | Results per Page               |                                         |
+| __direction__   | `string`      | Order of the results           | `asc`, `desc`                           |
 
 
 #### Example
@@ -469,19 +478,22 @@ curl -X GET "http://localhost:8080/v1/namespaced-resources/results?source=kyvern
 * Response `200`
 
 ```json
-[
-   {
-      "id":"e8b7f35799c2d3cf9a50b492a8566e66dad465d9",
-      "namespace":"test",
-      "kind":"Pod",
-      "name":"nginx",
-      "category":"Pod Security Standards (Restricted)",
-      "message":"validation error: Running as root is not allowed. The fields spec.securityContext.runAsNonRoot, spec.containers[*].securityContext.runAsNonRoot, and spec.initContainers[*].securityContext.runAsNonRoot must be `true`. Rule check-containers[0] failed at path /spec/securityContext/runAsNonRoot/. Rule check-containers[1] failed at path /spec/containers/0/securityContext/.",
-      "policy":"require-run-as-non-root",
-      "rule":"check-containers",
-      "status":"fail"
-   }
-]
+{
+   "items": [
+      {
+         "id":"e8b7f35799c2d3cf9a50b492a8566e66dad465d9",
+         "namespace":"test",
+         "kind":"Pod",
+         "name":"nginx",
+         "category":"Pod Security Standards (Restricted)",
+         "message":"validation error: Running as root is not allowed. The fields spec.securityContext.runAsNonRoot, spec.containers[*].securityContext.runAsNonRoot, and spec.initContainers[*].securityContext.runAsNonRoot must be `true`. Rule check-containers[0] failed at path /spec/securityContext/runAsNonRoot/. Rule check-containers[1] failed at path /spec/containers/0/securityContext/.",
+         "policy":"require-run-as-non-root",
+         "rule":"check-containers",
+         "status":"fail"
+      }
+   ],
+   "count": 10
+}
 ```
 
 * Response `500`
@@ -684,6 +696,16 @@ curl -X GET "http://localhost:8080/v1/cluster-resources/status-counts?source=kyv
 | __policies__    | `string[]`    | Filter by a list of policies   |                                         |
 | __status__      | `string[]`    | Filter by a list of status     | `fail`, `pass`, `warn`, `error`, `skip` |
 | __severities__  | `string[]`    | Filter by a list of severities | `low`, `medium`, `high`                 |
+| __search__      | `string`      | Filter by search string        |                                         |
+
+#### Optional Query Pagination Parameters
+
+| Pagination      | Type          | Description                    | Enum                                    |
+|-----------------|---------------|--------------------------------|-----------------------------------------|
+| __page__        | `int`         | Requested List Page            |                                         |
+| __offset__      | `int`         | Results per Page               |                                         |
+| __direction__   | `string`      | Order of the results           | `asc`, `desc`                           |
+
 
 #### Example
 
@@ -694,18 +716,21 @@ curl -X GET "http://localhost:8080/v1/cluster-resources/results?source=kyverno&s
 * Response `200`
 
 ```json
-[
-   {
-      "id":"ca7c83998f8633b4e0da1de36e2996202e14e7a4",
-      "kind":"Namespace",
-      "name":"blog",
-      "category":"Convention",
-      "message":"validation error: The label `thisshouldntexist` is required. Rule check-for-labels-on-namespace failed at path /metadata/labels/thisshouldntexist/",
-      "policy":"require-ns-labels",
-      "rule":"check-for-labels-on-namespace",
-      "status":"fail"
-   }
-]
+{
+   "items": [
+      {
+         "id":"ca7c83998f8633b4e0da1de36e2996202e14e7a4",
+         "kind":"Namespace",
+         "name":"blog",
+         "category":"Convention",
+         "message":"validation error: The label `thisshouldntexist` is required. Rule check-for-labels-on-namespace failed at path /metadata/labels/thisshouldntexist/",
+         "policy":"require-ns-labels",
+         "rule":"check-for-labels-on-namespace",
+         "status":"fail"
+      }
+   ],
+   "count": 10
+}
 ```
 
 * Response `500`

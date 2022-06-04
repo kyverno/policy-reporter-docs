@@ -143,6 +143,25 @@ networkPolicy:
   ingress: []
 ```
 
+### External Caching Storage
+
+To reduce the memory usage of Policy Reporter in bigger clusters, it is possible to configure `Redis` as external caching service.
+
+```yaml
+redis:
+  # enables the feature
+  enabled: false
+  # address of the redis service
+  address: "redis:6379"
+  # used redis database
+  database: 1
+  # prefix for each key
+  prefix: "policy-reporter"
+  # optional authentication
+  username: ""
+  password: ""
+```
+
 ## Subcharts
 
 Extend Policy Reporter with the __Policy Reporter UI__ and __Kyverno Plugin__ subcharts. The __Monitoring__ subchart helps you link Policy Reporter to your <a href="https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack" target="_blank">Prometheus Operator</a> setup.
@@ -287,6 +306,26 @@ kyvernoPlugin:
 kyvernoPlugin:
   rest:
     enabled: false
+```
+
+### Enable enforce violation PolicyReports (requires Kyverno >= 1.7.0)
+
+Because Kyverno creates PolicyReports only for audit Policies, the KyvernoPlugin brings the possibility to create additional PolicyReports for blocked resources as well. This makes it possible to get also metrics and notification for resources blocked by an enforce Policy. KyvernoPlugin uses the Kubernetes Event as source for this PolicyReports.
+
+By default this PolicyReportResults are using another source (`Kyverno Event`) to shown on separate pages. This source is customizable, so you can change it for example to `Kyverno`, so the results are shown in the same dashboards as the audit results.
+
+```yaml
+kyvernoPlugin:
+  blockReports:
+    # enable the feature
+    enabled: false
+    # namespace where kyverno events are created
+    eventNamespace: default
+    results: 
+      # maximal results stored in a PolicyReport per namespace
+      maxPerReport: 200
+      # keep only the latest result of the same violation in the report
+      keepOnlyLatest: false
 ```
 
 ### Enable NetworkPolicy
