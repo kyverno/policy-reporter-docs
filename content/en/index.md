@@ -41,7 +41,10 @@ Due to the work of the <a href="https://github.com/kubernetes-sigs/wg-policy-pro
 <iframe width="100%" height="315" src="https://www.youtube-nocookie.com/embed/1mKywg9f5Fw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen width="100%" style="border: 1px solid #555"></iframe>
 <br />
 <iframe width="100%" height="315" src="https://www.youtube-nocookie.com/embed/ZrOtTELNLyg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen width="100%" style="border: 1px solid #555"></iframe>
+<br />
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/tG-YLGF9_Aw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen width="100%" style="border: 1px solid #555"></iframe>
 
 ### Blogs
 
-* [[Blog] Monitor Security and Best Practices with Kyverno and Policy Reporter](https://blog.webdev-jogeleit.de/blog/monitor-security-with-kyverno-and-policy-reporter/)
+* [Monitor Security and Best Practices with Kyverno and Policy Reporter](https://blog.webdev-jogeleit.de/blog/monitor-security-with-kyverno-and-policy-reporter/)
+* [Kubernetes Security — Use Kyverno Policy Reporter to fix Kyverno deployment by Charles-Edouard Brétéché](https://medium.com/@charled.breteche/kubernetes-security-use-kyverno-policy-reporter-to-fix-kyverno-deployment-22f3bb18540c)
