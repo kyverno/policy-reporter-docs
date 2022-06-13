@@ -38,11 +38,11 @@ Due to the work of the <a href="https://github.com/kubernetes-sigs/wg-policy-pro
 
 ### Videos
 
-<iframe width="100%" height="315" src="https://www.youtube-nocookie.com/embed/1mKywg9f5Fw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen width="100%" style="border: 1px solid #555"></iframe>
+<iframe height="315" src="https://www.youtube-nocookie.com/embed/1mKywg9f5Fw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen width="100%" style="border: 1px solid #555"></iframe>
 <br />
-<iframe width="100%" height="315" src="https://www.youtube-nocookie.com/embed/ZrOtTELNLyg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen width="100%" style="border: 1px solid #555"></iframe>
+<iframe height="315" src="https://www.youtube-nocookie.com/embed/ZrOtTELNLyg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen width="100%" style="border: 1px solid #555"></iframe>
 <br />
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/tG-YLGF9_Aw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen width="100%" style="border: 1px solid #555"></iframe>
+<iframe height="315" src="https://www.youtube-nocookie.com/embed/tG-YLGF9_Aw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen width="100%" style="border: 1px solid #555"></iframe>
 
 ### Blogs
 
