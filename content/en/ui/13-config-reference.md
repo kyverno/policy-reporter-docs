@@ -11,9 +11,12 @@ Configuration file reference with all possible options.
 logSize: 200
 displayMode: "" # Possible options: "dark" / "light"
 views:
+  # information shown on the overall dashboard / index page
   dashboard:
     policyReports: true
     clusterPolicyReports: true
+  
+  # hides entire pages / views
   logs: true
   policyReports: true
   clusterPolicyReports: true
