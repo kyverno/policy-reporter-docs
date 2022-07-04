@@ -5,7 +5,7 @@ position: 9
 category: 'Policy Reporter'
 ---
 
-ReportFilter are used to configure which PolicyReport resources should be processed or not by Policy Reporter. It os possible to configure an include or exclude list of namespaces, with wildcard (`*`) support. ReportFilter can also be used to disable the processing of ClusterPolicyReport resources.
+ReportFilter are used to configure which PolicyReport resources should be processed or not. It is possible to configure an include or exclude list of namespaces, with wildcard (`*`) support. ReportFilter can also be used to disable the processing of ClusterPolicyReport resources.
 
 ### Example for include filter
 
