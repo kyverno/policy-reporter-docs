@@ -447,7 +447,7 @@ s3:
    }
 }
 ```
-## Kinesis compatible Storage
+## Kinesis compatible Services
 
 Policy Reporter can also send results to Kinesis compatible services like __Yandex__ or __AWS Kinesis__.
 
