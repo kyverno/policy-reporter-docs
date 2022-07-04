@@ -447,6 +447,79 @@ s3:
    }
 }
 ```
+## Kinesis compatible Storage
+
+Policy Reporter can also send results to Kinesis compatible services like __Yandex__ or __AWS Kinesis__.
+
+### Additional Configure
+
+* __endpoint__ to the S3 API
+* __accessKeyID__ and __secretAccessKey__ for authentication with the required write permissions for the selected stream
+* __streamName__ in which the results are send to
+* __region__ of the stream
+
+### Example
+
+```yaml
+kinesis:
+  endpoint: "https://kinesis.eu-central-1.amazonaws.com"
+  region: "eu-central-1"
+  streamName: "policy-reporter"
+  secretAccessKey: "secretAccessKey"
+  accessKeyID: "accessKeyID"
+  minimumPriority: "warning"
+  skipExistingOnStartup: true
+  sources:
+  - kyverno
+```
+
+### Channel Example
+
+Channels uses the same `endpoint`, `accessKeyID`, `secretAccessKey`, `region`, `streamName`, `minimumPriority` and `skipExistingOnStartup` configuration as the root target if not defined.
+
+#### Send critical results for a given policy to a dedicated AWS S3 bucket
+
+```yaml
+kinesis:
+  endpoint: "https://kinesis.eu-central-1.amazonaws.com"
+  region: "eu-central-1"
+  streamName: "policy-reporter"
+  secretAccessKey: "secretAccessKey"
+  accessKeyID: "accessKeyID"
+  skipExistingOnStartup: true
+  channels:
+  - streamName: "critical-policy-violations"
+    filter:
+      priorities:
+        include: ["critical"]
+      policies:
+        include: ["disallow-privileged-containers"]
+  sources:
+  - kyverno
+```
+
+### Content Example
+
+```json
+{
+   "Message":"validation error: Running as root is not allowed. The fields spec.securityContext.runAsNonRoot, spec.containers[*].securityContext.runAsNonRoot, and spec.initContainers[*].securityContext.runAsNonRoot must be `true`. Rule check-containers[0] failed at path /spec/securityContext/runAsNonRoot/. Rule check-containers[1] failed at path /spec/containers/0/securityContext/.",
+   "Policy":"require-run-as-non-root",
+   "Rule":"check-containers",
+   "Priority":"warning",
+   "Status":"fail",
+   "Category":"Pod Security Standards (Restricted)",
+   "Source":"Kyverno",
+   "Scored":true,
+   "Timestamp":"2021-12-04T10:13:02Z",
+   "Resource":{
+      "APIVersion":"v1",
+      "Kind":"Pod",
+      "Name":"nginx2",
+      "Namespace":"test",
+      "UID":"ac4d11f3-0aa8-43f0-8056-98f4eae0d956"
+   }
+}
+```
 
 ## Configuration Reference
 
@@ -572,6 +645,28 @@ s3:
       endpoint: ""
       region: ""
       bucket: ""
+      prefix: "policy-reporter"
+      secretAccessKey: ""
+      accessKeyID: ""
+      minimumPriority: "warning"
+      skipExistingOnStartup: true
+      sources: []
+      filter:
+        namespaces:
+          include: []
+          exclude: []
+        policies:
+          include: []
+          exclude: []
+        priorities:
+          include: []
+          exclude: []
+        channels: []
+
+    kinesis:
+      endpoint: ""
+      region: ""
+      streamName: ""
       secretAccessKey: ""
       accessKeyID: ""
       minimumPriority: "warning"
@@ -711,6 +806,7 @@ s3:
     endpoint: ""
     region: ""
     bucket: ""
+    prefix: "policy-reporter"
     secretAccessKey: ""
     accessKeyID: ""
     minimumPriority: "warning"
@@ -728,6 +824,26 @@ s3:
         exclude: []
       channels: []
 
+  kinesis:
+    endpoint: ""
+    region: ""
+    streamName: ""
+    secretAccessKey: ""
+    accessKeyID: ""
+    minimumPriority: "warning"
+    skipExistingOnStartup: true
+    sources: []
+    filter:
+      namespaces:
+        include: []
+        exclude: []
+      policies:
+        include: []
+        exclude: []
+      priorities:
+        include: []
+        exclude: []
+      channels: []
   ```
   </code-block>
 </code-group>

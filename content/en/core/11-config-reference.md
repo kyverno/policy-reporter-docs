@@ -171,6 +171,28 @@ s3:
   endpoint: ""
   region: ""
   bucket: ""
+  prefix: "policy-reporter"
+  secretAccessKey: ""
+  accessKeyID: ""
+  minimumPriority: "warning"
+  skipExistingOnStartup: true
+  sources: []
+  filter:
+    namespaces:
+      include: []
+      exclude: []
+    policies:
+      include: []
+      exclude: []
+    priorities:
+      include: []
+      exclude: []
+    channels: []
+
+kinesis:
+  endpoint: ""
+  region: ""
+  streamName: ""
   secretAccessKey: ""
   accessKeyID: ""
   minimumPriority: "warning"
