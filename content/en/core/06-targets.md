@@ -477,7 +477,7 @@ kinesis:
 
 Channels uses the same `endpoint`, `accessKeyID`, `secretAccessKey`, `region`, `streamName`, `minimumPriority` and `skipExistingOnStartup` configuration as the root target if not defined.
 
-#### Send critical results for a given policy to a dedicated AWS S3 bucket
+#### Send critical results for a given policy to a dedicated AWS Kinesis Stream
 
 ```yaml
 kinesis:
