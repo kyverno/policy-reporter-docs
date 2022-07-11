@@ -1,7 +1,7 @@
 ---
 title: Config Reference
 description: ''
-position: 11
+position: 16
 category: 'Policy Reporter'
 ---
 
@@ -18,6 +18,8 @@ rest:
 
 metrics:
   enabled: false
+  mode: detailed # available modes are detailed (default), simple and custom
+  customLabels: ["namespace", "rule", "policy", "report", "kind", "name", "status", "severity", "category", "source"] # available only in custom mode
   filter:
     sources:
       exclude: []
@@ -208,5 +210,38 @@ kinesis:
     priorities:
       include: []
       exclude: []
+    channels: []
+
+emailReports:
+  clusterName: ""
+  smtp:
+    host: ""
+    port: 465
+    username: ""
+    password: ""
+    from: ""
+    encryption: ""
+
+  summary:
+    to: []
+    filter:
+      disableClusterReports: false
+      namespaces:
+        include: []
+        exclude: []
+      sources:
+        include: []
+        exclude: []
+    channels: []
+  violations:
+    to: []
+    filter:
+      disableClusterReports: false
+      namespaces:
+        include: []
+        exclude: []
+      sources:
+        include: []
+        exclude: []
     channels: []
 ```

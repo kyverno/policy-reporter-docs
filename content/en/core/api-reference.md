@@ -1,7 +1,7 @@
 ---
 title: API Reference
 description: ''
-position: 7
+position: 14
 category: 'Policy Reporter'
 ---
 
@@ -747,7 +747,7 @@ curl -X GET "http://localhost:8080/v1/cluster-resources/results?source=kyverno&s
 
 ### cluster_policy_report_summary
 
-Gauge: Summary count of each status per CluserPolicyReport
+Gauge: Summary count of each status per CluserPolicyReport, only available in __detailed__ metrics mode
 
 | Label       | Description                      |
 |-------------|----------------------------------|
@@ -767,11 +767,12 @@ Gauge: One Entry represent one Result in a ClusterPolicyReport. Deleted Results 
 | `report`    | Name of the ClusterPolicyReport where this result was found |
 | `rule`      | Rule of the result                                          |
 | `severity`  | Severity of the result                                      |
+| `source`    | Source of the result                                        |
 | `status`    | Status of the Result                                        |
 
 ### policy_report_summary
 
-Gauge: Summary count of each status per PolicyReport
+Gauge: Summary count of each status per PolicyReport, only available in __detailed__ metrics mode
 
 | Label       | Description                      |
 |-------------|----------------------------------|
@@ -792,7 +793,8 @@ Gauge: One Entry represent one Result in a PolicyReport. Deleted Results will al
 | `policy`    | Policy of the result                                        |
 | `report`    | Name of the ClusterPolicyReport where this result was found |
 | `rule`      | Rule of the result                                          |
-| `severity`  | Rule of the severity                                        |
+| `severity`  | Severity of the result                                      |
+| `source`    | Source of the result                                        |
 | `status`    | Status of the Result                                        |
 
 ### Example

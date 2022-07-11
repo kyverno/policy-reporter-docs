@@ -56,18 +56,6 @@ rest:
   enabled: true
 ```
 
-### Priority Mapping
-
-Define a custom mapping for fail results based on the related __policy__. You can also overwrite the default priority for fail results without a severity. See [priority mapping](/core/08-priority-mapping) for details.
-
-```yaml
-policyPriorities:
-  # used for all fail results without severity or concrete mapping
-  default: warning
-  # used for all fail results of the require-ns-labels policy independent of the severity
-  require-ns-labels: error
-```
-
 ### Enable Targets / Notification
 
 Policy Reporter supports several targets to which notifications can be sent. You can configure as many targets as you like, and also configure different targets for different priorities or sources (like Kyverno, Kube Bench or Falco). Channels in combination with filters allow you to configure multiple clients of the same type of targets. This is useful, for example, to forward different priorities or results of certain namespaces to a separate Slack channel.
@@ -110,6 +98,91 @@ See [Targets](/core/06-targets) for all available targets and how to configure t
 
 </alert>
 
+### Enable E-Mail Reports
+
+Sends automatically and regularly email summary reports over a configured SMTP server to one ore more emails. It supports `filter` and `channels` to send only a subset of namespaces or sources to dedicated emails, this is useful in multi tenant environments.
+
+```yaml
+emailReports:
+  clusterName: "" # (optional) - displayed in the E-Mail Report if configured
+  smtp:
+    host: ""
+    port: 465
+    username: ""
+    password: ""
+    from: "" # Displayed From E-Mail Address
+    encryption: "" # default is none, supports ssl/tls and starttls
+
+  # basic summary report
+  summary:
+    enabled: false
+    schedule: "* 8 * * *" # CronJob schedule defines when the report will be send
+    activeDeadlineSeconds: 300 # timeout in seconds
+    backoffLimit: 3 # retry counter
+    ttlSecondsAfterFinished: 0
+    restartPolicy: Never # pod restart policy
+
+    to: [] # list of receiver email addresses
+    filter: {} # optional filters
+    #  disableClusterReports: false # remove ClusterPolicyResults from Reports
+    #  namespaces:
+    #    include: []
+    #    exclude: []
+    #  sources:
+    #    include: []
+    #    exclude: []
+    channels: [] # (optional) channels can be used to to send only a subset of namespaces / sources to dedicated email addresses
+    #- to: ['team-a@company.org']
+    #  filter:
+    #    disableClusterReports: true
+    #    namespaces:
+    #      include: ['team-a-*']
+    #    sources:
+    #      include: ['Kyverno']
+
+  # violation summary report
+  violations:
+    enabled: false
+    schedule: "* 8 * * *" # CronJob schedule defines when the report will be send
+    activeDeadlineSeconds: 300 # timeout in seconds
+    backoffLimit: 3 # retry counter
+    ttlSecondsAfterFinished: 0
+    restartPolicy: Never # pod restart policy
+
+    to: [] # list of receiver email addresses
+    filter: {} # optional filters
+    #  disableClusterReports: false # remove ClusterPolicyResults from Reports
+    #  namespaces:
+    #    include: []
+    #    exclude: []
+    #  sources:
+    #    include: []
+    #    exclude: []
+    channels: [] # (optional) channels can be used to to send only a subset of namespaces / sources to dedicated email addresses
+    #- to: ['team-a@company.org']
+    #  filter:
+    #    disableClusterReports: true
+    #    namespaces:
+    #      include: ['team-a-*']
+    #    sources:
+    #      include: ['Kyverno']
+```
+
+### Enable NetworkPolicy
+
+If enabled, the Helm Chart creates a NetworkPolicy resource to allow Policy Reporter egress traffic to the Kubernetes API (defaults to port `6443`) as well as ingress traffic to the Policy Reporter REST API from the Policy Reporter UI. Ingress and egress rules for additional targets or monitoring tools can be extended as needed.
+
+```yaml
+networkPolicy:
+  enabled: true
+  egress:
+  - to:
+    ports:
+    - protocol: TCP
+      port: 6443
+  ingress: []
+```
+
 ### PolicyReport CRD Filter
 
 Filter processed PolicyReport resources by namespace - you can either define an include or exclude list of namespaces with wildcard support. See [report filter](/core/09-report-filter) for details.
@@ -128,19 +201,51 @@ reportFilter:
     disabled: false
 ```
 
-### Enable NetworkPolicy
+### Metric customization
 
-If enabled, the Helm Chart creates a NetworkPolicy resource to allow Policy Reporter egress traffic to the Kubernetes API (defaults to port `6443`) as well as ingress traffic to the Policy Reporter REST API from the Policy Reporter UI. Ingress and egress rules for additional targets or monitoring tools can be extended as needed.
+#### Metric Modes
+
+Reduce the cardinality of the PolicyReportResult metrics by customize the provided labels.
+
+Available metric modes are:
+* __detailed__ (default): provides all existing label information but has a high cardinality.<br />Creates 1 metric per resource / policy / rule
+* __simple__: provides a predefined subset of the available labels with a lower cardinality.<br />Provides ["namespace", "policy", "status", "severity", "category", "source"]
+* __custom__: provides the configured labels as list via the `metrics.customLabels` value.<br />It supports all labels that are also available in the __detailed__ mode.<br />See the [API Reference](/core/api-reference#policy_report_result) for details.
+
 
 ```yaml
-networkPolicy:
+metrics:
   enabled: true
-  egress:
-  - to:
-    ports:
-    - protocol: TCP
-      port: 6443
-  ingress: []
+  mode: custom
+  customLabels: ["namespace", "policy", "source", "status"]
+```
+
+#### Metric Filter
+
+Configure the processed namespaces, sources, policies, severities and/or status for metrics to get rid of unnecessary metrics. You can either define exclude or include rules, with wildcard support, for each available filter and combine them as needed.
+
+```yaml
+metrics:
+  enabled: true
+  filter:
+    namespaces:
+      include: ["prod", "stage"]
+    sources:
+      include: ["Trivy*", "Kyverno"]
+    status:
+      exclude: ["skip"]
+```
+
+### Priority Mapping
+
+Define a custom mapping for fail results based on the related __policy__. You can also overwrite the default priority for fail results without a severity. See [priority mapping](/core/08-priority-mapping) for details.
+
+```yaml
+policyPriorities:
+  # used for all fail results without severity or concrete mapping
+  default: warning
+  # used for all fail results of the require-ns-labels policy independent of the severity
+  require-ns-labels: error
 ```
 
 ### External Caching Storage

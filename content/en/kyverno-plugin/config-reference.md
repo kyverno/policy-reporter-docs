@@ -1,7 +1,7 @@
 ---
 title: Config Reference
 description: ''
-position: 16
+position: 32
 category: 'Kyverno Plugin'
 ---
 
