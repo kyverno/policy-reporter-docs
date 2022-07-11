@@ -1,18 +1,18 @@
 ---
 title: Local Development
 description: ''
-position: 10
-category: 'Policy Reporter'
+position: 31
+category: 'Kyverno Plugin'
 ---
 
 ## Requirements
 
 * Go >= v1.17
-* (optional) Kubernetes Cluster with <a href="https://github.com/kubernetes-sigs/wg-policy-prototypes/tree/master/policy-report/crd/v1alpha2">wgpolicyk8s.io CRDs</a> installed
+* (optional) Kubernetes Cluster with <a href="https://kyverno.io">Kyverno</a> installed
 
 ## Getting started
 
-Fork and/or checkout <a href="https://github.com/kyverno/policy-reporter" target="_blank">Policy Reporter on GitHub</a>
+Fork and/or checkout <a href="https://github.com/kyverno/policy-reporter-kyverno-plugin" target="_blank">Policy Reporter Kyverno plugin on GitHub</a>
 
 ### Install dependencies
 
@@ -34,9 +34,9 @@ or
 go test -v ./... -timeout=10s
 ```
 
-## Running Policy Reporter
+## Running Kyverno Plugin
 
-To run Policy Reporter locally, you must connect it to a Kubernetes cluster. This is required because it connects to the Kubernetes API to watch for PolicyReports and ClusterPolicyReports. The configuration can be done via CLI arguments, <a href="/core/11-config-reference" target="_blank">config.yaml</a>, or a mix of both.
+To run the Kyverno plugin locally, you must connect it to a Kubernetes cluster. This is required because it connects to the Kubernetes API to watch for Kyverno Policies and ClusterPolicies. The configuration can be done via CLI arguments, <a href="/kyverno-plugin/16-config-reference" target="_blank">config.yaml</a>, or a mix of both.
 
 ```bash
 go run main.go run -k ~/.kube/config
@@ -48,7 +48,6 @@ go run main.go run -k ~/.kube/config
 |---------------------|:-------:|-----------------------------------------------------------------------|---------------------|
 | `--kubeconfig`      | `-k`    | path to the kubeconfig file,<br>used to connect to the Kubernetes API |                     |
 | `--config`          | `-c`    | path to the Policy Reporter config file                               |`config.yaml`        |
-| `--dbfile`          | `-d`    | path to the SQLite database file                                      |`sqlite-database.db` |
 | `--metrics-enabled` | `-m`    | enables the Metrics API endpoints                                     |`false`              |
 | `--rest-enabled`    | `-r`    | enables the REST API endpoints                                        |`false`              |
 | `--port`            | `-p`    | used port for the HTTP server                                         |`8080`               |
@@ -58,5 +57,5 @@ go run main.go run -k ~/.kube/config
 ```bash
 make build
 
-./build/policyreporter run -k ~/.kube/config
+./build/kyverno-plugin run -k ~/.kube/config
 ```

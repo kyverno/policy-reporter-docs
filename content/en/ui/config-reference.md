@@ -1,7 +1,7 @@
 ---
 title: Config Reference
 description: ''
-position: 13
+position: 22
 category: 'Policy Reporter UI'
 ---
 
