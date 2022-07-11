@@ -52,7 +52,7 @@ You can filter by:
       encryption: ssl/tls
     summary:
       enabled: true
-      schedule: "* 8 * * *" # Send the report each day at 08:00 AM
+      schedule: "0 8 * * *" # Send the report each day at 08:00 AM
       activeDeadlineSeconds: 300 # timeout in seconds
       backoffLimit: 1 # retry counter
       ttlSecondsAfterFinished: 60
@@ -96,7 +96,7 @@ You can filter by:
       encryption: ssl/tls
     violations:
       enabled: true
-      schedule: "* 8 * * *" # Send the report each day at 08:00 AM
+      schedule: "0 8 * * *" # Send the report each day at 08:00 AM
       activeDeadlineSeconds: 300 # timeout in seconds
       backoffLimit: 1 # retry counter
       ttlSecondsAfterFinished: 60
@@ -140,7 +140,7 @@ You can filter by:
       encryption: ssl/tls
     violations:
       enabled: true
-      schedule: "* 8 * * *" # Send the report each day at 08:00 AM
+      schedule: "0 8 * * *" # Send the report each day at 08:00 AM
       activeDeadlineSeconds: 300 # timeout in seconds
       backoffLimit: 1 # retry counter
       ttlSecondsAfterFinished: 60
