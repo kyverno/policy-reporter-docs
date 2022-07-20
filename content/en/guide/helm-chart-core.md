@@ -342,7 +342,7 @@ The APIs must be accessible for Policy Reporter UI, currently no additional auth
 
 ```yaml
 ui:
-  clusters: []
+  clusters:
   - name: External Cluster                              # name used for the selection of the Cluster
     api: https://policy-reporter.external.cluster       # reachable external Policy Reporter REST API
     kyvernoApi: https://kyverno-plugin.external.cluster # (optional) reachable external Policy Reporter Kyverno Plugin REST API
