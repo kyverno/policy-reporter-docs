@@ -327,6 +327,27 @@ ui:
     kyvernoVerifyImages: true
 ```
 
+### External Clusters
+
+<alert type="warning">
+
+<b>Attention:</b> be sure that your APIs are not accessable for the outside world!<br />
+Use tools like VPN, private Networks or internal Network Load Balancer to expose your APIs in a secure way to the UI
+
+</alert>
+
+By default, the Policy Reporter UI processes only the Policy Reporter REST API running in the same cluster. If you are working in a multi-cluster environment and running Policy Reporter in each cluster, it can be annoying to switch between the different UIs of each cluster. To solve this problem, it is possible to configure additional Policy Reporter REST APIs from external clusters and switch between them as needed.
+
+The APIs must be accessible for Policy Reporter UI, currently no additional authentication is supported. Make sure that you make your APIs available only internally.
+
+```yaml
+ui:
+  clusters: []
+  - name: External Cluster                              # name used for the selection of the Cluster
+    api: https://policy-reporter.external.cluster       # reachable external Policy Reporter REST API
+    kyvernoApi: https://kyverno-plugin.external.cluster # (optional) reachable external Policy Reporter Kyverno Plugin REST API
+```
+
 ### Kyverno Plugin integration
 
 <alert>
