@@ -59,6 +59,7 @@ redis:
 
 loki:
   host: ""
+  path: ""
   minimumPriority: "warning"
   skipExistingOnStartup: true
   customLabels: {}

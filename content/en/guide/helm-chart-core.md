@@ -67,6 +67,8 @@ target:
   loki:
     # loki host address
     host: "http://loki.loki-stack:3100"
+    # loki API path, defaults to "/api/prom/push" (deprecated)
+    path: "/loki/api/v1/push"
     # minimum priority "" < info < warning < critical < error
     minimumPriority: "warning"
     # Skip already existing PolicyReportResults on startup

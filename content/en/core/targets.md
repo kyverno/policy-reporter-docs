@@ -61,6 +61,7 @@ The minimal configuration for Grafana Loki requires a valid and accessible host.
 ```yaml
 loki:
   host: "http://loki.loki-stack:3100"
+  path: "/loki/api/v1/push"
   minimumPriority: "warning"
   skipExistingOnStartup: true
   sources:
@@ -76,6 +77,7 @@ Channels uses the same `host`, `minimumPriority` and `skipExistingOnStartup` con
 ```yaml
 loki:
   host: "http://loki.loki-stack:3100"
+  path: "/loki/api/v1/push"
   minimumPriority: "warning"
   skipExistingOnStartup: true
   channels:
@@ -531,6 +533,7 @@ kinesis:
   target:
     loki:
       host: ""
+      path: ""
       minimumPriority: ""
       skipExistingOnStartup: true
       customLabels: {}
@@ -692,6 +695,7 @@ kinesis:
   ```yaml
   loki:
     host: ""
+    path: ""
     minimumPriority: ""
     skipExistingOnStartup: true
     customLabels: {}
