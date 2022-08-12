@@ -26,4 +26,11 @@ blockReports:
     maxPerReport: 200
     keepOnlyLatest: false
   source: "Kyverno Event"
+
+leaderElection:
+  enabled: false
+  releaseOnCancel: true
+  leaseDuration: 15
+  renewDeadline: 10
+  retryPeriod: 2
 ```

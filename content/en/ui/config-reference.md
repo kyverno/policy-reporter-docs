@@ -30,4 +30,12 @@ views:
   clusterPolicyReports: true
   kyvernoPolicies: true
   kyvernoVerifyImages: true
+
+redis:
+  enabled: false
+  address: "redis:6379"
+  database: 0
+  prefix: "policy-reporter-ui"
+  username: ""
+  password: ""
 ```

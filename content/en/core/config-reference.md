@@ -245,4 +245,11 @@ emailReports:
         include: []
         exclude: []
     channels: []
+
+leaderElection:
+  enabled: false
+  releaseOnCancel: true
+  leaseDuration: 15
+  renewDeadline: 10
+  retryPeriod: 2
 ```

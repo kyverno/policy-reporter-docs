@@ -170,21 +170,6 @@ emailReports:
     #      include: ['Kyverno']
 ```
 
-### Enable NetworkPolicy
-
-If enabled, the Helm Chart creates a NetworkPolicy resource to allow Policy Reporter egress traffic to the Kubernetes API (defaults to port `6443`) as well as ingress traffic to the Policy Reporter REST API from the Policy Reporter UI. Ingress and egress rules for additional targets or monitoring tools can be extended as needed.
-
-```yaml
-networkPolicy:
-  enabled: true
-  egress:
-  - to:
-    ports:
-    - protocol: TCP
-      port: 6443
-  ingress: []
-```
-
 ### PolicyReport CRD Filter
 
 Filter processed PolicyReport resources by namespace - you can either define an include or exclude list of namespaces with wildcard support. See [report filter](/core/09-report-filter) for details.
@@ -267,6 +252,53 @@ redis:
   # optional authentication
   username: ""
   password: ""
+```
+
+### High Available Setup
+
+The High Available Setup makes it possible to deploy more then one instance of Policy Reporter without the issue of duplicated reports / pushes.
+By default HA mode will be enabled if the `replicaCount` is higher then `1`.
+
+Policy Reporter uses `LeaderElection`, to ensure that only one instance is responsible for sending pushes for new `PolicyReportResults`. Other features like API requests and metrics are loadbalanced between each instance.
+
+The High Available setup also adds an `PodDisruptionBudget` with a default `minAvailable` of `1`. Both, `LeaderElection` as well as the `PodDisruptionBudget` can be configured to you personal needs.
+
+```yaml
+replicaCount: 3
+
+# enabled if replicaCount > 1
+podDisruptionBudget:
+  # -- Configures the minimum available pods for policy-reporter disruptions.
+  # Cannot be used if `maxUnavailable` is set.
+  minAvailable: 1
+  # -- Configures the maximum unavailable pods for policy-reporter disruptions.
+  # Cannot be used if `minAvailable` is set.
+  maxUnavailable:
+
+# required when policy-reporter runs in HA mode and you have targets configured
+# if no targets are configured, leaderElection is disabled automatically
+# will be enabled when replicaCount > 1
+leaderElection:
+  enabled: false
+  releaseOnCancel: true
+  leaseDuration: 15
+  renewDeadline: 10
+  retryPeriod: 2
+```
+
+### Enable NetworkPolicy
+
+If enabled, the Helm Chart creates a NetworkPolicy resource to allow Policy Reporter egress traffic to the Kubernetes API (defaults to port `6443`) as well as ingress traffic to the Policy Reporter REST API from the Policy Reporter UI. Ingress and egress rules for additional targets or monitoring tools can be extended as needed.
+
+```yaml
+networkPolicy:
+  enabled: true
+  egress:
+  - to:
+    ports:
+    - protocol: TCP
+      port: 6443
+  ingress: []
 ```
 
 ## Subcharts
@@ -366,6 +398,37 @@ ui:
     kyverno: true
 ```
 
+### High Available Setup
+
+Because most features are stateless, you can deploy Policy Reporter UI without additional needs in HA mode (`replicaCount` > `1`). The only exception is the Log page, which receives pushes from Policy Reporter and hold them in memory by default. If you using this feature it is recommended to configure `redis` as central storage for Log entries.
+
+The High Available setup adds an `PodDisruptionBudget` with a default `minAvailable` of `1`. The `PodDisruptionBudget` can be configured to you personal needs.
+
+```yaml
+ui:
+  replicaCount: 3
+
+  # use redis as external log storage instead of an in memory store
+  # recommended when using a HA setup with more then one replica
+  # to get all logs on each instance 
+  redis:
+    enabled: false
+    address: "redis:6379"
+    database: 0
+    prefix: "policy-reporter-ui"
+    username: ""
+    password: ""
+
+  # enabled if replicaCount > 1
+  podDisruptionBudget:
+    # -- Configures the minimum available pods for policy-reporter-ui disruptions.
+    # Cannot be used if `maxUnavailable` is set.
+    minAvailable: 1
+    # -- Configures the maximum unavailable pods for policy-reporter-ui disruptions.
+    # Cannot be used if `minAvailable` is set.
+    maxUnavailable:
+```
+
 ### Ingress
 
 Serve the UI over a hostname with the integrated __Ingress__ support.
@@ -456,6 +519,36 @@ kyvernoPlugin:
       keepOnlyLatest: false
     # source used for the PolicyReportResults
     source: "Kyverno Event"
+```
+
+### High Available Setup
+
+In HA mode KyvernoPlugin uses `LeaderElection` to ensure that only one instance is responsible for managing block-PolicyReports. Other features like API requests and metrics are loadbalanced between each instance. This means, if `kyvernoPlugin.blockReports.enabled` is `false`, `leaderElection` is not needed and will be disabled.
+
+The High Available setup also adds an `PodDisruptionBudget` with a default `minAvailable` of `1`. Both, `LeaderElection` as well as the `PodDisruptionBudget` can be configured to you personal needs.
+
+```yaml
+kyvernoPlugin:
+  replicaCount: 3
+
+  # enabled if replicaCount > 1
+  podDisruptionBudget:
+    # -- Configures the minimum available pods for policy-reporter disruptions.
+    # Cannot be used if `maxUnavailable` is set.
+    minAvailable: 1
+    # -- Configures the maximum unavailable pods for policy-reporter disruptions.
+    # Cannot be used if `minAvailable` is set.
+    maxUnavailable:
+
+  # required if policy-reporter-kyverno-plugin should run in HA mode and the "blockReports" feature is enabled
+  # if "blockReports" is disabled, leaderElection is also disabled automatically
+  # will be enabled when replicaCount > 1
+  leaderElection:
+    enabled: false
+    releaseOnCancel: true
+    leaseDuration: 15
+    renewDeadline: 10
+    retryPeriod: 2
 ```
 
 ### Enable NetworkPolicy
