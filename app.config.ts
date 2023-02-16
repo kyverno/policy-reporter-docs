@@ -10,7 +10,7 @@ export default defineAppConfig({
       github: 'kyverno/policy-reporter-docs',
     },
     github: {
-      repo: 'https://github.com/kyverno/policy-reporter-docs'
+      repo: 'https://github.com/kyverno/policy-reporter'
     },
     aside: {
       level: 0,
