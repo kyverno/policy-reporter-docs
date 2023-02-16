@@ -1,14 +1,4 @@
-# Docus Starter
-
-Starter template for [Docus](https://docus.dev).
-
-## Clone
-
-Clone the repository (using `nuxi`):
-
-```bash
-npx nuxi init -t themes/docus
-```
+# Policy Reporter Documentation
 
 ## Setup
 
@@ -24,17 +14,7 @@ yarn install
 yarn dev
 ```
 
-## Edge Side Rendering
-
-Can be deployed to Vercel Functions, Netlify Functions, AWS, and most Node-compatible environments.
-
-Look at all the available presets [here](https://v3.nuxtjs.org/guide/deploy/presets).
-
-```bash
-yarn build
-```
-
-## Static Generation
+## Docs Generation
 
 Use the `generate` command to build your application.
 
@@ -42,14 +22,6 @@ The HTML files will be generated in the .output/public directory and ready to be
 
 ```bash
 yarn generate
-```
-
-## Preview build
-
-You might want to preview the result of your build locally, to do so, run the following command:
-
-```bash
-yarn preview
 ```
 
 ---
