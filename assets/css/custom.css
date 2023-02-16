@@ -1,0 +1,7 @@
+html.dark .light-img {
+    display: none! important;
+}
+
+html.light .dark-img {
+    display: none! important;
+}
