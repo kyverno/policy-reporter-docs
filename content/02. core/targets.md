@@ -571,6 +571,74 @@ kinesis:
    }
 }
 ```
+## Google Cloud Storage
+
+Policy Reporter can also send results to Google Cloud Storage.
+
+It persists each result as JSON in the following structure: `<bucket>/<prefix>/YYYY-MM-DD/<policy-name>-<result-id>-YYYY-MM-DDTHH:mm:ss.json`
+
+### Additional Configure
+
+* __credentials__ as JSON string for authentication with the required write permissions for the selected bucket
+* __bucket__ in which the results are persisted
+* __prefix__ of the file path. Uses `policy-reporter` as default
+
+### Example
+
+```yaml
+gcs:
+  bucket: "dev-cluster"
+  credentials: "{}"
+  minimumPriority: "warning"
+  skipExistingOnStartup: true
+  sources:
+  - kyverno
+```
+
+### Channel Example
+
+Channels uses the same `credentials`, `prefix`, `minimumPriority` and `skipExistingOnStartup` configuration as the root target if not defined.
+
+#### Send critical results for a given policy to a dedicated GCS bucket
+
+```yaml
+gcs:
+  bucket: "policy-violations"
+  credentials: "{}"
+  skipExistingOnStartup: true
+  channels:
+  - bucket: "privileged-containers-violations"
+    filter:
+      priorities:
+        include: ["critical"]
+      policies:
+        include: ["disallow-privileged-containers"]
+  sources:
+  - kyverno
+```
+
+### Content Example
+
+```json
+{
+   "Message":"validation error: Running as root is not allowed. The fields spec.securityContext.runAsNonRoot, spec.containers[*].securityContext.runAsNonRoot, and spec.initContainers[*].securityContext.runAsNonRoot must be `true`. Rule check-containers[0] failed at path /spec/securityContext/runAsNonRoot/. Rule check-containers[1] failed at path /spec/containers/0/securityContext/.",
+   "Policy":"require-run-as-non-root",
+   "Rule":"check-containers",
+   "Priority":"warning",
+   "Status":"fail",
+   "Category":"Pod Security Standards (Restricted)",
+   "Source":"Kyverno",
+   "Scored":true,
+   "Timestamp":"2021-12-04T10:13:02Z",
+   "Resource":{
+      "APIVersion":"v1",
+      "Kind":"Pod",
+      "Name":"nginx2",
+      "Namespace":"test",
+      "UID":"ac4d11f3-0aa8-43f0-8056-98f4eae0d956"
+   }
+}
+```
 
 ## Configuration Reference
 
@@ -733,6 +801,24 @@ kinesis:
           include: []
           exclude: []
         channels: []
+
+    gcs:
+      credentials: ""
+      bucket: ""
+      minimumPriority: "warning"
+      skipExistingOnStartup: true
+      sources: []
+      filter:
+        namespaces:
+          include: []
+          exclude: []
+        policies:
+          include: []
+          exclude: []
+        priorities:
+          include: []
+          exclude: []
+        channels: []
   ```
 
   ```yaml [config.yaml]
@@ -877,6 +963,24 @@ kinesis:
     streamName: ""
     secretAccessKey: ""
     accessKeyID: ""
+    minimumPriority: "warning"
+    skipExistingOnStartup: true
+    sources: []
+    filter:
+      namespaces:
+        include: []
+        exclude: []
+      policies:
+        include: []
+        exclude: []
+      priorities:
+        include: []
+        exclude: []
+      channels: []
+
+  gcs:
+    credentials: ""
+    bucket: ""
     minimumPriority: "warning"
     skipExistingOnStartup: true
     sources: []
