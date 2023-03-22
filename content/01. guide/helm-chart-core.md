@@ -437,6 +437,8 @@ ui:
   - name: External Cluster                              # name used for the selection of the Cluster
     api: https://policy-reporter.external.cluster       # reachable external Policy Reporter REST API
     kyvernoApi: https://kyverno-plugin.external.cluster # (optional) reachable external Policy Reporter Kyverno Plugin REST API
+    skipTLS: false                                      # skip SSL verification
+    certificate: "/app/certs/root.ca"                   # (optional) path to a mounted root cert for custom signed domains
 ```
 
 ### Kyverno Plugin integration
