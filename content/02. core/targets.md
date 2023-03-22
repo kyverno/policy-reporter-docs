@@ -56,7 +56,7 @@ See the different available targets for concrete example and usage of `channels`
 
 Instead of defining your credentials or webhooks directly, you can also use the `secretRef` configuration to define an already existing __Secret__ by name. If the secret does not exist, the target is skipped.
 
-The Secret should contain the related configuration as `key`. Supported keys are host, webhook, username, password, token, accessKeyID and secretAccessKey - depending on the related target. Only exception is `token`, which is dedicated for `webhook` targets and is added as Authorization header.
+The Secret should contain the related configuration as `key`. Supported keys are host, webhook, username, password, token, credentials, accessKeyID and secretAccessKey - depending on the related target. Only exception is `token`, which is dedicated for `webhook` targets and is added as Authorization header.
 
 The `secretRef` is also supported for channels, so you can use different secrets for different channels.
 
