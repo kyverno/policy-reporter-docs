@@ -251,6 +251,76 @@ metrics:
   customLabels: ["namespace", "policy", "source", "status"]
 ```
 
+##### Metric Report Label
+
+Use (Cluster)PolicyReport labels as additional metric labels in `custom` mode. Invalid metric label characters will be replaced with `_`.
+
+__Example__
+
+Add the `app` label of each (Cluster)PolicyReport, if available, as metric label.
+
+```yaml [policy-report]
+apiVersion: wgpolicyk8s.io/v1alpha2
+kind: PolicyReport
+metadata:
+  labels:
+    app: nginx
+  name: cpol-disallow-host-path
+  namespace: test
+```
+
+```yaml [values.yaml]
+metrics:
+  enabled: true
+  mode: custom
+  customLabels: ["status","label:app"]
+```
+
+```
+# HELP policy_report_result List of all PolicyReport Results
+# TYPE policy_report_result gauge
+policy_report_result{app="nginx",status="pass"} 1
+policy_report_result{app="",status="pass"} 1
+```
+
+##### Metric Property Label
+
+Use PolicyReportResult `properties` as additional labels in `custom` mode. Invalid metric label characters will be replaced with `_`.
+
+__Example__
+
+Add the `score` property of PolicyReportResults, if available, as metric label.
+
+```yaml [policy-report]
+apiVersion: wgpolicyk8s.io/v1alpha2
+kind: PolicyReport
+  name: trivy-vuln-polr-nginx-5fbc65fff
+  namespace: test
+  ...
+results:
+- category: Vulnerability Scan
+  message: 'apt: integer overflows and underflows while parsing .deb packages'
+  policy: CVE-2020-27350
+  properties:
+    artifact.repository: library/nginx
+    artifact.tag: "1.17"
+    score: "5.7"
+```
+
+```yaml [values.yaml]
+metrics:
+  enabled: true
+  mode: custom
+  customLabels: ["property:score", "property:artifact.tag", "status"]
+```
+
+```
+# HELP policy_report_result List of all PolicyReport Results
+# TYPE policy_report_result gauge
+policy_report_result{artifact_tag="1.17",score="5.7",status="pass"} 1
+policy_report_result{artifact_tag="",score="",status="pass"} 1
+```
+
 #### Metric Filter
 
 Configure the processed namespaces, sources, policies, severities and/or status for metrics to get rid of unnecessary metrics. You can either define exclude or include rules, with wildcard support, for each available filter and combine them as needed.
@@ -298,6 +368,20 @@ redis:
   password: ""
 ```
 
+### Logging
+
+Since AppVersion `2.14.0` its possible to customize the logger output like `encoding` and `logLevel`. It is also possible to enable API access debug logging.
+
+```yaml [values.yaml]
+logging:
+  encoding: console  # possible encodings are console and json
+  logLevel: 0        # default info
+  development: false # more human readable structure, enables stacktraces and removes log sampling
+
+api:
+  logging: false     # enable debug API access logging, sets logLevel to debug
+```
+
 ### High Available Setup
 
 The High Available setup makes it possible to deploy more then one instance of Policy Reporter without the issue of duplicated pushes.
@@ -328,6 +412,21 @@ leaderElection:
   leaseDuration: 15
   renewDeadline: 10
   retryPeriod: 2
+```
+
+### Ingress
+
+Serve the API over a hostname with the integrated Ingress support. This is mainly needed for the [Multi Tenance Feature](/guide/helm-chart-core#external-clusters) of Policy Reporter UI. In this case make sure that the API is not reachable for the outside world.
+
+```yaml [values.yaml]
+ingress:
+  enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+  hosts:
+    - host: domain.com
+      paths:
+      - path: "/(.*)"
 ```
 
 ### Enable NetworkPolicy
@@ -457,6 +556,21 @@ ui:
     kyverno: true
 ```
 
+### Logging
+
+Since AppVersion `1.18.2` its possible to customize the logger output like `encoding` and `logLevel`. It is also possible to enable Proxy request debug logging.
+
+```yaml [values.yaml]
+logging:
+  encoding: console  # possible encodings are console and json
+  logLevel: 0        # default info
+  development: false # more human readable structure, enables stacktraces and removes log sampling
+
+api:
+  logging: false     # enable debug Proxy request logging, sets logLevel to debug
+```
+
+
 ### High Available Setup
 
 Because most features are stateless, you can deploy Policy Reporter UI without additional needs in HA mode (`replicaCount` > `1`). The only exception is the Log page, which receives pushes from Policy Reporter and hold them in memory by default. If you are using this feature it is recommended to configure `redis` as central storage for Log entries.
@@ -579,6 +693,21 @@ kyvernoPlugin:
     # source used for the PolicyReportResults
     source: "Kyverno Event"
 ```
+``
+
+### Logging
+
+Since AppVersion `1.5.1` its possible to customize the logger output like `encoding` and `logLevel`. It is also possible to enable API access debug logging.
+
+```yaml [values.yaml]
+logging:
+  encoding: console  # possible encodings are console and json
+  logLevel: 0        # default info
+  development: false # more human readable structure, enables stacktraces and removes log sampling
+
+api:
+  logging: false     # enable debug API access logging, sets logLevel to debug
+```
 
 ### High Available Setup
 
@@ -609,6 +738,23 @@ kyvernoPlugin:
     renewDeadline: 10
     retryPeriod: 2
 ```
+
+### Ingress
+
+Serve the API over a hostname with the integrated Ingress support. This is mainly needed for the [Multi Tenance Feature](/guide/helm-chart-core#external-clusters) of Policy Reporter UI. In this case make sure that the API is not reachable for the outside world.
+
+```yaml [values.yaml]
+kyvernoPlugin:
+  ingress:
+    enabled: true
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /$1
+    hosts:
+      - host: domain.com
+        paths:
+        - path: "/(.*)"
+```
+
 
 ### Enable NetworkPolicy
 
