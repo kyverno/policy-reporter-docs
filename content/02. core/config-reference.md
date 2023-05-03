@@ -18,6 +18,19 @@ api:
 rest:
   enabled: false
 
+database:
+  type: "sqlite"
+  database: ""
+  username: ""
+  password: ""
+  host: ""
+  enableSSL: false
+  dsn: ""
+  secretRef: ""
+  mountedSecret: ""
+
+dbfile: "sqlite-database.db"
+
 metrics:
   enabled: false
   mode: detailed # available modes are detailed (default), simple and custom
@@ -38,9 +51,6 @@ metrics:
     policies:
       exclude: []
       include: []
-
-
-dbfile: "sqlite-database.db"
 
 priorityMap: {}
 
@@ -200,6 +210,45 @@ kinesis:
   streamName: ""
   secretAccessKey: ""
   accessKeyID: ""
+  minimumPriority: "warning"
+  skipExistingOnStartup: true
+  sources: []
+  filter:
+    namespaces:
+      include: []
+      exclude: []
+    policies:
+      include: []
+      exclude: []
+    priorities:
+      include: []
+      exclude: []
+    channels: []
+
+securityHub:
+  endpoint: ""
+  region: ""
+  accountID: ""
+  secretAccessKey: ""
+  accessKeyID: ""
+  minimumPriority: "warning"
+  skipExistingOnStartup: true
+  sources: []
+  filter:
+    namespaces:
+      include: []
+      exclude: []
+    policies:
+      include: []
+      exclude: []
+    priorities:
+      include: []
+      exclude: []
+    channels: []
+
+gcs:
+  credentials: ""
+  bucket: ""
   minimumPriority: "warning"
   skipExistingOnStartup: true
   sources: []

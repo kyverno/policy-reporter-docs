@@ -498,6 +498,7 @@ s3:
    }
 }
 ```
+
 ## Kinesis compatible Services
 
 Policy Reporter can also send results to Kinesis compatible services like __Yandex__ or __AWS Kinesis__.
@@ -571,6 +572,62 @@ kinesis:
    }
 }
 ```
+
+## AWS SecurityHub
+
+Policy Reporter can also send results to the AWS SecurityHub.
+
+### Additional Configure
+
+* __endpoint__ to the SecurityHub API
+* __accessKeyID__ and __secretAccessKey__ for authentication with the required write permissions for AWS SecurityHub
+* __accountID__ of your AWS Account
+* __region__ of AWS SecurityHub
+
+### Example
+
+```yaml
+securityHub:
+  region: "eu-central-1"
+  accountID: "account_id"
+  secretAccessKey: "secretAccessKey"
+  accessKeyID: "accessKeyID"
+  minimumPriority: "warning"
+  skipExistingOnStartup: true
+  sources:
+  - kyverno
+```
+
+### Channel Example
+
+Channels uses the same `endpoint`, `accessKeyID`, `secretAccessKey`, `region`, `accoundID`, `minimumPriority` and `skipExistingOnStartup` configuration as the root target if not defined.
+
+#### Send critical results for a given policy to a dedicated AWS Kinesis Stream
+
+```yaml
+securityHub:
+  region: "eu-central-1"
+  accountID: "account_id"
+  secretAccessKey: "secretAccessKey"
+  accessKeyID: "accessKeyID"
+  skipExistingOnStartup: true
+  channels:
+  - region: "us-east-1"
+    filter:
+      priorities:
+        include: ["critical"]
+      policies:
+        include: ["disallow-privileged-containers"]
+  sources:
+  - kyverno
+```
+
+
+### Screenshot
+<a href="/images/targets/security-hub.png" target="_blank">
+    <nuxt-img src="/images/targets/security-hub.png" style="border: 1px solid #555" alt="AWS SecurityHub Screenshot with PolicyReportResults"></nuxt-img>
+</a>
+
 ## Google Cloud Storage
 
 Policy Reporter can also send results to Google Cloud Storage.

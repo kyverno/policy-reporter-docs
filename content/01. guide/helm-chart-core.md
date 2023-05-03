@@ -349,6 +349,34 @@ policyPriorities:
   require-ns-labels: error
 ```
 
+### External Databases (AppVersion >= 2.15.0)
+
+By default, Policy Reporter uses an internal SQLite database to convert (cluster) policies into an internal SQL schema. The REST API uses this schema to execute performant queries and filter or group information according to various criteria.
+
+While this works well in most scenarios, SQLite can reach its limits in large environments. To overcome these limitations, it is possible to configure an external SQL database. Currently PostgreSQL, MySQL and MariaDB are supported.
+
+In a HA setup, only one pod writes to the database, all other pods only read from it. In case of a new leader promotion, the new leader cleans up the DB and recreates the current state to reflect possible changes during the downtime of the previous leader.
+
+```yaml [values.yaml]
+database:
+  type: "postgres"
+  database: "policy-reporter"
+  username: "username"
+  password: "password"
+  host: "localhost:5432"
+  enableSSL: false
+  # instead of configure the individual values you can also provide an DSN string
+  # example postgres: postgres://postgres:password@localhost:5432/postgres?sslmode=disable
+  # example mysql: root:password@tcp(localhost:3306)/test?tls=false
+  dsn: ""
+  # configure an existing secret as source for your values
+  # supported fields: username, password, host, dsn, database
+  secretRef: ""
+  # use an mounted secret as source for your values, required the information in JSON format
+  # supported fields: username, password, host, dsn, database
+  mountedSecret: ""
+```
+
 ### External Caching Storage
 
 To reduce the memory usage of Policy Reporter in bigger clusters, it is possible to configure `Redis` as external caching service.
