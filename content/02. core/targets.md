@@ -155,6 +155,7 @@ Policy Reporter sends results in a JSON representation and all available informa
 
 * __index__ is used as an index name. Uses `policy-reporter` if not configured.
 * __rotation__ is used to create rotating indexes by adding the rotation date as suffix to the index name. Possible values are `daily`, `monthly`, `annually` and `none`. Uses `daily` if not configured.
+* __username__ and __password__ to use HTTP Basic Auth based authentication.
 
 ### Example
 
@@ -708,6 +709,10 @@ gcs:
       path: ""
       minimumPriority: ""
       skipExistingOnStartup: true
+      certificate: ""
+      skipTLS: false
+      mountedSecret: ""
+      secretRef: ""
       customLabels: {}
       sources: []
       filter:
@@ -726,8 +731,14 @@ gcs:
       host: ""
       index: "policy-reporter"
       rotation: "daily"
+      username: ""
+      password: ""
       minimumPriority: ""
       skipExistingOnStartup: true
+      certificate: ""
+      skipTLS: false
+      mountedSecret: ""
+      secretRef: ""
       sources: []
       filter:
         namespaces:
@@ -745,6 +756,8 @@ gcs:
       webhook: ""
       minimumPriority: ""
       skipExistingOnStartup: true
+      mountedSecret: ""
+      secretRef: ""
       sources: []
       filter:
         namespaces:
@@ -762,6 +775,8 @@ gcs:
       webhook: ""
       minimumPriority: ""
       skipExistingOnStartup: true
+      mountedSecret: ""
+      secretRef: ""
       sources: []
       filter:
         namespaces:
@@ -779,6 +794,8 @@ gcs:
       webhook: ""
       minimumPriority: ""
       skipExistingOnStartup: true
+      mountedSecret: ""
+      secretRef: ""
       sources: []
       filter:
         namespaces:
@@ -803,6 +820,10 @@ gcs:
       headers: {}
       minimumPriority: ""
       skipExistingOnStartup: true
+      certificate: ""
+      skipTLS: false
+      mountedSecret: ""
+      secretRef: ""
       sources: []
       filter:
         namespaces:
@@ -825,6 +846,8 @@ gcs:
       accessKeyID: ""
       minimumPriority: "warning"
       skipExistingOnStartup: true
+      mountedSecret: ""
+      secretRef: ""
       sources: []
       filter:
         namespaces:
@@ -846,6 +869,8 @@ gcs:
       accessKeyID: ""
       minimumPriority: "warning"
       skipExistingOnStartup: true
+      mountedSecret: ""
+      secretRef: ""
       sources: []
       filter:
         namespaces:
@@ -864,6 +889,8 @@ gcs:
       bucket: ""
       minimumPriority: "warning"
       skipExistingOnStartup: true
+      mountedSecret: ""
+      secretRef: ""
       sources: []
       filter:
         namespaces:
@@ -884,6 +911,10 @@ gcs:
     path: ""
     minimumPriority: ""
     skipExistingOnStartup: true
+    certificate: ""
+    skipTLS: false
+    mountedSecret: ""
+    secretRef: ""
     customLabels: {}
     sources: []
     filter:
@@ -904,6 +935,10 @@ gcs:
     rotation: "daily"
     minimumPriority: ""
     skipExistingOnStartup: true
+    certificate: ""
+    skipTLS: false
+    mountedSecret: ""
+    secretRef: ""
     sources: []
     filter:
       namespaces:
@@ -921,6 +956,8 @@ gcs:
     webhook: ""
     minimumPriority: ""
     skipExistingOnStartup: true
+    mountedSecret: ""
+    secretRef: ""
     sources: []
     filter:
       namespaces:
@@ -938,6 +975,8 @@ gcs:
     webhook: ""
     minimumPriority: ""
     skipExistingOnStartup: true
+    mountedSecret: ""
+    secretRef: ""
     sources: []
     filter:
       namespaces:
@@ -955,6 +994,8 @@ gcs:
     webhook: ""
     minimumPriority: ""
     skipExistingOnStartup: true
+    mountedSecret: ""
+    secretRef: ""
     sources: []
     filter:
       namespaces:
@@ -979,6 +1020,10 @@ gcs:
     headers: {}
     minimumPriority: ""
     skipExistingOnStartup: true
+    certificate: ""
+    skipTLS: false
+    mountedSecret: ""
+    secretRef: ""
     sources: []
     filter:
       namespaces:
@@ -1001,6 +1046,8 @@ gcs:
     accessKeyID: ""
     minimumPriority: "warning"
     skipExistingOnStartup: true
+    mountedSecret: ""
+    secretRef: ""
     sources: []
     filter:
       namespaces:
@@ -1022,6 +1069,8 @@ gcs:
     accessKeyID: ""
     minimumPriority: "warning"
     skipExistingOnStartup: true
+    mountedSecret: ""
+    secretRef: ""
     sources: []
     filter:
       namespaces:
@@ -1040,6 +1089,8 @@ gcs:
     bucket: ""
     minimumPriority: "warning"
     skipExistingOnStartup: true
+    mountedSecret: ""
+    secretRef: ""
     sources: []
     filter:
       namespaces:
