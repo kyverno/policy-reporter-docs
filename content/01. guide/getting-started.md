@@ -28,7 +28,8 @@ Install only the core application to get REST APIs and/or a metrics endpoint. Bo
   ```
 
   ```bash [Static Manifests]
-  kubectl apply -f https://raw.githubusercontent.com/kyverno/policy-reporter/main/manifest/core/install.yaml
+  kubectl apply -f https://raw.githubusercontent.com/kyverno/policy-reporter/main/manifest/policy-reporter/namespace.yaml
+  kubectl apply -f https://raw.githubusercontent.com/kyverno/policy-reporter/main/manifest/policy-reporter/install.yaml
   ```
 ::
 
@@ -57,9 +58,9 @@ This installation also sets Policy Reporter UI as an alert target for new violat
   ```
 
   ```bash [Static Manifests]
-  kubectl apply -f https://raw.githubusercontent.com/kyverno/policy-reporter/main/manifest/default-policy-reporter-ui/namespace.yaml
-  kubectl apply -f https://raw.githubusercontent.com/kyverno/policy-reporter/main/manifest/default-policy-reporter-ui/config-secret.yaml
-  kubectl apply -f https://raw.githubusercontent.com/kyverno/policy-reporter/main/manifest/default-policy-reporter-ui/install.yaml
+  kubectl apply -f https://raw.githubusercontent.com/kyverno/policy-reporter/main/manifest/policy-reporter-ui/namespace.yaml
+  kubectl apply -f https://raw.githubusercontent.com/kyverno/policy-reporter/main/manifest/policy-reporter-ui/config-secret.yaml
+  kubectl apply -f https://raw.githubusercontent.com/kyverno/policy-reporter/main/manifest/policy-reporter-ui/install.yaml
   ```
 ::
 
@@ -83,9 +84,9 @@ This installation also sets Policy Reporter UI as an alert target for new violat
   ```
 
   ```bash [Static Manifests]
-  kubectl apply -f https://raw.githubusercontent.com/kyverno/policy-reporter/main/manifest/kyverno-policy-reporter-ui/namespace.yaml
-  kubectl apply -f https://raw.githubusercontent.com/kyverno/policy-reporter/main/manifest/kyverno-policy-reporter-ui/config-secret.yaml
-  kubectl apply -f https://raw.githubusercontent.com/kyverno/policy-reporter/main/manifest/kyverno-policy-reporter-ui/install.yaml
+  kubectl apply -f https://raw.githubusercontent.com/kyverno/policy-reporter/main/manifest/policy-reporter-kyverno-ui/namespace.yaml
+  kubectl apply -f https://raw.githubusercontent.com/kyverno/policy-reporter/main/manifest/policy-reporter-kyverno-ui/config-secret.yaml
+  kubectl apply -f https://raw.githubusercontent.com/kyverno/policy-reporter/main/manifest/policy-reporter-kyverno-ui/install.yaml
   ```
 ::
 
