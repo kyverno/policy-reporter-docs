@@ -94,39 +94,6 @@ curl -X GET "http://localhost:8080/v1/targets"
 { "message": "Error Message" }
 ```
 
-### Categories API
-
-| Method | API              | Description                                                          | Codes |
-|--------|------------------|----------------------------------------------------------------------|----------------|
-| `GET`  | `/v1/categories` | List of all defined PolicyReport and ClusterPolicyReport Categories  | `200`, `500`   |
-
-#### Query Filter Parameters
-
-| Filter      | Type          | Description                 |
-|-------------|---------------|-----------------------------|
-| __sources__ | `string[]`    | Filter by a list of sources |
-
-#### Example
-
-```bash
-curl -X GET "http://localhost:8080/v1/categories?source=kyverno"
-```
-
-* Response `200`
-
-```json
-[
-  "Pod Security Standards (Default)",
-  "Pod Security Standards (Restricted)"
-]
-```
-
-* Response `500`
-
-```json
-{ "message": "Error Message" }
-```
-
 ### Policy Report API
 
 | Method | API                  | Description                                                          | Codes          |
@@ -318,6 +285,40 @@ curl -X GET "http://localhost:8080/v1/rule-status-count?policy=require-non-root-
 
 ## V1 PolicyReport APIs
 
+### Categories API
+
+| Method | API                                   | Description                                                          | Codes          |
+|--------|---------------------------------------|----------------------------------------------------------------------|----------------|
+| `GET`  | `/v1/namespaced-resources/categories` | List of all defined PolicyReport and ClusterPolicyReport Categories  | `200`, `500`   |
+
+#### Query Filter Parameters
+
+| Filter         | Type          | Description                    |
+|----------------|---------------|--------------------------------|
+| __sources__    | `string[]`    | Filter by a list of sources    |
+| __namespaces__ | `string[]`    | Filter by a list of namespaces |
+
+#### Example
+
+```bash
+curl -X GET "http://localhost:8080/v1/namespaced-resources/categories?source=kyverno"
+```
+
+* Response `200`
+
+```json
+[
+  "Pod Security Standards (Default)",
+  "Pod Security Standards (Restricted)"
+]
+```
+
+* Response `500`
+
+```json
+{ "message": "Error Message" }
+```
+
 ### Policies API
 
 | Method | API                                 | Description                                           | Codes |
@@ -330,6 +331,7 @@ curl -X GET "http://localhost:8080/v1/rule-status-count?policy=require-non-root-
 |----------------|---------------|--------------------------------|
 | __sources__    | `string[]`    | Filter by a list of sources    |
 | __categories__ | `string[]`    | Filter by a list of categories |
+| __namespaces__ | `string[]`    | Filter by a list of namespaces |
 
 #### Example
 
@@ -606,6 +608,39 @@ curl -X GET "http://localhost:8080/v1/namespaced-resources/results?source=kyvern
 ```
 
 ## V1 ClusterPolicyReport APIs
+
+### Categories API
+
+| Method | API                                | Description                                                          | Codes          |
+|--------|------------------------------------|----------------------------------------------------------------------|----------------|
+| `GET`  | `/v1/cluster-resources/categories` | List of all defined PolicyReport and ClusterPolicyReport Categories  | `200`, `500`   |
+
+#### Query Filter Parameters
+
+| Filter      | Type          | Description                 |
+|-------------|---------------|-----------------------------|
+| __sources__ | `string[]`    | Filter by a list of sources |
+
+#### Example
+
+```bash
+curl -X GET "http://localhost:8080/v1/cluster-resources/categories?source=kyverno"
+```
+
+* Response `200`
+
+```json
+[
+  "Pod Security Standards (Default)",
+  "Pod Security Standards (Restricted)"
+]
+```
+
+* Response `500`
+
+```json
+{ "message": "Error Message" }
+```
 
 ### Policies API
 
