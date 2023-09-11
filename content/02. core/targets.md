@@ -718,7 +718,7 @@ telegram:
 
 Channels uses the same `token`, `minimumPriority` and `skipExistingOnStartup` configuration as the root target if not defined.
 
-#### Send notification based on namespace prefix to a dedicated GoogleChat Group
+#### Send notification based on namespace prefix to a dedicated Telegram Chat
 
 ```yaml
 telegram:
