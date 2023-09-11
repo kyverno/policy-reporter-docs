@@ -58,6 +58,23 @@ rest:
   enabled: true
 ```
 
+### Enable API BasicAuth (since v2.20.0)
+
+It is possible to enable global HTTP Basic Authentication for the API and metric endpoints
+
+```yaml [values.yaml]
+global:
+  basicAuth:
+    # username: username
+    # password: password
+    secretRef: auth-secret
+```
+
+The credentials can be configured directly or as reference to an already existing secret with `username` and `password` key/value pairs.
+
+Policy Reporter UI will automatically do authorized API calls. If `monitoring` is enabled the ServiceMonitor resources will also get the required `basicAuth` configuration.
+
+
 ### Enable Targets / Notification
 
 Policy Reporter supports several targets to which notifications can be sent. You can configure as many targets as you like, and also configure different targets for different priorities or sources (like Kyverno, Kube Bench or Falco). Channels in combination with filters allow you to configure multiple clients of the same type of targets. This is useful, for example, to forward different priorities or results of certain namespaces to a separate Slack channel.
@@ -552,7 +569,7 @@ Use tools like VPN, private Networks or internal Network Load Balancer to expose
 
 By default, the Policy Reporter UI processes only the Policy Reporter REST API running in the same cluster. If you are working in a multi-cluster environment and running Policy Reporter in each cluster, it can be annoying to switch between the different UIs of each cluster. To solve this problem, it is possible to configure additional Policy Reporter REST APIs from external clusters and switch between them as needed.
 
-The APIs must be accessible for Policy Reporter UI, currently no additional authentication is supported. Make sure that you make your APIs available only internally.
+The APIs must be accessible for Policy Reporter UI, currently only HTTP Basic authentication is supported. Make sure that you make your APIs available only internally.
 
 You can use the the `ui.clusterName` configuration to set the name of the default Cluster API, default is `Default`.
 
@@ -566,6 +583,9 @@ ui:
     kyvernoApi: https://kyverno-plugin.external.cluster # (optional) reachable external Policy Reporter Kyverno Plugin REST API
     skipTLS: false                                      # skip SSL verification
     certificate: "/app/certs/root.ca"                   # (optional) path to a mounted root cert for custom signed domains
+    username: username                                  # HTTP BasicAuth Username
+    password: password                                  # HTTP BasicAuth Password
+    secretRef: auth-secret                              # all configuration can also provided as existing secret with the related key/value pairs, except the cluster name.
 ```
 
 ### Kyverno Plugin integration

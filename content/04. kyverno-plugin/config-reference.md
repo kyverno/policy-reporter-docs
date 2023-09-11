@@ -14,6 +14,11 @@ kubeconfig: '~/.kube/config'
 
 api:
   port: 8080
+  # HTTP Basic Authentication for APIs and metrics endpoints
+  basicAuth:
+    username: ""
+    password: ""
+    secretRef: ""
 
 rest:
   enabled: false

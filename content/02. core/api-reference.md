@@ -943,7 +943,7 @@ curl -X GET "http://localhost:8080/metrics"
 
 * Response `200`
 
-```text
+```
 # HELP cluster_policy_report_result List of all ClusterPolicyReport Results
 # TYPE cluster_policy_report_result gauge
 cluster_policy_report_result{category="",kind="Namespace",name="argo-cd",policy="require-ns-labels",report="clusterpolicyreport",rule="check-for-labels-on-namespace",severity="",status="fail"} 1

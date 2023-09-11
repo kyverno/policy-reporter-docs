@@ -183,7 +183,7 @@ curl -X GET "http://localhost:8080/metrics"
 
 * Response `200`
 
-```text
+```
 # HELP policy_report_kyverno_policy List of all Policies
 # TYPE policy_report_kyverno_policy gauge
 kyverno_policy{background="true",category="",kind="ClusterPolicy",namespace="",policy="require-ns-labels",rule="check-for-labels-on-namespace",severity="",type="validation",validationFailureAction="audit"} 1

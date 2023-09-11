@@ -698,6 +698,92 @@ gcs:
 }
 ```
 
+## Telegram
+
+Send new PolicyReportResults with all available information to Telegram Bot API.
+
+### Example
+
+The minimal configuration for Telegram requires a `chatID` and bot `token`.
+
+```yaml
+telegram:
+  chatID: "XXX"
+  token: "XXXX"
+  minimumPriority: "warning"
+  skipExistingOnStartup: true
+```
+
+### Channel Example
+
+Channels uses the same `token`, `minimumPriority` and `skipExistingOnStartup` configuration as the root target if not defined.
+
+#### Send notification based on namespace prefix to a dedicated GoogleChat Group
+
+```yaml
+telegram:
+  token: "XXXX"
+  minimumPriority: "warning"
+  skipExistingOnStartup: true
+  channels:
+  - chatID: "XXX1"
+    filter:
+      namespaces:
+        include: ["team-a-*"]
+  - chatID: "XXX2"
+    filter:
+      namespaces:
+        include: ["team-b-*"]
+```
+
+### Screenshot
+<a href="/images/targets/telegram.png" target="_blank">
+    <nuxt-img src="/images/targets/telegram.png" style="border: 1px solid #555" alt="Telegram Notification for a PolicyReportResult"></nuxt-img>
+</a>
+
+## Google Chat
+
+Send new PolicyReportResults with all available information to the GoogleChat API.
+
+### Example
+
+The minimal configuration for GoogleChat requires a valid and accessible webhook URL.
+
+```yaml
+googleChat:
+  webhook: "https://chat.googleapis.com/v1/spaces/XXX/messages?key=XXX&token=XXX"
+  minimumPriority: "critical"
+  skipExistingOnStartup: true
+  sources:
+  - kyverno
+```
+
+### Channel Example
+
+Channels uses the same `minimumPriority` and `skipExistingOnStartup` configuration as the root target if not defined.
+
+#### Send notification based on namespace prefix to a dedicated GoogleChat Group
+
+```yaml
+googleChat:
+  minimumPriority: "warning"
+  skipExistingOnStartup: true
+  channels:
+  - webhook: "https://chat.googleapis.com/v1/spaces/XXX1/messages?key=XXX&token=XXX"
+    filter:
+      namespaces:
+        include: ["team-a-*"]
+  - webhook: "https://chat.googleapis.com/v1/spaces/XXX2/messages?key=XXX&token=XXX"
+    filter:
+      namespaces:
+        include: ["team-b-*"]
+```
+
+### Screenshot
+<a href="/images/targets/google-chat.png" target="_blank">
+    <nuxt-img src="/images/targets/google-chat.png" style="border: 1px solid #555" alt="GoogleChat Notification for a PolicyReportResult"></nuxt-img>
+</a>
+
 ## Configuration Reference
 
 ::code-group
@@ -888,6 +974,46 @@ gcs:
       credentials: ""
       bucket: ""
       minimumPriority: "warning"
+      skipExistingOnStartup: true
+      mountedSecret: ""
+      secretRef: ""
+      sources: []
+      filter:
+        namespaces:
+          include: []
+          exclude: []
+        policies:
+          include: []
+          exclude: []
+        priorities:
+          include: []
+          exclude: []
+        channels: []
+
+    googleChat:
+      webhook: ""
+      minimumPriority: ""
+      skipExistingOnStartup: true
+      mountedSecret: ""
+      secretRef: ""
+      sources: []
+      filter:
+        namespaces:
+          include: []
+          exclude: []
+        policies:
+          include: []
+          exclude: []
+        priorities:
+          include: []
+          exclude: []
+        channels: []
+
+    telegram:
+      token: ""
+      chatID: ""
+      host: ""
+      minimumPriority: ""
       skipExistingOnStartup: true
       mountedSecret: ""
       secretRef: ""
@@ -1103,6 +1229,45 @@ gcs:
         include: []
         exclude: []
       channels: []
+
+  googleChat:
+    webhook: ""
+    minimumPriority: ""
+    skipExistingOnStartup: true
+    mountedSecret: ""
+    secretRef: ""
+    sources: []
+    filter:
+      namespaces:
+        include: []
+        exclude: []
+      policies:
+        include: []
+        exclude: []
+      priorities:
+        include: []
+        exclude: []
+      channels: []
+
+  telegram:
+    token: ""
+    chatID: ""
+    host: ""
+    minimumPriority: ""
+    skipExistingOnStartup: true
+    mountedSecret: ""
+    secretRef: ""
+    sources: []
+    filter:
+      namespaces:
+        include: []
+        exclude: []
+      policies:
+        include: []
+        exclude: []
+      priorities:
+        include: []
+        exclude: []
+      channels: []
   ```
 ::
-</code-group>

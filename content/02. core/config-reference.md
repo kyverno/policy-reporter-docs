@@ -14,6 +14,11 @@ kubeconfig: '~/.kube/config'
 
 api:
   port: 8080
+  logging: false
+  basicAuth:
+    username: ""
+    password: ""
+    secretRef: ""
 
 rest:
   enabled: false
@@ -263,6 +268,46 @@ gcs:
       include: []
       exclude: []
     channels: []
+
+  googleChat:
+    webhook: ""
+    minimumPriority: ""
+    skipExistingOnStartup: true
+    mountedSecret: ""
+    secretRef: ""
+    sources: []
+    filter:
+      namespaces:
+        include: []
+        exclude: []
+      policies:
+        include: []
+        exclude: []
+      priorities:
+        include: []
+        exclude: []
+      channels: []
+
+  telegram:
+    token: ""
+    chatID: ""
+    host: "" # optional proxy host
+    minimumPriority: ""
+    skipExistingOnStartup: true
+    mountedSecret: ""
+    secretRef: ""
+    sources: []
+    filter:
+      namespaces:
+        include: []
+        exclude: []
+      policies:
+        include: []
+        exclude: []
+      priorities:
+        include: []
+        exclude: []
+      channels: []
 
 emailReports:
   clusterName: ""
