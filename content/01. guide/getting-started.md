@@ -103,7 +103,7 @@ kubectl port-forward service/policy-reporter-ui 8081:8080 -n policy-reporter
 
 Install Policy Reporter core application with metrics enabled and the monitoring subchart to install a ServiceMonitor and three pre-configured Grafana Dashboards. Change the `monitoring.grafana.namespace` as needed as well as `monitoring.serviceMonitor.labels` to match the `serviceMonitorSelector` of your Prometheus CRD.
 
-See <a href="/guide/helm-chart-core#configure-the-servicemonitor" target="_blank">Helm Chart - Monitoring</a> for details.
+See [Helm Chart - Monitoring](helm-chart-core#configure-the-servicemonitor) for details.
 
 ```bash
 helm upgrade --install policy-reporter policy-reporter/policy-reporter --set monitoring.enabled=true --set monitoring.grafana.namespace=monitoring --set monitoring.serviceMonitor.labels.release=monitoring -n policy-reporter --create-namespace
