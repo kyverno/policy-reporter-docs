@@ -175,6 +175,8 @@ emailReports:
     password: ""
     from: "" # Displayed From E-Mail Address
     encryption: "" # default is none, supports ssl/tls and starttls
+    certificate: "" # path to your customize cert
+    skipTLS: false # skip TLS verification
 
   # basic summary report
   summary:
@@ -732,6 +734,7 @@ kyvernoPlugin:
     # enable the feature
     enabled: false
     # namespace where kyverno events are created
+    # set to an empty string to watch for events in all namespaces
     eventNamespace: default
     results: 
       # maximal results stored in a PolicyReport per namespace

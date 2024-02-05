@@ -429,6 +429,10 @@ Policy Reporter can also send results to S3 compatible services like __MinIO__, 
 
 It persists each result as JSON in the following structure: `s3://<bucket>/<prefix>/YYYY-MM-DD/<policy-name>-<result-id>-YYYY-MM-DDTHH:mm:ss.json`
 
+### IRSA Support
+
+In case of AWS S3, authentication via IRSA is supported. It requires the `AWS_ROLE_ARN` and `AWS_WEB_IDENTITY_TOKEN_FILE` ENV vars to be available.
+
 ### Additional Configure
 
 * __endpoint__ to the S3 API
@@ -504,6 +508,10 @@ s3:
 
 Policy Reporter can also send results to Kinesis compatible services like __Yandex__ or __AWS Kinesis__.
 
+### IRSA Support
+
+In case of AWS S3, authentication via IRSA is supported. It requires the `AWS_ROLE_ARN` and `AWS_WEB_IDENTITY_TOKEN_FILE` ENV vars to be available.
+
 ### Additional Configure
 
 * __endpoint__ to the S3 API
@@ -577,6 +585,10 @@ kinesis:
 ## AWS SecurityHub
 
 Policy Reporter can also send results to the AWS SecurityHub.
+
+### IRSA Support
+
+In case of AWS S3, authentication via IRSA is supported. It requires the `AWS_ROLE_ARN` and `AWS_WEB_IDENTITY_TOKEN_FILE` ENV vars to be available. If you are using IRSA auth, the AccountID is optional.
 
 ### Additional Configure
 
@@ -824,6 +836,7 @@ googleChat:
       certificate: ""
       skipTLS: false
       mountedSecret: ""
+      typelessApi: false
       secretRef: ""
       sources: []
       filter:

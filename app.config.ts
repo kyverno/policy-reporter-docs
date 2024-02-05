@@ -1,5 +1,3 @@
-import Logo from "./components/Logo.vue"
-
 export default defineAppConfig({
   docus: {
     title: 'Policy Reporter',
@@ -17,7 +15,7 @@ export default defineAppConfig({
       exclude: []
     },
     header: {
-      logo: Logo,
+      logo: true,
       showLinkIcon: false,
       exclude: []
     },

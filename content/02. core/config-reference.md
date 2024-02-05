@@ -77,6 +77,9 @@ redis:
 loki:
   host: ""
   path: ""
+  # HTTP BasicAuth
+  username: ""
+  password: ""
   minimumPriority: "warning"
   skipExistingOnStartup: true
   customLabels: {}
@@ -99,6 +102,7 @@ elasticsearch:
   rotation: "daily"
   minimumPriority: ""
   skipExistingOnStartup: true
+  typelessApi: false
   sources: []
   filter:
     namespaces:

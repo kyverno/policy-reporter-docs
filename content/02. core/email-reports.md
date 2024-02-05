@@ -50,6 +50,8 @@ You can filter by:
       password: password
       from: policy-reporter@company.org
       encryption: ssl/tls
+      certificate: ""
+      skipTLS: false
     summary:
       enabled: true
       schedule: "0 8 * * *" # Send the report each day at 08:00 AM
@@ -69,6 +71,8 @@ You can filter by:
       password: password
       from: policy-reporter@company.org
       encryption: ssl/tls
+      certificate: ""
+      skipTLS: false
     summary:
       to: ['receiver@email.com']
   ```
@@ -154,6 +158,8 @@ You can filter by:
       password: password
       from: policy-reporter@company.org
       encryption: ssl/tls
+      certificate: ""
+      skipTLS: false
     violations:
       enabled: true
       schedule: "0 8 * * *" # Send the report each day at 08:00 AM
@@ -195,6 +201,8 @@ You can filter by:
       password: password
       from: policy-reporter@company.org
       encryption: ssl/tls
+      certificate: ""
+      skipTLS: false
     violations:
       channels:
       # send only team namespace reports from Kyverno to team A
