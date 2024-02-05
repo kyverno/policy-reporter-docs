@@ -510,7 +510,7 @@ Policy Reporter can also send results to Kinesis compatible services like __Yand
 
 ### IRSA Support
 
-In case of AWS S3, authentication via IRSA is supported. It requires the `AWS_ROLE_ARN` and `AWS_WEB_IDENTITY_TOKEN_FILE` ENV vars to be available.
+In case of AWS Kinesis, authentication via IRSA is supported. It requires the `AWS_ROLE_ARN` and `AWS_WEB_IDENTITY_TOKEN_FILE` ENV vars to be available.
 
 ### Additional Configure
 
