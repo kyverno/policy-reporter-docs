@@ -183,12 +183,12 @@ You can filter by:
             include: ['team-b-*']
           sources:
             include: ['Kyverno']
-      # send Trivy Reports to the infra chapter
+      # send Trivy ConfigAudit and Vulnerability Reports to the infra chapter
       - to: ['infra@company.org']
         filter:
           disableClusterReports: false
           sources:
-            include: ['Trivy*', 'Falco']
+            include: ['Trivy Vulnerability', 'Trivy ConfigAudit', 'Falco']
   ```
 
   ```yaml [config.yaml]
@@ -221,11 +221,11 @@ You can filter by:
             include: ['team-b-*']
           sources:
             include: ['Kyverno']
-      # send Trivy and Falco Reports to the infra chapter
+      # send Trivy Vulnerability & ConfigAudit and Falco Reports to the infra chapter
       - to: ['infra@company.org']
         filter:
           disableClusterReports: false
           sources:
-            include: ['Trivy*', 'Falco']
+            include: ['Trivy Vulnerability', 'Trivy ConfigAudit', 'Falco']
   ```
 ::
