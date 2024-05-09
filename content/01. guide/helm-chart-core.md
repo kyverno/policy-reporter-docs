@@ -573,6 +573,8 @@ By default, the Policy Reporter UI processes only the Policy Reporter REST API r
 
 The APIs must be accessible for Policy Reporter UI, currently only HTTP Basic authentication is supported. Make sure that you make your APIs available only internally.
 
+To activate the REST-API of your external installations of Policy Reporter, you must set `rest.enabled` to `true` in the respective configurations.
+
 You can use the the `ui.clusterName` configuration to set the name of the default Cluster API, default is `Default`.
 
 ```yaml [values.yaml]
@@ -588,6 +590,13 @@ ui:
     username: username                                  # HTTP BasicAuth Username
     password: password                                  # HTTP BasicAuth Password
     secretRef: auth-secret                              # all configuration can also provided as existing secret with the related key/value pairs, except the cluster name.
+```
+
+#### External Cluster configuration
+
+```yaml [values.yaml]
+rest:
+  enabled: true
 ```
 
 ### Kyverno Plugin integration
