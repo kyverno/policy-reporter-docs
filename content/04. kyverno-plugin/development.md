@@ -59,5 +59,5 @@ go run main.go run -k ~/.kube/config
 ```bash
 make build
 
-./build/kyverno-plugin run -k ~/.kube/config
+./build/policyreporter run -k ~/.kube/config
 ```

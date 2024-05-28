@@ -342,7 +342,7 @@ policy_report_result{artifact_tag="",score="",status="pass"} 1
 
 #### Metric Filter
 
-Configure the processed namespaces, sources, policies, severities and/or status for metrics to get rid of unnecessary metrics. You can either define exclude or include rules, with wildcard support, for each available filter and combine them as needed.
+Configure the processed namespaces, sources, policies, severities, kinds and/or status for metrics to get rid of unnecessary metrics. You can either define exclude or include rules, with wildcard support, for each available filter and combine them as needed.
 
 ```yaml [values.yaml]
 metrics:
@@ -354,6 +354,8 @@ metrics:
       include: ["Trivy*", "Kyverno"]
     status:
       exclude: ["skip"]
+    kinds:
+      exclude: ["Pod"]
 ```
 
 ### Priority Mapping
