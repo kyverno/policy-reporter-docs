@@ -5,8 +5,9 @@ export default defineConfig({
   title: "Policy Reporter",
   description: "Documentation for Policy Reporter",
   base: process.env.BASE ?? '/',
+  head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
   themeConfig: {
-    logo: '/assets/logo.png',
+    logo: '/logo.png',
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
