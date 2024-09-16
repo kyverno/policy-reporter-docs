@@ -1,11 +1,13 @@
 import { defineConfig } from 'vitepress'
 
+const base = process.env.BASE ?? '/'
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   title: "Policy Reporter",
-  description: "Documentation for Policy Reporter",
-  base: process.env.BASE ?? '/',
-  head: [['link', { rel: 'icon', href: '/favicon.ico' }]],
+  description: "Documentation for Policy Reporter v3",
+  base,
+  head: [['link', { rel: 'icon', href: `${base}favicon.ico` }]],
   themeConfig: {
     logo: '/logo.png',
     // https://vitepress.dev/reference/default-theme-config
