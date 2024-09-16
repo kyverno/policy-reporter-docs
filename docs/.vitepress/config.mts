@@ -4,6 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "Policy Reporter",
   description: "Documentation for Policy Reporter",
+  base: process.env.BASE ?? '/',
   themeConfig: {
     logo: '/assets/logo.png',
     // https://vitepress.dev/reference/default-theme-config
