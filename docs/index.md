@@ -18,7 +18,7 @@ features:
   - title: Metrics
     details: Customizable metrics based on PolicyReports to integrate into the monitoring tool of your choice
   - title: Integrations
-    details: Integrate PolicyReporter with different external tools like Slack, MS Teams, Grafana Loki and more to get notified as soon as a new policy violation occours.
+    details: Integrate Policy Reporter with different external tools like Slack, MS Teams, Grafana Loki and more to get notified as soon as a new policy violation occours.
   - title: Policy Reporter UI
     details: Policy Reporter ships with its own optional UI which brings a graphical way to get deep insights into your violations and how you can fix them.
 ---
