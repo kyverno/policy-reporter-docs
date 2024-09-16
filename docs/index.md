@@ -9,7 +9,7 @@ hero:
   actions:
     - theme: brand
       text: Getting started
-      link: /getting-started/installation
+      link: /getting-started/introduction
     - theme: alt
       text: Policy Reporter v2 Docs
       link: https://kyverno.github.io/policy-reporter
