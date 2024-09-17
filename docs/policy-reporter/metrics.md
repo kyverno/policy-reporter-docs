@@ -35,7 +35,7 @@ To reduce the number of metric elements, it is possible to filter out results fo
 | `policies`   | Policy of the result                       |
 | `severities` | Severity of the result                     |
 | `sources`    | Source of the result                       |
-| `status`     | Status of the Result                       |
+| `status`     | Status of the result                       |
 
 ### Example Filter configuration
 
@@ -160,7 +160,7 @@ Gauge: Bye default one entry represents one result in a ClusterPolicyReport. Del
 | `rule`      | Rule of the result                         |
 | `severity`  | Severity of the result                     |
 | `source`    | Source of the result                       |
-| `status`    | Status of the Result                       |
+| `status`    | Status of the result                       |
 
 ### policy_report_result
 
@@ -179,4 +179,4 @@ Gauge: Bye default one entry represents one result in a PolicyReport. Deleted re
 | `rule`      | Rule of the result                         |
 | `severity`  | Severity of the result                     |
 | `source`    | Source of the result                       |
-| `status`    | Status of the Result                       |
+| `status`    | Status of the result                       |
