@@ -27,6 +27,12 @@ export default defineConfig({
         ]
       },
       {
+        text: 'Upgrade Guide',
+        items: [
+          { text: 'Helm Chart v2.x .. v3.x', link: '/upgrade-guide/helm' },
+        ]
+      },
+      {
         text: 'Policy Reporter',
         items: [
           { text: 'Report Processing', link: '/policy-reporter/report-processing' },
