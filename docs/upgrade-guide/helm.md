@@ -89,11 +89,17 @@ The **SecurityHub** integration has been completely redesigned. Instead of only 
     skipExistingOnStartup: false # [!code ++]
     cleanup: false # [!code --]
     # Synces removed or resolved findings to SecurityHub
-    cleanup: true # [!code ++]
+    synchronize: true # [!code ++]
     # Delay between AWS GetFindings API calls, to avoid hitting the API RequestLimit
     delayInSeconds: 2 # [!code ++]
     minimumSeverity: "" # [!code ++]
 ```
+
+### Loki Target
+
+The Loki target now uses the `/loki/api/v1/push` API by default.
+
+To align with other targets, the `source` label now reflects the `source` field of a PolicyReportResult. You can query all logs created by **Policy Reporter** now with the new `createdBy`=`policy-reporter` label.
 
 ## LeaderElecation
 
