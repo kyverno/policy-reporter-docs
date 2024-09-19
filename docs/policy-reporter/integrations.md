@@ -791,7 +791,7 @@ AWS SecurityHub supports `WebIdentidy`, `PodIdentity` and `Credentials` as authe
 | `productName`          | Used product name in SH Findings          | `Policy Reporter` |
 | `companyName`          | Used company name in SH Findings          | `Kyverno`         |
 | `delayInSeconds`       | Delay between report cleanups,<br>may be relevant when reaching AWS RateLimits | `2`         |
-| `cleanup`              | Enables cleanup of resolved findings in SH| `true`      |
+| `synchronize`          | Enables synchronization of resolved findings in SH| `true`      |
 | `region`               | AWS Region                                | `AWS_REGION` ENV  |
 
 #### Example
