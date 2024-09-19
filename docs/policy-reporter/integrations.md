@@ -784,7 +784,7 @@ AWS SecurityHub supports `WebIdentidy`, `PodIdentity` and `Credentials` as authe
 
 | Option                 | Description                               | Default           |
 | ---------------------- | ----------------------------------------- | ----------------- |
-| `accoundID`            | AWS AccoundID                             | _(required)_      |
+| `accountID`            | AWS AccoundID                             | _(required)_      |
 | `endpoint`             | API Endpoint                              | _(optional)_      |
 | `accessKeyID`          | For Credentials authentication            | _(optional)_      |
 | `secretAccessKey`      | For Credentials authentication            | _(optional)_      |
@@ -802,7 +802,7 @@ AWS SecurityHub supports `WebIdentidy`, `PodIdentity` and `Credentials` as authe
 target:
   securityHub:
     region: 'eu-central-1'
-    accoundID: 'accoundID'
+    accountID: 'accountID'
     secretAccessKey: 'secretAccessKey'
     accessKeyID: 'accessKeyID'
 ```
@@ -812,7 +812,7 @@ target:
   securityHub:
     config:
       region: 'eu-central-1'
-      accoundID: 'accoundID'
+      accountID: 'accountID'
       secretAccessKey: 'secretAccessKey'
       accessKeyID: 'accessKeyID'
 ```
