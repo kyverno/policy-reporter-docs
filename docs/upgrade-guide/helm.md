@@ -68,21 +68,34 @@ target:
 
 In the new Policy Reporter UI v2, the Log page function has been removed as it was of little use, so the related `ui` push target was also dropped.
 
+### Telegram Target
+
+To unify naming conventions the `chatID` option was renamed to `chatId`.
+
+### AWS Targets
+
+To unify naming conventions the `accessKeyID` option for all AWS targets (S3, Kinesis, SecurityHub) was renamed to `accessKeyId`.
+
+Same applies for the `accessKeyID` key in Secrets used via `secretRef` or `mountedSecret`. 
+
 ### SecurityHub Target
 
 The **SecurityHub** integration has been completely redesigned. Instead of only pushing new violations without synchronizing removed resources or resolved policies, the new integration synchronizes all existing violations with SecurityHub and automatically resolves them once the associated resource or policy has been removed or the violation has been resolved.
 
 ```yaml
  securityHub:
-    accessKeyID: ""
+    accessKeyID: "" # [!code --]
+    accessKeyId: "" # [!code ++]
     secretAccessKey: ""
     secretRef: ""
     mountedSecret: ""
     region: ""
     endpoint: ""
-    accountID: ""
+    accountId: "" # [!code --]
+    accountId: "" # [!code ++]
     productName: ""
     minimumPriority: "" # [!code --]
+    minimumSeverity: "" # [!code ++]
     sources: []
     skipExistingOnStartup: true # [!code --]
     # Takes only effect when `cleanup` is disabled.
@@ -92,7 +105,6 @@ The **SecurityHub** integration has been completely redesigned. Instead of only 
     synchronize: true # [!code ++]
     # Delay between AWS GetFindings API calls, to avoid hitting the API RequestLimit
     delayInSeconds: 2 # [!code ++]
-    minimumSeverity: "" # [!code ++]
 ```
 
 ### Loki Target

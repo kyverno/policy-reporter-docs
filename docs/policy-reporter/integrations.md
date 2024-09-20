@@ -211,7 +211,7 @@ target:
 
 Instead of defining your credentials or webhooks directly, you can also use the `secretRef` configuration to reference an already existing **Secret** by name. If the secret does not exist, the target is skipped.
 
-The **Secret** should contain the related configuration as key. Supported keys are `host`, `webhook`, `channel`, `apiKey`, `accountID`, `typelessApi`, `kmsKeyId`, `username`, `password`, `token`, `credentials`, `accessKeyID` and `secretAccessKey` - depending on the related target. Only exception is token, which is dedicated for webhook targets and is added as Authorization header.
+The **Secret** should contain the related configuration as key. Supported keys are `host`, `webhook`, `channel`, `apiKey`, `accountId`, `typelessApi`, `kmsKeyId`, `username`, `password`, `token`, `credentials`, `accessKeyId` and `secretAccessKey` - depending on the related target. Only exception is token, which is dedicated for webhook targets and is added as Authorization header.
 
 The secretRef is also supported for channels, so you can use different secrets for different channels.
 
@@ -687,7 +687,7 @@ The S3 integration supports `WebIdentidy`, `PodIdentity` and `Credentials` as au
 | ---------------------- | ----------------------------------------- | ----------------- |
 | `bucket`               | S3 Bucket                                 | _(required)_      |
 | `endpoint`             | S3 API Endpoint                           | _(optional)_      |
-| `accessKeyID`          | For Credentials authentication            | _(optional)_      |
+| `accessKeyId`          | For Credentials authentication            | _(optional)_      |
 | `secretAccessKey`      | For Credentials authentication            | _(optional)_      |
 | `kmsKeyID`             | Used for Bucket Encryption                | _(optional)_      |
 | `bucketKeyEnabled`     | Should use Bucket Key for Encryption      | `false`           |
@@ -707,7 +707,7 @@ target:
     region: 'ru-central1'
     bucket: 'dev-cluster'
     secretAccessKey: 'secretAccessKey'
-    accessKeyID: 'accessKeyID'
+    accessKeyId: 'accessKeyId'
     skipExistingOnStartup: true
 ```
 
@@ -719,7 +719,7 @@ target:
       region: 'ru-central1'
       bucket: 'dev-cluster'
       secretAccessKey: 'secretAccessKey'
-      accessKeyID: 'accessKeyID'
+      accessKeyId: 'accessKeyId'
     skipExistingOnStartup: true
 ```
 
@@ -739,7 +739,7 @@ The AWS integration supports `WebIdentidy`, `PodIdentity` and `Credentials` as a
 | ---------------------- | ----------------------------------------- | ----------------- |
 | `streamName`           | Kinesis Streamname                        | _(required)_      |
 | `endpoint`             | Kinesis API Endpoint                      | _(optional)_      |
-| `accessKeyID`          | For Credentials authentication            | _(optional)_      |
+| `accessKeyId`          | For Credentials authentication            | _(optional)_      |
 | `secretAccessKey`      | For Credentials authentication            | _(optional)_      |
 | `region`               | Region                                    | `AWS_REGION` ENV  |
 
@@ -754,7 +754,7 @@ target:
     region: 'eu-central-1'
     streamName: 'dev-cluster'
     secretAccessKey: 'secretAccessKey'
-    accessKeyID: 'accessKeyID'
+    accessKeyId: 'accessKeyId'
     skipExistingOnStartup: true
 ```
 
@@ -766,7 +766,7 @@ target:
       region: 'eu-central-1'
       streamName: 'dev-cluster'
       secretAccessKey: 'secretAccessKey'
-      accessKeyID: 'accessKeyID'
+      accessKeyId: 'accessKeyId'
     skipExistingOnStartup: true
 ```
 
@@ -784,9 +784,9 @@ AWS SecurityHub supports `WebIdentidy`, `PodIdentity` and `Credentials` as authe
 
 | Option                 | Description                               | Default           |
 | ---------------------- | ----------------------------------------- | ----------------- |
-| `accountID`            | AWS AccoundID                             | _(required)_      |
+| `accountId`            | AWS Accound ID                            | _(required)_      |
 | `endpoint`             | API Endpoint                              | _(optional)_      |
-| `accessKeyID`          | For Credentials authentication            | _(optional)_      |
+| `accessKeyId`          | For Credentials authentication            | _(optional)_      |
 | `secretAccessKey`      | For Credentials authentication            | _(optional)_      |
 | `productName`          | Used product name in SH Findings          | `Policy Reporter` |
 | `companyName`          | Used company name in SH Findings          | `Kyverno`         |
@@ -802,9 +802,9 @@ AWS SecurityHub supports `WebIdentidy`, `PodIdentity` and `Credentials` as authe
 target:
   securityHub:
     region: 'eu-central-1'
-    accountID: 'accountID'
+    accountId: 'accountId'
     secretAccessKey: 'secretAccessKey'
-    accessKeyID: 'accessKeyID'
+    accessKeyId: 'accessKeyId'
 ```
 
 ```yaml [config.yaml]   
@@ -812,9 +812,9 @@ target:
   securityHub:
     config:
       region: 'eu-central-1'
-      accountID: 'accountID'
+      accountId: 'accountId'
       secretAccessKey: 'secretAccessKey'
-      accessKeyID: 'accessKeyID'
+      accessKeyId: 'accessKeyId'
 ```
 
 :::
@@ -865,7 +865,7 @@ Sends notifications about new violations with all available information over the
 | ------------- | -------------------------------- | ------------ |
 | `webhook`     | Webhook Endpoint                 | _(optional)_ |
 | `token`       | Telegram Token                   | _(required)_ |
-| `chatID`      | Telegram ChatID                  | _(required)_ |
+| `chatId`      | Telegram ChatID                  | _(required)_ |
 | `skipTLS`     | skip server cert verification    | `false`      |
 | `certificate` | path to a root CA in PEM format  | _(optional)_ |
 | `headers`     | map of additional static headers | _(optional)_ |
@@ -879,7 +879,7 @@ The minimal configuration for Discord requires a valid and accessible webhook ap
 ```yaml [values.yaml]
 target:
   telegram:
-    chatID: "XXX"
+    chatId: "XXX"
     token: "XXXX"
     skipExistingOnStartup: true
 ```
@@ -888,7 +888,7 @@ target:
 target:
   telegram:
     config:
-      chatID: "XXX"
+      chatId: "XXX"
       token: "XXXX"
     skipExistingOnStartup: true
 ```
