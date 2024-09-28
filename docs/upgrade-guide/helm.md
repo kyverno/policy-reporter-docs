@@ -91,7 +91,7 @@ The **SecurityHub** integration has been completely redesigned. Instead of only 
     mountedSecret: ""
     region: ""
     endpoint: ""
-    accountId: "" # [!code --]
+    accountID: "" # [!code --]
     accountId: "" # [!code ++]
     productName: ""
     minimumPriority: "" # [!code --]
