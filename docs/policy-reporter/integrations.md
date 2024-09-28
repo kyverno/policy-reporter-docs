@@ -425,7 +425,7 @@ target:
 
 ### Grafana Loki
 
-Policy Reporter can send results directly to Grafana Loki without the need of Promtail. Each result includes all available information as labels as well as a source label with policy-reporter as value. To query all messages from Policy Reporter, use `{source="policy-reporter"}` as the query.
+Policy Reporter can send results directly to Grafana Loki without the need of Promtail. Each result includes all available information as labels as well as a createdBy label with policy-reporter as value. To query all messages from Policy Reporter, use `{createdBy="policy-reporter"}` as the query.
 
 #### Options
 
