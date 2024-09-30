@@ -324,3 +324,39 @@ plugin: # [!code ++]
   trivy: # [!code ++]
     enabled: true # [!code ++]
 ```
+
+## Monitoring
+
+While the structure of the `monitoring` subchart remains largely the same, the hardcoded `ServiceMonitor` relabelings for removing duplicate data has been removed. Instead, the dashboards have been updated to handle metrics from an HA setup with multiple pods.
+
+### ServiceMonitor
+
+If you only use the provided dashboards from the `monitoring` subchart you have nothing to change. All are dashboards updated to handle this change.
+
+If you use your own dashboards you can:
+
+1. recreate the old behavior by adding the removed relabelings to your values:
+
+```yaml
+monitoring:
+  serviceMonitor:
+    relabelings: # [!code ++]
+    - action: labeldrop # [!code ++]
+      regex: pod|service|container # [!code ++]
+    - targetLabel: instance # [!code ++]
+      replacement: policy-reporter # [!code ++]
+      action: replace # [!code ++]
+```
+
+2. update your dashboards to handle the pod label
+
+Example:
+
+
+```
+# before
+sum(policy_report_result{policy=~"$policy", category=~"$category", severity=~"$severity", source=~"$source", kind=~"$kind", exported_namespace=~"$namespace" } > 0) by (status, exported_namespace)
+
+# after
+max(sum(policy_report_result{policy=~"$policy", category=~"$category", severity=~"$severity", source=~"$source", kind=~"$kind", exported_namespace=~"$namespace" } > 0) by (status, exported_namespace, pod)) by (status, exported_namespace)
+```
