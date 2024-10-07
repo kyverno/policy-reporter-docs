@@ -2,10 +2,6 @@
 
 With Policy Reporter UI v2 it is possible to use either OAuth2 or OpenIDConnect as authentication mechanism.
 
-::: warning
-Its not possible to reduce or configure view permission based on roles or any other information yet. Authentication ensures that no unauthorized person is able to open the UI at all.
-:::
-
 ## OAuth2
 
 Policy Reporter UI v2 supports a fixed set of oauth2 providers. If the provider of your choice is not yet supported, you can submit a feature request for it.
@@ -112,6 +108,54 @@ ui:
     enabled: true
     callback: http://localhost:8082/callback
     secretRef: 'keycloak-provider'
+```
+
+:::
+
+## Access Control
+
+The current MVP provides a basic machanism to manage access control for custom boards and and generated dashboards.
+
+*More fine grained and flexible access control is planned for later releases.*
+
+### Allow E-Mail List
+
+It is possible to define a list of user emails per custom board that are allowed to access it. It is also possible to define a list of user emails that are allowed to access all generated dashboards, access to a subset of dashboards is not yet supported.
+
+### Example
+
+* Allow a set of users to access all generated resource- and policy dashboards.
+* Allow a set of users to access the **Infrastructure** custom board.
+
+::: code-group
+
+```yaml [values.yaml]
+ui:
+  boards:
+    accessControl:
+      emails: ['admin@company.com']
+
+  customBoards:
+  - name: Infrastructure
+    namespaces:
+      selector:
+        team: infra
+    accessControl:
+      emails: ['user@company.com']
+```
+
+```yaml [config.yaml]
+boards:
+  accessControl:
+    emails: ['admin@company.com']
+
+customBoards:
+- name: Infrastructure
+  namespaces:
+    selector:
+      team: infra
+  accessControl:
+    emails: ['user@company.com']
 ```
 
 :::

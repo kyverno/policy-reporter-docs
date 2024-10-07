@@ -225,8 +225,10 @@ ui:
 
   server: # [!code ++]
     port: 8080 # [!code ++]
-    logging: false # [!code ++]
     overwriteHost: true # [!code ++]
+
+  logging: # [!code ++]
+    api: true # [!code ++]
 ```
 
 ### Redis
@@ -298,7 +300,6 @@ plugin: # [!code ++]
     enabled: true # [!code ++]
     server: # [!code ++]
       port: 8080 # [!code ++]
-      logging: false # [!code ++]
 ```
 
 ### Metrics

@@ -51,6 +51,7 @@ export default defineConfig({
           { text: 'Authentication', link: '/policy-reporter-ui/authentication' },
           { text: 'Custom Boards', link: '/policy-reporter-ui/custom-boards' },
           { text: 'Multi Tenant', link: '/policy-reporter-ui/multi-tenant' },
+          { text: 'App Configuration', link: '/policy-reporter-ui/configuration' },
         ]
       },
       {
