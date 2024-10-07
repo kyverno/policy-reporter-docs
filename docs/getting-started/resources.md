@@ -21,7 +21,9 @@ A list of various resources introducing Policy Reporter and its various componen
 
 ## Recordings
 
-<iframe height="315" src="https://www.youtube-nocookie.com/embed/ZJDd40UJwEE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen width="100%" style="border: 1px solid #555"></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/OgFFYKkpEjs?si=MrvFGWrqSGR6uXRw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="border: 1px solid #555"></iframe>
+<br />
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/ZJDd40UJwEE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen  style="border: 1px solid #555"></iframe>
 <br />
 <iframe height="315" src="https://www.youtube-nocookie.com/embed/PjgAfN2_rkg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen width="100%" style="border: 1px solid #555"></iframe>
 <br />
