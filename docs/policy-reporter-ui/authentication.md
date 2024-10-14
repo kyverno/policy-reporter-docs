@@ -114,23 +114,31 @@ ui:
 
 ## Access Control
 
-The current MVP provides a basic machanism to manage access control for custom boards and and generated dashboards.
-
-*More fine grained and flexible access control is planned for later releases.*
+The current MVP provides access management for OAuth and OpenIDConnect for cluster, default boards and custom board access.
 
 ### Allow E-Mail List
 
-It is possible to define a list of user emails per custom board that are allowed to access it. It is also possible to define a list of user emails that are allowed to access all generated dashboards, access to a subset of dashboards is not yet supported.
+It is possible to configure access control for **clusters**, **boards** and **custom boards** by providing a list of user emails that are allowed to access them.
 
 ### Example
 
 * Allow a set of users to access all generated resource- and policy dashboards.
 * Allow a set of users to access the **Infrastructure** custom board.
+* Allow a set of users to access the **Cluster 2** cluster.
 
 ::: code-group
 
 ```yaml [values.yaml]
 ui:
+  clusters:
+  - name: Default
+    host: http://policy-reporter:8080
+
+  - name: Cluster 2
+    host: http://policy-reporter.company.com
+    accessControl:
+      emails: ['infra@company.com', 'admin@company.com']
+
   boards:
     accessControl:
       emails: ['admin@company.com']
@@ -141,10 +149,19 @@ ui:
       selector:
         team: infra
     accessControl:
-      emails: ['user@company.com']
+      emails: ['infra@company.com']
 ```
 
 ```yaml [config.yaml]
+clusters:
+  - name: Default
+    host: http://policy-reporter:8080
+
+  - name: Cluster 2
+    host: http://policy-reporter.company.com
+    accessControl:
+      emails: ['admin@company.com', 'infra@company.com']
+
 boards:
   accessControl:
     emails: ['admin@company.com']
@@ -155,7 +172,77 @@ customBoards:
     selector:
       team: infra
   accessControl:
-    emails: ['user@company.com']
+    emails: ['infra@company.com']
+```
+
+:::
+
+### Allowed Groups
+
+For OpenIDConnect only, it is possible to configure access control for **clusters**, **boards** and **custom boards** via groups by specifying a group claim that contains assigned groups in the access token.
+
+### Example
+
+In this example, Keycloak is used as an OpenIDConnect provider and configured so that the roles of the user are mapped as "groups" to the generated access token.
+
+* Allow a set of groups to access all generated resource- and policy dashboards.
+* Allow a set of groups to access the **Infrastructure** custom board.
+* Allow a set of groups to access the **Cluster 2** cluster.
+
+::: code-group
+
+```yaml [values.yaml]
+ui:
+  openIDConnect:
+    enabled: true
+    discoveryUrl: https://keycloak-admin.betreuer-plattform.de/realms/policy-reporter
+    callbackUrl: http://policy-reporter-ui:8080
+    clientId: policy-reporter
+    clientSecret: "secret"
+    groupClaim: "groups"
+
+  clusters:
+  - name: Default
+    host: http://policy-reporter:8080
+
+  - name: Cluster 2
+    host: http://policy-reporter.company.com
+    accessControl:
+      groups: ['admin', 'team-infra']
+
+  boards:
+    accessControl:
+      groups: ['admin']
+
+  customBoards:
+  - name: Infrastructure
+    namespaces:
+      selector:
+        team: infra
+    accessControl:
+      groups: ['team-infra']
+```
+
+```yaml [config.yaml]
+openIDConnect:
+  enabled: true
+  discoveryUrl: https://keycloak-admin.betreuer-plattform.de/realms/policy-reporter
+  callbackUrl: http://policy-reporter-ui:8080
+  clientId: policy-reporter
+  clientSecret: "secret"
+  groupClaim: "groups"
+
+boards:
+  accessControl:
+    groups: ['admin']
+
+customBoards:
+- name: Infrastructure
+  namespaces:
+    selector:
+      team: infra
+  accessControl:
+    emails: ['team-infra']
 ```
 
 :::
