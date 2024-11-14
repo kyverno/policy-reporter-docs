@@ -36,7 +36,7 @@ By default all available features are disabled. So it's up to the user to enable
 
 <alert>
 
-See the complete <a href="https://raw.githubusercontent.com/kyverno/policy-reporter/main/charts/policy-reporter/values.yaml" target="_blank">values.yaml</a> for reference.
+See the complete <a href="https://raw.githubusercontent.com/kyverno/policy-reporter/2.x/charts/policy-reporter/values.yaml" target="_blank">values.yaml</a> for reference.
 
 </alert>
 
@@ -507,7 +507,7 @@ Each value is prefixed with `ui` to be clear that it has to be configured under 
 
 <alert>
 
-See the complete <a href="https://raw.githubusercontent.com/kyverno/policy-reporter/main/charts/policy-reporter/charts/ui/values.yaml" target="_blank">values.yaml</a> for reference.
+See the complete <a href="https://raw.githubusercontent.com/kyverno/policy-reporter/2.x/charts/policy-reporter/charts/ui/values.yaml" target="_blank">values.yaml</a> for reference.
 
 </alert>
 
@@ -706,7 +706,7 @@ Other than Policy Reporter, the __metrics__ as well as the __REST__ API are enab
 
 <alert>
 
-See the complete <a href="https://raw.githubusercontent.com/kyverno/policy-reporter/main/charts/policy-reporter/charts/kyvernoPlugin/values.yaml" target="_blank">values.yaml</a> for reference.
+See the complete <a href="https://raw.githubusercontent.com/kyverno/policy-reporter/2.x/charts/policy-reporter/charts/kyvernoPlugin/values.yaml" target="_blank">values.yaml</a> for reference.
 
 </alert>
 
@@ -843,7 +843,7 @@ Each value is prefixed with `monitoring` to be clear that it has to be configure
 </alert>
 <alert>
 
-See the complete <a href="https://raw.githubusercontent.com/kyverno/policy-reporter/main/charts/policy-reporter/charts/monitoring/values.yaml" target="_blank">values.yaml</a> for reference.
+See the complete <a href="https://raw.githubusercontent.com/kyverno/policy-reporter/2.x/charts/policy-reporter/charts/monitoring/values.yaml" target="_blank">values.yaml</a> for reference.
 
 </alert>
 
