@@ -41,7 +41,7 @@ customBoards:
 
 ### Namespace Selector
 
-Setup a flexibel list of namespaces by using a namespace label selector.
+Setup a flexibel list of namespaces by using a namespace label selector. Label selectors supporting different operations like `equal`, `exists`, `one of` and `doesnotexist`.
 
 ::: code-group
 
@@ -53,7 +53,10 @@ ui:
   - name: System
     namespaces:
       selector:
-        group: system
+        group: system          # equal check
+        app: '*'               # label exists
+        service: '!*'          # label does not exists
+        tools: 'kyverno,falco' # label tools is one of the defined values: [kyverno, falco]
 ```
 
 ```yaml [config.yaml]
@@ -61,7 +64,10 @@ customBoards:
   - name: System
     namespaces:
       selector:
-        group: system
+        group: system          # equal check
+        app: '*'               # label exists
+        service: '!*'          # label does not exists
+        tools: 'kyverno,falco' # label tools is one of the defined values: [kyverno, falco]
 ```
 
 :::
