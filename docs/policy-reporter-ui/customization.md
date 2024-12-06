@@ -24,7 +24,7 @@ ui:
 
 ## Banner
 
-Adds custom suffix text to the UI. Can be helpful if you are running multiple UIs in diffent clusters.
+Adds custom suffix text to the UI. Can be helpful if you are running multiple UIs in different clusters.
 
 ::: code-group
 
