@@ -4,8 +4,8 @@ A list of various resources introducing Policy Reporter and its various componen
 
 ## Repositories
 
-* [Policy Reporter v3](https://github.com/kyverno/policy-reporter/tree/3.x)
-* [Policy Reporter UI V2](https://github.com/kyverno/policy-reporter-ui/tree/2.x)
+* [Policy Reporter v3](https://github.com/kyverno/policy-reporter)
+* [Policy Reporter UI V2](https://github.com/kyverno/policy-reporter-ui)
 * [Policy Reporter Plugins](https://github.com/kyverno/policy-reporter-plugins)
 
 ## Blogs
