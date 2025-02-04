@@ -35,7 +35,7 @@ plugin:
     enabled: true
     blockReports:
       # enable the feature
-      enabled: false
+      enabled: true
       # namespace where kyverno events are created
       # set to an empty string to watch for events in all namespaces
       eventNamespace: default
@@ -51,7 +51,7 @@ plugin:
 ```yaml [config.yaml]
 blockReports:
   # enable the feature
-  enabled: false
+  enabled: true
   # namespace where kyverno events are created
   # set to an empty string to watch for events in all namespaces
   eventNamespace: default
