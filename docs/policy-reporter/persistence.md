@@ -1,4 +1,4 @@
-# Persistens
+# Persistence
 
 Policy Reporter uses an **internal SQLite** database to create and manage different views and schemas of your `PolicyReports`. This allows the various REST APIs to work performantly in both smaller and larger clusters. Although this approach is very flexible and does not require any additional setup, it also has its limits above a certain size.
 
