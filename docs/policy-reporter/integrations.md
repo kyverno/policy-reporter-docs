@@ -1,4 +1,4 @@
-# Integrations
+wi# Integrations
 
 Policy Reporter supports different targets to send new PolicyReport results. This makes it possible to create a log or get notified as soon as a new violation is detected. The set of supported tools are based on user requests. Feel free to create an issue or pull request if you need a unsupported integration.
 
@@ -110,7 +110,7 @@ target:
 
 #### Filter
 
-Can be used to filter on several values of a result or report labels. You can filter on `policies`, `namespaces`, `status`, `severities`, `sources` and `reportLabels`. Each filter requires a `include` or `exclude` rule, wildacards are supported.
+Can be used to filter on several values of a result or report labels. You can filter on `policies`, `namespaces`, `status`, `severities`, `sources` and `reportLabels`. Each filter requires a `include` or `exclude` rule, wildcards are supported.
 
 The `namespaces` filter also supports a `selector` map to filter namespaces based on labels.
 
