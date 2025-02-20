@@ -110,7 +110,7 @@ target:
 
 #### Filter
 
-Can be used to filter on several values of a result or report labels. You can filter on `policies`, `namespaces`, `status`, `severities`, `sources` and `reportLabels`. Each filter requires a `include` or `exclude` rule, wildacards are supported.
+Can be used to filter on several values of a result or report labels. You can filter on `policies`, `namespaces`, `status`, `severities`, `sources` and `reportLabels`. Each filter requires a `include` or `exclude` rule, wildcards are supported.
 
 The `namespaces` filter also supports a `selector` map to filter namespaces based on labels.
 

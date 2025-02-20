@@ -4,7 +4,7 @@ There are a few options to customize the UI to your personal preferences.
 
 ## DisplayMode
 
-Defines the default display mode of the UI, defaults to your OS preferrence setting. Possible values are `dark`, `light`, `colorblind`, `colorblinddark`.
+Defines the default display mode of the UI, defaults to your OS preference setting. Possible values are `dark`, `light`, `colorblind`, `colorblinddark`.
 
 ::: code-group
 

@@ -41,7 +41,7 @@ customBoards:
 
 ### Namespace Selector
 
-Setup a flexibel list of namespaces by using a namespace label selector. Label selectors supporting different operations like `equal`, `exists`, `one of` and `doesnotexist`.
+Setup a flexible list of namespaces by using a namespace label selector. Label selectors supporting different operations like `equal`, `exists`, `one of` and `doesnotexist`.
 
 ::: code-group
 

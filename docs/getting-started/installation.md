@@ -1,6 +1,6 @@
 # Installation
 
-It is recommanded to install Policy Reporter via the provided Helm Chart.
+It is recommended to install Policy Reporter via the provided Helm Chart.
 
 ## Helm Repository
 
