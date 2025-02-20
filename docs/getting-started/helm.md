@@ -2,7 +2,7 @@
 
 [![Artifact HUB](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/policy-reporter)](https://artifacthub.io/packages/helm/policy-reporter/policy-reporter)
 
-The provided Helm Chart is the easiest way to install and configure Policy Reporter. Depending on your usage, it provides several values to customize Policy Reporter and its optional compoenents to your individual needs.
+The provided Helm Chart is the easiest way to install and configure Policy Reporter. Depending on your usage, it provides several values to customize Policy Reporter and its optional components to your individual needs.
 
 ## Helm Repository
 
