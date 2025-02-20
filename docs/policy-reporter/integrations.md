@@ -1,4 +1,4 @@
-wi# Integrations
+# Integrations
 
 Policy Reporter supports different targets to send new PolicyReport results. This makes it possible to create a log or get notified as soon as a new violation is detected. The set of supported tools are based on user requests. Feel free to create an issue or pull request if you need a unsupported integration.
 
