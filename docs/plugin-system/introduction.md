@@ -39,7 +39,7 @@ One Plugin relates to one "source" of PolicyReports.
 
 ### [GET] V1 Policies API
 
-The `/v1/policies` API provides a list of Policies. This could be a list of all policies or a list of all policies which produced a **PolicyReportResult**.
+The `/v1/policies` API provides a list of policies. This could be a list of all policies or a list of all policies which produced a **PolicyReportResult**.
 
 ```json
 [
