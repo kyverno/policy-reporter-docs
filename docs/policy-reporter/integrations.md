@@ -1,6 +1,6 @@
 # Integrations
 
-Policy Reporter supports different targets to send new PolicyReport results. This makes it possible to create a log or get notified as soon as a new violation is detected. The set of supported tools are based on user requests. Feel free to create an issue or pull request if you need a unsupported integration.
+Policy Reporter supports different targets to send new PolicyReport results. This makes it possible to create a log or get notified as soon as a new violation is detected. Integrations can be created using the config filoe passed at startup using the `--config` or `-c` flag or by creating a `TargetConfig` resource. Examples for each target type exist below. The set of supported tools are based on user requests. Feel free to create an issue or pull request if you need a unsupported integration.
 
 ## Supported Integrations
 
@@ -48,6 +48,17 @@ target:
     skipExistingOnStartup: true
 ```
 
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: loki-example
+spec:
+  skipExistingOnStartup: true
+  loki:
+    host: 'http://loki.monitoring:3000'
+```
+
 :::
 
 #### MinimumSeverity
@@ -77,6 +88,18 @@ target:
     skipExistingOnStartup: true
 ```
 
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: loki-example
+spec:
+  skipExistingOnStartup: true
+  minimumSeverity: 'medium'
+  loki:
+    host: 'http://loki.monitoring:3000'
+```
+
 :::
 
 #### Sources
@@ -104,6 +127,19 @@ target:
     minimumSeverity: 'medium'
     skipExistingOnStartup: true
     sources: ['kyverno', 'Trivy*']
+```
+
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: loki-example
+spec:
+  skipExistingOnStartup: true
+  sources: ['kyverno', 'Trivy*'] # verify this
+  minimumSeverity: 'medium'
+  loki:
+    host: 'http://loki.monitoring:3000'
 ```
 
 :::
@@ -149,6 +185,27 @@ target:
         exclude: ['error']
       reportLabels:
         include: ['app', 'owner:team-a', 'monitoring:*']
+```
+
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: loki-example
+spec:
+  loki:
+    host: 'http://loki.monitoring:3000'
+  skipExistingOnStartup: true
+  minimumSeverity: 'medium'
+  filter:
+    namespaces:
+      selector: { team: team-a }
+    severities:
+      exclude: ['low', 'info']
+    status:
+      exclude: ['error']
+    reportLabels:
+      include: ['app', 'owner:team-a', 'monitoring:*']
 ```
 
 :::
@@ -256,6 +313,22 @@ target:
         selector: { team: team-a }
 ```
 
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: slack-example
+spec:
+  skipExistingOnStartup: true
+  secretRef: 'team-a-slack-webhook'
+    minimumSeverity: 'medium'
+    skipExistingOnStartup: true
+    filter:
+      namespaces:
+        selector: { team: team-a }
+
+```
+
 :::
 
 ### MountedSecret
@@ -300,6 +373,20 @@ target:
     filter:
       namespaces:
         selector: { team: team-a }
+```
+
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: slack-example
+spec:
+  mountedSecret: '/config/team-a.json'
+  minimumSeverity: 'medium'
+  skipExistingOnStartup: true
+  filter:
+    namespaces:
+      selector: { team: team-a }
 ```
 
 :::
@@ -362,6 +449,18 @@ target:
     skipExistingOnStartup: true
 ```
 
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: loki-example
+spec:
+  skipExistingOnStartup: true
+  loki:
+    host: 'http://loki.monitoring:3000'
+    skipTLS: true
+```
+
 :::
 
 #### Certificate
@@ -387,6 +486,18 @@ target:
       host: 'http://loki.monitoring:3000'
       certificate: '/config/root_ca.pem'
     skipExistingOnStartup: true
+```
+
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: loki-example
+spec:
+  skipExistingOnStartup: true
+  loki:
+    host: 'http://loki.monitoring:3000'
+    certificate: '/config/root_ca.pem'
 ```
 
 :::
@@ -417,6 +528,19 @@ target:
       headers:
         X-Token: '12345'
     skipExistingOnStartup: true
+```
+
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: loki-example
+spec:
+  skipExistingOnStartup: true
+  loki:
+    host: 'http://loki.monitoring:3000'
+    headers:
+      X-Token: '12345'
 ```
 
 :::
@@ -456,6 +580,17 @@ target:
     config:
       host: 'http://loki.monitoring:3000'
     skipExistingOnStartup: true
+```
+
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: loki-example
+spec:
+  skipExistingOnStartup: true
+  loki:
+    host: 'http://loki.monitoring:3000'
 ```
 
 :::
@@ -503,6 +638,19 @@ target:
     skipExistingOnStartup: true
 ```
 
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: elasticsearch-example
+spec:
+  skipExistingOnStartup: true
+  elasticSearch:
+    host: 'http://elasticsearch.elk-stack:8080'
+    index: 'policy-reporter'
+    rotation: 'daily'
+```
+
 :::
 
 ### Microsoft Teams
@@ -537,6 +685,17 @@ target:
     config:
       webhook: 'https://m365x682156.webhook.office.com'
     skipExistingOnStartup: true
+```
+
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: teams-example
+spec:
+  skipExistingOnStartup: true
+  teams:
+    webhook: 'https://m365x682156.webhook.office.com'
 ```
 
 :::
@@ -576,6 +735,17 @@ target:
     skipExistingOnStartup: true
 ```
 
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: slack-example
+spec:
+  skipExistingOnStartup: true
+  slack:
+    webhook: 'https://hooks.slack.com/services/...'
+```
+
 :::
 
 ### Discord
@@ -612,6 +782,17 @@ target:
     skipExistingOnStartup: true
 ```
 
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: discord-example
+spec:
+  skipExistingOnStartup: true
+  discord:
+    webhook: 'https://discordapp.com/api/webhooks/...'
+```
+
 :::
 
 ### Webhook
@@ -646,6 +827,17 @@ target:
     config:
       webhook: 'https://discordapp.com/api/webhooks/...'
     skipExistingOnStartup: true
+```
+
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: discord-example
+spec:
+  skipExistingOnStartup: true
+  webhook:
+    webhook: 'https://discordapp.com/api/webhooks/...'
 ```
 
 :::
@@ -723,6 +915,21 @@ target:
     skipExistingOnStartup: true
 ```
 
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: s3-example
+spec:
+  skipExistingOnStartup: true
+  s3:
+    endpoint: 'https://storage.yandexcloud.net'
+    region: 'ru-central1'
+    bucket: 'dev-cluster'
+    secretAccessKey: 'secretAccessKey'
+    accessKeyId: 'accessKeyId'
+```
+
 :::
 
 ### Kinesis
@@ -749,7 +956,7 @@ The AWS integration supports `WebIdentidy`, `PodIdentity` and `Credentials` as a
 
 ```yaml [values.yaml]
 target:
-  s3:
+  kinesis:
     endpoint: 'https://kinesis.eu-central-1.amazonaws.com'
     region: 'eu-central-1'
     streamName: 'dev-cluster'
@@ -760,7 +967,7 @@ target:
 
 ```yaml [config.yaml]
 target:
-  s3:
+  kinesis:
     config:
       endpoint: 'https://kinesis.eu-central-1.amazonaws.com'
       region: 'eu-central-1'
@@ -768,6 +975,21 @@ target:
       secretAccessKey: 'secretAccessKey'
       accessKeyId: 'accessKeyId'
     skipExistingOnStartup: true
+```
+
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: kinesis-example
+spec:
+  skipExistingOnStartup: true
+  kinesis:
+    endpoint: 'https://kinesis.eu-central-1.amazonaws.com'
+    region: 'eu-central-1'
+    streamName: 'dev-cluster'
+    secretAccessKey: 'secretAccessKey'
+    accessKeyId: 'accessKeyId'
 ```
 
 :::
@@ -817,6 +1039,19 @@ target:
       accessKeyId: 'accessKeyId'
 ```
 
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: kinesis-example
+spec:
+  skipExistingOnStartup: true
+  securityHub:
+    region: 'eu-central-1'
+    accountId: 'accountId'
+    secretAccessKey: 'secretAccessKey'
+    accessKeyId: 'accessKeyId'
+```
 :::
 
 ### Google Cloud Storage
@@ -851,6 +1086,17 @@ target:
   gcs:
     config:
       bucket: 'dev-cluster'
+```
+
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: gcs-example
+spec:
+  skipExistingOnStartup: true
+  gcs:
+    bucket: 'dev-cluster'
 ```
 
 :::
@@ -891,6 +1137,18 @@ target:
       chatId: "XXX"
       token: "XXXX"
     skipExistingOnStartup: true
+```
+
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: gcs-example
+spec:
+  skipExistingOnStartup: true
+  telegram:
+    chatId: "XXX"
+    token: "XXXX"
 ```
 
 :::
