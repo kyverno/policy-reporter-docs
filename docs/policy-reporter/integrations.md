@@ -2,6 +2,18 @@
 
 Policy Reporter supports different targets to send new PolicyReport results. This makes it possible to create a log or get notified as soon as a new violation is detected. Integrations can be created using the config filoe passed at startup using the `--config` or `-c` flag or by creating a `TargetConfig` resource. Examples for each target type exist below. The set of supported tools are based on user requests. Feel free to create an issue or pull request if you need a unsupported integration.
 
+::: info
+Using CRDs for target configurations is off by default as of helm chart v3.1.0.
+To enable it set the following values in the chart
+
+```
+target:
+  # -- enable and install TargetConfig CRD
+  crd: true
+```
+:::
+
+
 ## Supported Integrations
 
 - Grafana Loki
