@@ -66,6 +66,18 @@ ui:
 
 This authentication mechanism supports all compatible services and systems.
 
+### Available Configuration
+
+| Label         | Description                                                            | Defaults   |
+|---------------|------------------------------------------------------------------------|------------|
+| `enabled`     | Enables OpenIDConnect Authentication                                   | `false`    |
+| `clientId`    | Client ID of your Application                                          | *required* |
+| `clientSecret`| Client Secret of your Application                                      | *required* |
+| `callbackUrl` | Local accessable callback API of your Policy Reporter UI instance      | *required* |
+| `discoveryUrl`| Discovery URL of your OpenIDConnect Provider                           | *required* |
+| `certificate` | Optional: file path to your TLS Certificate                            | `""`       |
+| `skipTLS`     | Optional: skips TLS verification                                       | `false`    |
+
 ### Example Configuration (Keycloak)
 
 **Since the callback URL depends on your setup, you must explicitly configure it.**
