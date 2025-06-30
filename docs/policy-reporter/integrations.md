@@ -28,6 +28,8 @@ target:
 - GoogleChat
 - GoogleCloudStorage
 - Webhooks
+- Jira
+- AlertManager
 
 ## Integration Features
 
@@ -1197,6 +1199,183 @@ target:
     config:
       webhook: 'https://chat.googleapis.com/v1/spaces/XXX/messages?key=XXX&token=XXX'
     skipExistingOnStartup: true
+```
+
+### JIRA
+
+Create JIRA issues out of policy violations.
+
+#### Issue Format
+
+Policy violations reported to JIRA will have the following format:
+
+- **Summary**: Policy Violation: [policy-name]
+- **Issue Type**: Bug (configurable)
+- **Description**: Contains detailed information about the policy violation, including:
+  - Policy name
+  - Severity
+  - Status
+  - Category (if available)
+  - Source (if available)
+  - Resource details (kind, name, namespace)
+  - Violation message
+  - Additional properties
+- **Labels**: 
+  - policy-reporter
+  - policy-violation
+  - policy-[policy-name]
+  - severity-[severity-level]
+
+#### Options
+
+| Option        | Description                      | Default      |
+| ------------- | -------------------------------- | ------------ |
+| `host`     | JIRA server URL                  | _(required)_ |
+| `username`    | Username for Authentication.     | _(required)_ |
+| `password`    | Password for Authentication.     | _(required)_ if not API Token is provided|
+| `apiToken`    | API Token for Authentication.    | _(required)_ if not password is provided|
+| `projectKey`  | JIRA Project Key                 | _(required)_ |
+| `issueType`   | JIRA Issue Type                  | `Bug`        |
+
+#### Example
+
+The minimal configuration for Discord requires a valid and accessible webhook api.
+
+::: code-group
+
+```yaml [values.yaml]
+target:
+  jira:
+    username: "your-jira-username"
+    token: "your-jira-api-token"
+    host: "https://your-jira-instance.atlassian.net"
+    projectKey: "POL"
+    issueType: "Bug"
+```
+
+```yaml [config.yaml]
+target:
+  jira:
+    config:
+      username: "your-jira-username"
+      token: "your-jira-api-token"
+      host: "https://your-jira-instance.atlassian.net"
+      projectKey: "POL"
+      issueType: "Bug"
+    skipExistingOnStartup: true
+```
+
+```yaml [target config resource]
+apiVersion: policyreporter.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: policy-reporter-jira
+spec:
+  jira:
+    host: "https://your-jira-instance.atlassian.net"
+    username: "your-jira-username"
+    apiToken: "your-jira-api-token"
+    projectKey: "POL"
+    issueType: "Bug"
+```
+
+:::
+
+### AlertManager
+
+The AlertManager integration allows Policy Reporter to send policy violation notifications to AlertManager, which can then route and manage alerts based on its own configuration. This integration enables you to:
+
+- Monitor and get notified about Kubernetes policy violations
+- Route alerts to different notification channels (email, Slack, etc.) based on severity, source, or other criteria
+- Use AlertManager's features like silencing, grouping, and inhibition for policy violation alerts
+
+#### AlertManager Configuration
+
+Configure AlertManager to receive and properly route the alerts:
+
+```yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: alertmanager-config
+data:
+  alertmanager.yml: |
+    global:
+      resolve_timeout: 5m
+    route:
+      group_by: ['alertname', 'severity', 'policy', 'rule', 'source']
+      group_wait: 10s
+      group_interval: 10s
+      repeat_interval: 1h
+      receiver: 'default'
+    receivers:
+    - name: 'default'
+      webhook_configs:
+      - url: 'http://your-webhook-endpoint'
+        send_resolved: true
+```
+
+#### Alert Format
+
+Policy Reporter sends alerts to AlertManager with the following structure:
+
+##### Labels
+
+- `alertname`: "PolicyReporterViolation"
+- `severity`: The policy severity (info, warning, medium, high, critical)
+- `status`: The result status (pass, fail, warn, error, skip)
+- `source`: The policy source (kyverno, policy-reporter, etc.)
+- `policy`: The policy name
+- `rule`: The rule name
+
+##### Annotations
+
+- `message`: The violation message
+- `category`: The policy category (if available)
+- `resource`: The resource string (namespace/kind/name)
+- `resource_kind`: The resource kind
+- `resource_name`: The resource name
+- `resource_namespace`: The resource namespace
+- `resource_apiversion`: The resource API version
+
+#### Options
+
+| Option        | Description                      | Default          |
+| ------------- | -------------------------------- | ---------------- |
+| `host`        | Accessible Host                  | _(required)_     |
+| `skipTLS`     | skip server cert verification    | `false`          |
+| `certificate` | path to a root CA in PEM format  | _(optional)_     |
+| `headers`     | map of additional static headers | _(optional)_     |
+
+#### Example
+
+The minimal configuration for Grafana Loki requires a valid and accessible host.
+
+::: code-group
+
+```yaml [values.yaml]
+target:
+  alertManager:
+    host: 'http://alertmanager.monitoring:9093'
+```
+
+```yaml [config.yaml]
+target:
+  alertManager:
+    config:
+      host: 'http://alertmanager.monitoring:9093'
+    skipExistingOnStartup: true
+```
+
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: alert-manager-example
+spec:
+  skipExistingOnStartup: true
+  loki:
+    host: 'http://alertmanager.monitoring:9093'
 ```
 
 :::
