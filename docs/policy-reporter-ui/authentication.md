@@ -258,3 +258,34 @@ customBoards:
 ```
 
 :::
+
+## Session Management
+
+By default, Policy Reporter UI maintains sessions on the server side as files. Cookies do not work because they exceed the maximum size for most OpenIDConnect provider tokens.
+
+This management does not work correctly in a high-availability setup because each pod has its own file system without a shared volume.
+
+Besides the default session management, it is possible to use a redis api-compatible storage to overcome the file-based limitations.
+
+### Options
+
+The used storage solution can be configured via `server.session.storage` and supports `filesystem` and `redis`. Defaults to `filesystem`.
+
+Available options are depending on the used storage.
+
+#### Filesystem
+
+| Option        | Description                                              | Default               |
+| ------------- | -------------------------------------------------------- | --------------------- |
+| `storage`     | Used storage solution, supports `filesystem` and `redis` | `filesystem`         |
+| `tempDir`     | Used directory for filebased management                  | `/tmp`               |
+
+#### Redis
+
+| Option        | Description                                              | Default               |
+| ------------- | -------------------------------------------------------- | --------------------- |
+| `storage`     | Used storage solution, supports `filesystem` and `redis` | `filesystem`          |
+| `database`    | Used Database                                            | `0`                   |
+| `address`     | Storage Host URL.                                        | __(required)__        |
+| `username`    | Authentication Username                                  | __(optional)__        |
+| `password`    | Authentication Password                                  | __(optional)__        |
