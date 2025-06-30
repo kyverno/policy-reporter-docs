@@ -1230,10 +1230,10 @@ Policy violations reported to JIRA will have the following format:
 
 | Option        | Description                      | Default      |
 | ------------- | -------------------------------- | ------------ |
-| `host`     | JIRA server URL                  | _(required)_ |
+| `host`        | JIRA server URL                  | _(required)_ |
 | `username`    | Username for Authentication.     | _(required)_ |
-| `password`    | Password for Authentication.     | _(required)_ if not API Token is provided|
-| `apiToken`    | API Token for Authentication.    | _(required)_ if not password is provided|
+| `password`    | Password for Authentication.     | _(required)_ if no API Token is provided|
+| `apiToken`    | API Token for Authentication.    | _(required)_ if no password is provided|
 | `projectKey`  | JIRA Project Key                 | _(required)_ |
 | `issueType`   | JIRA Issue Type                  | `Bug`        |
 
