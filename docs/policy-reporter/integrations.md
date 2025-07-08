@@ -1249,8 +1249,8 @@ Policy violations reported to JIRA will have the following format:
 
 ##### SummaryTemplate
 
-* Provides access to the PolicyReportResult, e.g. {{ .result.Policy }}
-* Provides access to customfields, e.g. {{ .customfield.key }}
+* Provides access to the PolicyReportResult, e.g. `{{ .result.Policy }}`
+* Provides access to customfields, e.g. `{{ .customfield.key }}`
 
 ##### CustomFields
 
