@@ -1228,14 +1228,33 @@ Policy violations reported to JIRA will have the following format:
 
 #### Options
 
-| Option        | Description                      | Default      |
-| ------------- | -------------------------------- | ------------ |
-| `host`        | JIRA server URL                  | _(required)_ |
-| `username`    | Username for Authentication.     | _(required)_ |
-| `password`    | Password for Authentication.     | _(required)_ if no API Token is provided|
-| `apiToken`    | API Token for Authentication.    | _(required)_ if no password is provided|
-| `projectKey`  | JIRA Project Key                 | _(required)_ |
-| `issueType`   | JIRA Issue Type                  | `Bug`        |
+| Option            | Description                                     | Default      |
+| ----------------- | ----------------------------------------------- | ------------ |
+| `host`            | JIRA server URL                                 | _(required)_ |
+| `username`        | Username for Authentication.                    | _(required)_ |
+| `password`        | Password for Authentication.                    | _(required)_ if no API Token is provided|
+| `apiToken`        | API Token for Authentication.                   | _(required)_ if no password is provided|
+| `projectKey`      | JIRA Project Key                                | _(required)_ |
+| `issueType`       | JIRA Issue Type                                 | `Bug`        |
+| `apiVersion`      | Used JIRA REST API version (v2/v3)              | `v3`         |
+| `labels`          | list of JIRA Ticket labels.                     | `[]`         |
+| `components`      | list of JIRA Component names.                   | `[]`         |
+| `summaryTemplate` | Go template to customize the JIRA summary text. | _(optional)_ |
+
+##### Auth Handling
+
+* Username and Password are set: Sent as HTTP Basic Auth header
+* Username and APIToken are set: Sent as HTTP Basic Auth header
+* Only APIToken is set: Sent as Bearer Token in the Auhtorization header
+
+##### SummaryTemplate
+
+* Provides access to the PolicyReportResult, e.g. {{ .result.Policy }}
+* Provides access to customfields, e.g. {{ .customfield.key }}
+
+##### CustomFields
+
+CustomFields which keys starting with `customfield_` are mapped to JIRA custom fields. If not they are added in the ticket description. 
 
 #### Example
 
