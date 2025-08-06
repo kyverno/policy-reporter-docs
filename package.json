@@ -7,6 +7,6 @@
   },
   "devDependencies": {
     "@types/node": "^24.2.0",
-    "vitepress": "^1.6.3"
+    "vitepress": "^1.6.4"
   }
 }
