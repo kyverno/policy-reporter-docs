@@ -20,7 +20,7 @@ The Policy Reporter Helm Chart is also available as an OCI artifact in the Kyver
 By default most available features are disabled. So it's up to the user to enable or configure the features needed. This approach reduces the required resources to a bare minimum.
 
 ::: tip
-See the complete [values.yaml](https://github.com/kyverno/policy-reporter/blob/3.x/charts/policy-reporter/values.yaml) for reference.
+See the complete [values.yaml](https://github.com/kyverno/policy-reporter/blob/main/charts/policy-reporter/values.yaml) for reference.
 :::
 
 ## Structure
