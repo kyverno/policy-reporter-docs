@@ -27,10 +27,10 @@ See the complete [values.yaml](https://github.com/kyverno/policy-reporter/blob/m
 
 The Helm Chart consists of:
 
-- The main chart to setup and configure the Policy Reporter Core application
-- `ui` subschart to setup and configure Policy Reporter UI
-- `plugins` which in turn consists of the subcharts for the **Kyverno** and **Trivy** plugins
-- `monitoring` subchart to simplify integration with the **Prometheus Operator**
+- templates to setup and configure the Policy Reporter Core application
+- templates to setup and configure Policy Reporter UI (via options under the `ui` Helm chart value)
+- templates to setup and configure the **Kyverno** and **Trivy** plugins (via options under the `plugin.kyverno` and `plugin.trivy` Helm chart values respectively)
+- templates to simplify integration with the **Prometheus Operator** (via options under the `monitoring` Helm chart value)
 
 ## Policy Reporter
 
