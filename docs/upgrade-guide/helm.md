@@ -130,6 +130,19 @@ leaderElection:
 
 As a result of the general chart restructering all Policy Reporter UI related values can now be found under `ui` in the main `values.yaml` file.
 
+### Selector Labels
+
+The selector labels of the Policy Reporter UI deployment have been changed in v3 of the Helm chart which causes an upgrade from v2 to v3 of the Helm chart to fail. If possible, you can delete the Policy Reporter UI deployment before upgrading. This will understandably result in some downtime for the Policy Reporter UI but will resolve the upgrade failure. Alternatively, in [v3.4.2](https://github.com/kyverno/policy-reporter/releases/tag/policy-reporter-3.4.2) of the Helm chart, a fix was released to allow manually overriding the selector labels so you can specify the old selector labels of the Policy Reporter UI deployment as follows which resolves the upgrade failure:
+
+```yaml
+ui:
+  selectorLabels:
+    app.kubernetes.io/instance: "<HELM-RELEASE-NAME>" # specify the name of the Helm release for the Helm chart
+    app.kubernetes.io/name: ui
+```
+
+For more details, please see [`kyverno/policy-reporter#1113`](https://github.com/kyverno/policy-reporter/issues/1113).
+
 ### RefreshInterval
 
 Automatic refresh has been removed in Policy Reporter UI v2. The page must now be refreshed manually.
