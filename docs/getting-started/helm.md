@@ -92,7 +92,6 @@ Serve the API over a hostname with the integrated Ingress support. This is mainl
 ingress:
   enabled: true
   annotations:
-    nginx.ingress.kubernetes.io/use-regex: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$1
   hosts:
     - host: domain.com
@@ -165,7 +164,6 @@ ui:
   ingress:
     enabled: true
     annotations:
-      nginx.ingress.kubernetes.io/use-regex: "true"
       nginx.ingress.kubernetes.io/rewrite-target: /$1
     hosts:
       - host: domain.com
@@ -182,7 +180,6 @@ ui:
   ingress:
     enabled: true
     annotations:
-      nginx.ingress.kubernetes.io/use-regex: "true"
       nginx.ingress.kubernetes.io/rewrite-target: /$1
     hosts:
       - host: domain.com
@@ -270,7 +267,6 @@ plugin:
     ingress:
       enabled: true
       annotations:
-        nginx.ingress.kubernetes.io/use-regex: "true"
         nginx.ingress.kubernetes.io/rewrite-target: /$1
       hosts:
         - host: domain.com
@@ -343,7 +339,6 @@ plugin:
     ingress:
       enabled: true
       annotations:
-        nginx.ingress.kubernetes.io/use-regex: "true"
         nginx.ingress.kubernetes.io/rewrite-target: /$1
       hosts:
         - host: domain.com
