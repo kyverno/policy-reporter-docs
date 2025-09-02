@@ -97,6 +97,7 @@ ingress:
     - host: domain.com
       paths:
         - path: '/(.*)'
+          pathType: ImplementationSpecific
 ```
 
 ## Policy Reporter UI
@@ -168,7 +169,26 @@ ui:
       - host: domain.com
         paths:
           - path: '/(.*)'
+            pathType: ImplementationSpecific
 ```
+
+It is also possible to serve the Policy Reporter UI on a subpath by making appropriate changes to the ingress configuration. For example, if you wanted to serve the UI on `/policy-reporter-ui/`:
+
+```yaml
+ui:
+  enabled: true
+  ingress:
+    enabled: true
+    annotations:
+      nginx.ingress.kubernetes.io/rewrite-target: /$1
+    hosts:
+      - host: domain.com
+        paths:
+          - path: '/policy-reporter-ui/(.*)'
+            pathType: ImplementationSpecific
+```
+
+Importantly, the trailing slash _must_ be specified in order for the web resources to be fetched correctly, i.e, you must access the Policy Reporter UI at `http(s)://domain.com/policy-reporter-ui/`.
 
 ## Kyverno Plugin
 
@@ -247,11 +267,12 @@ plugin:
     ingress:
       enabled: true
       annotations:
-      nginx.ingress.kubernetes.io/rewrite-target: /$1
+        nginx.ingress.kubernetes.io/rewrite-target: /$1
       hosts:
         - host: domain.com
           paths:
             - path: '/(.*)'
+              pathType: ImplementationSpecific
 ```
 
 ## Trivy Plugin
@@ -318,11 +339,12 @@ plugin:
     ingress:
       enabled: true
       annotations:
-      nginx.ingress.kubernetes.io/rewrite-target: /$1
+        nginx.ingress.kubernetes.io/rewrite-target: /$1
       hosts:
         - host: domain.com
           paths:
             - path: '/(.*)'
+              pathType: ImplementationSpecific
 ```
 
 ## Monitoring
