@@ -113,6 +113,71 @@ ui:
   enabled: true
 ```
 
+### CustomBoard CRD
+
+Since Helm Chart v3.7.0 its possible to manage CustomBoards via the new `CustomBoard` and `NamespaceCustomBoard` CRDs. You need to opt in to this feature by setting `ui.crds.customBoard` to `true`.
+
+The CRDs allowing all known configurations from the current static configutation. `NamespaceCustomBoard` do not show cluster scoped results and are always restricted to the results from the Namespace they are applied to.
+
+#### Example
+
+
+::: code-group
+
+```yaml [values.yaml]
+ui:
+  enabled: true
+
+  customBoards:
+    - name: System
+      namespaces:
+        list:
+          - kube-system
+          - kyverno
+          - policy-reporter
+```
+
+```yaml [CustomBoard CRD]
+kind: CustomBoard
+apiVersion: ui.policyreporter.kyverno.io/v1alpha1
+metadata:
+  name: kyverno-results
+spec:
+  title: Kyverno Results
+  display: resources
+  namespaces:
+    labelSelector:
+      kubernetes.io/metadata.name: '*'
+  sources:
+    list: [kyverno, KyvernoValidatingPolicy]
+  filter:
+    results:
+      include: ["fail", "pass"]
+  accessControl:
+    groups: []
+```
+
+```yaml [NamespaceCustomBoard CRD]
+kind: NamespaceCustomBoard
+apiVersion: ui.policyreporter.kyverno.io/v1alpha1
+metadata:
+  name: fail-board
+  namespace: kube-system
+spec:
+  title: Kube System Failures
+  display: results
+  sources:
+    list: [kyverno, KyvernoValidatingPolicy]
+  filter:
+    results:
+      include: ["fail"]
+  accessControl:
+    emails: []
+```
+
+:::
+
+
 ### High Available Setup
 
 Because all features are stateless, you can deploy Policy Reporter UI without additional needs in HA mode (`replicaCount` > `1`).
