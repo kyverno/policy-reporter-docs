@@ -36,6 +36,8 @@ sourceFilters:
 
 ## Source Config
 
+### CustomID
+
 To make it possible for Policy Reporter to check if a result already existed when a PolicyReport is updated, it creates an internal ID out of different values from a given PolicyReportResult. Depending on the engine and results, this logic not always applies correctly, which can lead to missing or duplicated notifications.
 
 One way to customize this logic is to provide a special `resultID` property key within a PolicyReportResult. If this key is present the value of it will be used instead of a self generated ID.
@@ -44,7 +46,7 @@ But this requires each engine to implement the ID generation by itself for an ex
 
 Supported fields for ID generation are: `resource`, `policy`, `rule`, `category`, `result`, `message`, `namespace`, `created`.
 
-### Example
+#### Example
 
 ```yaml
 sourceConfig:
@@ -53,4 +55,17 @@ sourceConfig:
   customID:
     enabled: true
     fields: ["resource", "policy", "rule", "category", "result", "message"]
+```
+
+### Selfassign Namspaces
+
+Since namespaces themselves are objects with cluster scope, they also generate cluster scoped reports in most cases. This scenario has the downside that responsible teams for this namespace may not be able to see found violations, as they only have access to namespaced reporting results. This feature allows namespace results to be treated differently and processed as namespace-scoped results for the corresponding namespace.
+
+#### Example
+
+```yaml
+sourceConfig:
+- selector:
+    source: kyverno
+  selfassignNamespaces: true
 ```

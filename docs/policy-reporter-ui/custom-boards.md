@@ -4,6 +4,13 @@ Custom Boards allows you to configure additional dashboards with a custom subset
 
 You can also configure filter and how you want to display your results to reflect the needs of the users.
 
+::: info
+We support the `CustomBoard` and `NamespaceCustomBoard` CRD Since Policy Reporter UI v2.5.0. You need to opt in by setting `ui.crds.customBoard` to `true` in the Helm Chart (since v3.7.0)
+
+The only difference between `CustomBoard` and `NamespaceCustomBoard` is that you can not set a namespace filter in `NamespaceCustomBoard` as always only show results for the namespace they are applied to. `NamespaceCustomBoard` also do not show cluster scoped results.
+:::
+
+
 ## Namespace List
 
 Basic Setup with a fixed list of namespaces.
@@ -31,6 +38,32 @@ customBoards:
         - kube-system
         - kyverno
         - policy-reporter
+```
+
+```yaml [CustomBoard CRD]
+kind: CustomBoard
+apiVersion: ui.policyreporter.kyverno.io/v1alpha1
+metadata:
+  name: kyverno-results
+spec:
+  title: System
+  namespaces:
+    list:
+      - kube-system
+      - kyverno
+      - policy-reporter
+```
+
+```yaml [NamespaceCustomBoard CRD]
+kind: NamespaceCustomBoard
+apiVersion: ui.policyreporter.kyverno.io/v1alpha1
+metadata:
+  name: policy-reporter
+  namespace: policy-reporter
+spec:
+  title: Policy Reporter
+  sources:
+    list: [kyverno]
 ```
 
 :::
@@ -70,6 +103,21 @@ customBoards:
         tools: 'kyverno,falco' # label tools is one of the defined values: [kyverno, falco]
 ```
 
+```yaml [CustomBoard CRD]
+kind: CustomBoard
+apiVersion: ui.policyreporter.kyverno.io/v1alpha1
+metadata:
+  name: system
+spec:
+  title: System
+  namespaces:
+    selector:
+      group: system          # equal check
+      app: '*'               # label exists
+      service: '!*'          # label does not exists
+      tools: 'kyverno,falco' # label tools is one of the defined values: [kyverno, falco]
+```
+
 :::
 
 ### Screenshot
@@ -94,7 +142,7 @@ ui:
       selector:
         group: system
     sources:
-        list: [kyverno]
+      list: [kyverno]
 ```
 
 ```yaml [config.yaml]
@@ -106,7 +154,21 @@ customBoards:
       selector:
         group: system
     sources:
-        list: [kyverno]
+      list: [kyverno]
+```
+
+```yaml [CustomBoard CRD]
+kind: CustomBoard
+apiVersion: ui.policyreporter.kyverno.io/v1alpha1
+metadata:
+  name: system
+spec:
+  title: System
+  namespaces:
+    selector:
+      group: system
+  sources:
+    list: [kyverno]
 ```
 
 :::
@@ -137,11 +199,12 @@ ui:
       selector:
         group: system
     sources:
-        list: [kyverno]
+      list: [kyverno]
     filter:
-      include:
-        results: [fail]
-        namespaceKinds: [Deployment]
+      results:
+        include: [fail]
+      namespaceKinds:
+        include: [Deployment]
 ```
 
 ```yaml [config.yaml]
@@ -153,11 +216,31 @@ customBoards:
       selector:
         group: system
     sources:
-        list: [kyverno]
+      list: [kyverno]
     filter:
-      include:
-        results: [fail]
-        namespaceKinds: [Deployment]
+      results:
+        include: [fail]
+      namespaceKinds:
+        include: [Deployment]
+```
+
+```yaml [CustomBoard CRD]
+kind: CustomBoard
+apiVersion: ui.policyreporter.kyverno.io/v1alpha1
+metadata:
+  name: system
+spec:
+  title: System
+  namespaces:
+    selector:
+      group: system
+  sources:
+    list: [kyverno]
+  filter:
+    results:
+      include: [fail]
+    namespaceKinds:
+      include: [Deployment]
 ```
 
 :::
@@ -205,6 +288,28 @@ customBoards:
       include:
         results: [fail]
         namespaceKinds: [Deployment]
+```
+
+```yaml [CustomBoard CRD]
+kind: CustomBoard
+apiVersion: ui.policyreporter.kyverno.io/v1alpha1
+metadata:
+  name: system
+spec:
+  title: System
+  display: results
+  clusterScope:
+    enabled: true
+  namespaces:
+    selector:
+      group: system
+  sources:
+    list: [kyverno]
+  filter:
+    results:
+      include: [fail]
+    namespaceKinds:
+      include: [Deployment]
 ```
 
 :::
