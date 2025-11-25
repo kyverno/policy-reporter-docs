@@ -15,9 +15,9 @@ ui:
       host: http://policy-reporter.policy-reporter:8080
       plugins:
         - name: kyverno
-          host: http://kyverno-plugin.policy-reporter:8080/api
+          host: http://kyverno-plugin.policy-reporter:8080
         - name: Trivy Vulnerability
-          host: http://trivy-plugin.policy-reporter:8080/api/vulnr
+          host: http://trivy-plugin.policy-reporter:8080/vulnr
 ```
 
 ```yaml [config.yaml]
@@ -26,9 +26,9 @@ clusters:
     host: http://policy-reporter.policy-reporter:8080
     plugins:
       - name: kyverno
-        host: http://kyverno-plugin.policy-reporter:8080/api
+        host: http://kyverno-plugin.policy-reporter:8080
       - name: Trivy Vulnerability
-        host: http://trivy-plugin.policy-reporter:8080/api/vulnr
+        host: http://trivy-plugin.policy-reporter:8080/vulnr
 ```
 
 :::
@@ -61,10 +61,10 @@ The `/v1/policies/{name}` API provides details of a single policy selected by it
 
 ```bash
 // kyverno example of an cluster policy
-http://localhost:8083/api/v1/policies/restrict-apparmor-profiles
+http://localhost:8083/v1/policies/restrict-apparmor-profiles
 
 // kyverno example of an namespace scoped policy
-http://localhost:8083/api/v1/policies/default/restrict-apparmor-profiles
+http://localhost:8083/v1/policies/default/restrict-apparmor-profiles
 ```
 
 #### Example Response

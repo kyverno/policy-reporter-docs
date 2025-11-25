@@ -22,7 +22,7 @@ ui:
       host: http://policy-reporter.policy-reporter:8080
       plugins:
         - name: kyverno
-          host: http://kyverno-plugin.policy-reporter:8083/api
+          host: http://kyverno-plugin.policy-reporter:8083
 
     - name: Stage Cluster
       host: http://policy-reporter.stage-cluster.dev
@@ -33,7 +33,7 @@ ui:
         password: ''
       plugins:
         - name: kyverno
-          host: http://kyverno-plugin.stage-cluster.dev/api
+          host: http://kyverno-plugin.stage-cluster.dev
 ```
 
 ```yaml [config.yaml]
@@ -59,7 +59,7 @@ metadata:
 type: Opaque
 data:
   host: aHR0cDovL3BvbGljeS1yZXBvcnRlcjo4MDgw #http://policy-reporter:8080
-  plugin.kyverno: eyJob3N0IjoiaHR0cDovL3BvbGljeS1yZXBvcnRlci1reXZlcm5vLXBsdWdpbjo4MDgwL2FwaSIsICJuYW1lIjoia3l2ZXJubyJ9 # {"host":"http://policy-reporter-kyverno-plugin:8080/api", "name":"kyverno"}
+  plugin.kyverno: eyJob3N0IjoiaHR0cDovL3BvbGljeS1yZXBvcnRlci1reXZlcm5vLXBsdWdpbjo4MDgwL2FwaSIsICJuYW1lIjoia3l2ZXJubyJ9 # {"host":"http://policy-reporter-kyverno-plugin:8080", "name":"kyverno"}
 
 ui:
   clusters:
