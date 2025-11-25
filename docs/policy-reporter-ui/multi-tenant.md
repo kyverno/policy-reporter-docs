@@ -42,13 +42,13 @@ clusters:
     host: http://policy-reporter.policy-reporter:8080
     plugins:
       - name: kyverno
-        host: http://kyverno-plugin.policy-reporter:8083/api
+        host: http://kyverno-plugin.policy-reporter:8083
 
   - name: Stage Cluster
     host: http://policy-reporter.stage-cluster.dev
     plugins:
       - name: kyverno
-        host: http://kyverno-plugin.stage-cluster.dev/api
+        host: http://kyverno-plugin.stage-cluster.dev
 ```
 
 ```yaml [Helm + SecretRef]
