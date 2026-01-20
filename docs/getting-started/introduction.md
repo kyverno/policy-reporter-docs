@@ -1,6 +1,6 @@
 # Introduction
 
-Policy Reporter adds observability and monitoring possibilities to you cluster security based on the [PolicyReport CRDs](https://github.com/kubernetes-sigs/wg-policy-prototypes/blob/master/policy-report/README.md).
+Policy Reporter adds observability and monitoring possibilities to you cluster security based on the [PolicyReport CRDs](https://github.com/openreports/reports-api/blob/main/docs/api-docs.md).
 
 It provides common features like
 
