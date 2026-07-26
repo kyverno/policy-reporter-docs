@@ -37,6 +37,8 @@ database:
   # use an mounted secret as source of your values, required the information in JSON format
   # supported fields: username, password, host, dsn, database
   mountedSecret: ""
+  # enabled metrics to observe pool health, query latency, and write failures
+  metrics: false
 ```
 
 ### Secret-backed configuration
@@ -51,15 +53,16 @@ Redis is used as a cache for results, so it complements the SQL database rather 
 
 #### Metrics
 
-| Option                          | Labels                                     | Type        |
-| --------------------------------|--------------------------------------------|-------------|
-| `database_connections`          | `database`, `system`                       | Gauge       |
-| `database_max_open_connections` | `database`, `system`                       | Gauge       |
-| `database_max_idle_time_closed` | `database`, `system`                       | Gauge       |
-| `database_max_idle_closed`      | `database`, `system`                       | Gauge       |
-| `database_idle_connections`     | `database`, `system`                       | Gauge       |
-| `database_max_lifetime_closed`  | `database`, `system`                       | Gauge       |
-| `database_in_use`               | `database`, `system`                       | Gauge       |
-| `database_wait_count`           | `database`, `system`                       | Gauge       |
-| `database_wait_duration`        | `database`, `system`                       | Gauge       |
-| `database_query_timing`         | `database`, `system`, `operation`, `table` | Histogram   |
+| Option                                  | Labels                                     | Type        |
+| ----------------------------------------|--------------------------------------------|-------------|
+| `database_connections`                  | `database`, `system`                       | Gauge       |
+| `database_max_open_connections`         | `database`, `system`                       | Gauge       |
+| `database_max_idle_time_closed`         | `database`, `system`                       | Gauge       |
+| `database_max_idle_closed`              | `database`, `system`                       | Gauge       |
+| `database_idle_connections`             | `database`, `system`                       | Gauge       |
+| `database_max_lifetime_closed`          | `database`, `system`                       | Gauge       |
+| `database_in_use`                       | `database`, `system`                       | Gauge       |
+| `database_wait_count`                   | `database`, `system`                       | Gauge       |
+| `database_wait_duration`                | `database`, `system`                       | Gauge       |
+| `database_query_timing`                 | `database`, `system`, `operation`, `table` | Histogram   |
+| `policy_reporter_database_errors_total` | `operation`, `reason`, `table`             | Counter     |
