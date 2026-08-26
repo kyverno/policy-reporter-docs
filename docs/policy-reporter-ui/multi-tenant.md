@@ -13,6 +13,11 @@ Use tools like **VPN**, **private Networks** or **internal Network Load Balancer
 To activate the REST-API of your external installations of Policy Reporter, you must set `rest.enabled` to `true` in the respective configurations.
 :::
 
+::: info
+We support the `Cluster` CRD since Policy Reporter UI v2.8.0. You need to opt in by setting `ui.crds.cluster` to `true` in the Helm Chart (since v3.10.0)
+:::
+
+
 ::: code-group
 
 ```yaml [values.yaml]
@@ -67,6 +72,21 @@ ui:
       secretRef: 'dev-cluster'
 ```
 
+```yaml [Cluster CRD]
+kind: Cluster
+apiVersion: ui.policyreporter.kyverno.io/v1alpha1
+metadata:
+  name: cluster-4
+spec:
+  title: Staging Cluster
+  host: http://policy-reporter:8080
+  plugins:
+    - source: kyverno
+      host: http://policy-reporter-kyverno-plugin:8083
+    - source: KyvernoValidatingPolicy
+      host: http://policy-reporter-kyverno-plugin:8083/vpol
+```
+
 :::
 
 ## Configuration
@@ -100,3 +120,7 @@ Read `host`, `certificate`, `skipTLS` and/or `username`, `password` from an exis
 A list of plugins, used for the given cluster configuration. The `name` reflects the related source of the plugin, in the example above, the plugin relates to **Kyverno**. The `host` is an **accessable** URL to the Policy Reporter Plugin System defined REST API of the plugin.
 
 Each plugin can also configure `skipTLS`, `certificate`, `basicAuth` and `secretRef`.
+
+### Cluster CRD
+
+Clusters can also be configured as Kubernetes resources using the `ui.policyreporter.kyverno.io/v1alpha1` API. In this format, `spec.title` is the name displayed in the cluster selector and each plugin uses `source` to identify the related plugin source. The `host` must be accessible from the Policy Reporter UI.

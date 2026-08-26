@@ -77,6 +77,7 @@ This authentication mechanism supports all compatible services and systems.
 | `discoveryUrl`| Discovery URL of your OpenIDConnect Provider                           | *required* |
 | `certificate` | Optional: file path to your TLS Certificate                            | `""`       |
 | `skipTLS`     | Optional: skips TLS verification                                       | `false`    |
+| `pkce`        | Enables PKCE (Proof Key for Code Exchange) for OpenIDConnect authentication | `false`    |
 
 ### Example Configuration (Keycloak)
 
@@ -92,6 +93,7 @@ ui:
     clientSecret: c11cYF9tNtL94w....
     callbackUrl: http://localhost:8082/callback
     discoveryUrl: 'https://keycloak.instance.de/realms/policy-reporter'
+    pkce: true
 ```
 
 ```yaml [config.yaml]
@@ -101,6 +103,7 @@ openIDConnect:
     clientSecret: c11cYF9tNtL94w....
     callbackUrl: http://localhost:8082/callback
     discoveryUrl: 'https://keycloak.instance.de/realms/policy-reporter'
+    pkce: true
 ```
 
 ```yaml [Helm + SecretRef]
