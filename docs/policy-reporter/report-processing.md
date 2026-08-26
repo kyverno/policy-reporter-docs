@@ -1,10 +1,12 @@
 # Report Processing
 
-Policy Reporter has different possibilities to prefilter PolicyReports before they are processed. This can be used to remove noise or none required information within metrics, notifications or dashboards.
+Policy Reporter has different possibilities to prefilter PolicyReports before they are processed. This can be used to remove noise or non-required information within metrics, notifications or dashboards.
 
 ## Report Filter
 
-The ReportFilter is used to configure which PolicyReport resources should be processed or not. It is possible to configure an include or exclude list of `namespaces`, `sources`, `kinds`, with wildcard (*) support. ReportFilter can also be used to disable the processing of ClusterPolicyReport resources.
+The `reportFilter` configuration controls which PolicyReport resources should be processed at all. It supports include or exclude lists for `namespaces` and `sources`, plus a `disableClusterReports` switch to skip cluster-scoped reports.
+
+Current report filters are namespace-focused. If you need to filter by resource kind or resource label, use a `sourceConfig` entry instead.
 
 ### Example
 
@@ -12,39 +14,64 @@ The ReportFilter is used to configure which PolicyReport resources should be pro
 reportFilter:
   namespaces:
     include: ["team-a-*", "policy-reporter"]
+  sources:
+    include: ["kyverno"]
+  disableClusterReports: false
 ```
 
 ## Source Filter
 
-Because different engines/sources may need different filters, it is possible to use a SourceFilter. As the name suggest, this filter applies on PolicyReports selected via the `source` of the report. Like ReportFilter it is possible to filter by `namespaces` and `kinds`.
+Because different engines/sources may need different filters, it is possible to use a `sourceConfig` entry. As the name suggests, this configuration applies to PolicyReports selected by their source. Compared to `reportFilter`, it can also filter by `resources` and can target either a single `source` or multiple `sources`.
 
 The processing of ClusterPolicyReports can be disabled by setting `disableClusterReports` to `true`.
 
-Engines like **Kyverno**, with its *autogen rules*, applies its policies on controller- as well as the pod resources. To reduce this noise of duplicated information you can set `uncontrolledOnly` to `true`. It will filter out results from controlled `Pod` and `Job` resources.
+Engines like **Kyverno**, with its *autogen rules*, applies its policies on controller- as well as the pod resources. To reduce this noise of duplicated information you can set `uncontrolledOnly` to `true`. It will filter out results from controlled `Pod`, `Job`, and `ReplicaSet` resources.
+
+If Namespace resources should be treated as namespace-scoped results, set `selfassignNamespaces` to `true`. This is useful when you want namespace violations to show up under the related namespace instead of as cluster-scoped data.
+
+If a source produces inconsistent result identifiers, you can also enable `customId` and define the fields used to generate the internal result ID. Supported ID fields include `resource`, `policy`, `rule`, `category`, `result`, `message`, `namespace`, and `created`. The generator also supports `label:<name>`, `annotation:<name>`, and `property:<name>` prefixes for values sourced from report metadata and result properties.
 
 ### Example
 
 ```yaml
 sourceFilters:
 - selector:
-    source: kyverno
+    sources: ["kyverno", "KyvernoValidatingPolicy"]
   uncontrolledOnly: true
   disableClusterReports: false
-  kinds:
-    exclude: [ReplicaSet]
+  resources:
+    include: ["pods.v1", "jobs.batch/v1"]
+  namespaces:
+    exclude: ["kube-*"]
+```
+
+### Example with custom result IDs
+
+```yaml
+sourceConfig:
+- selector:
+    source: kyverno
+  customId:
+    enabled: true
+    fields:
+      - resource
+      - policy
+      - rule
+      - category
+      - result
+      - message
+  selfassignNamespaces: true
 ```
 
 ## Source Config
 
 ### CustomID
 
-To make it possible for Policy Reporter to check if a result already existed when a PolicyReport is updated, it creates an internal ID out of different values from a given PolicyReportResult. Depending on the engine and results, this logic not always applies correctly, which can lead to missing or duplicated notifications.
+To make it possible for Policy Reporter to check if a result already existed when a PolicyReport is updated, it creates an internal ID out of different values from a given PolicyReportResult. Depending on the engine and result structure, this logic may not always apply correctly, which can lead to missing or duplicated notifications.
 
-One way to customize this logic is to provide a special `resultID` property key within a PolicyReportResult. If this key is present the value of it will be used instead of a self generated ID.
+To customize this logic, define `sourceConfig.customId.enabled: true` and provide the `fields` list for a specific source. This keeps the ID generation local to the source configuration and avoids depending on engine-specific `resultID` values.
 
-But this requires each engine to implement the ID generation by itself for an external use case. To prevent this external requierement it is now possible to configure the ID generation per source directly in Policy Reporter.
-
-Supported fields for ID generation are: `resource`, `policy`, `rule`, `category`, `result`, `message`, `namespace`, `created`.
+Supported fields for ID generation are `resource`, `policy`, `rule`, `category`, `result`, `message`, `namespace`, and `created`. The generator also accepts `label:<name>`, `annotation:<name>`, and `property:<name>` entries for metadata-based IDs.
 
 #### Example
 

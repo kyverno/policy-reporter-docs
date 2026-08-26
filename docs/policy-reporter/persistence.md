@@ -1,8 +1,8 @@
 # Persistence
 
-Policy Reporter uses an **internal SQLite** database to create and manage different views and schemas of your `PolicyReports`. This allows the various REST APIs to work performantly in both smaller and larger clusters. Although this approach is very flexible and does not require any additional setup, it also has its limits above a certain size.
+Policy Reporter uses an **internal SQLite** database by default to create and manage different views and schemas of your `PolicyReports`. This allows the various REST APIs to work without extra infrastructure and works well for smaller setups.
 
-If you encounter performance or persistence issues in your environment consider to replace this internal SQLite Database with an external SQL Database. Policy Reporter supports **PostgreSQL**, **MySQL** and **MariaDB**.
+If you need a shared or more scalable persistence layer, configure an external SQL database. Policy Reporter supports **PostgreSQL**, **MySQL** and **MariaDB**. For distributed deployments.
 
 ### Configuration
 
@@ -37,23 +37,32 @@ database:
   # use an mounted secret as source of your values, required the information in JSON format
   # supported fields: username, password, host, dsn, database
   mountedSecret: ""
+  # enabled metrics to observe pool health, query latency, and write failures
+  metrics: false
 ```
+
+### Secret-backed configuration
+
+Database configuration can be populated from a Secret or mounted secret. The supported fields are `username`, `password`, `host`, `dsn`, and `database`.
 
 ### Data Consistency
 
-To ensure data consistency after restarts or a leader switch in an HA setup, Policy Reporter truncates existing Data and reprocesses all `PolicyReports` in your cluster.
+To ensure data consistency after restarts or a leader switch in an HA setup, Policy Reporter refreshes persisted report data and reprocesses all `PolicyReports` in your cluster when a persistent SQL database is used.
+
+Redis is used as a cache for results, so it complements the SQL database rather than replacing it.
 
 #### Metrics
 
-| Option                          | Labels                                     | Type        |
-| ------------------------------- | -------------------- --------------------- | ----------- |
-| `database_connections`          | `database`, `system`                       | Gauge       |
-| `database_max_open_connections` | `database`, `system`                       | Gauge       |
-| `database_max_idle_time_closed` | `database`, `system`                       | Gauge       |
-| `database_max_idle_closed`      | `database`, `system`                       | Gauge       |
-| `database_idle_connections`     | `database`, `system`                       | Gauge       |
-| `database_max_lifetime_closed`  | `database`, `system`                       | Gauge       |
-| `database_in_use`               | `database`, `system`                       | Gauge       |
-| `database_wait_count`           | `database`, `system`                       | Gauge       |
-| `database_wait_duration`        | `database`, `system`                       | Gauge       |
-| `database_query_timing`         | `database`, `system`, `operation`, `table` | Histogram   |
+| Option                                  | Labels                                     | Type        |
+| ----------------------------------------|--------------------------------------------|-------------|
+| `database_connections`                  | `database`, `system`                       | Gauge       |
+| `database_max_open_connections`         | `database`, `system`                       | Gauge       |
+| `database_max_idle_time_closed`         | `database`, `system`                       | Gauge       |
+| `database_max_idle_closed`              | `database`, `system`                       | Gauge       |
+| `database_idle_connections`             | `database`, `system`                       | Gauge       |
+| `database_max_lifetime_closed`          | `database`, `system`                       | Gauge       |
+| `database_in_use`                       | `database`, `system`                       | Gauge       |
+| `database_wait_count`                   | `database`, `system`                       | Gauge       |
+| `database_wait_duration`                | `database`, `system`                       | Gauge       |
+| `database_query_timing`                 | `database`, `system`, `operation`, `table` | Histogram   |
+| `policy_reporter_database_errors_total` | `operation`, `reason`, `table`             | Counter     |

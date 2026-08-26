@@ -22,6 +22,8 @@ metrics:
 
 :::
 
+Database-related metrics are enabled separately with `database.metrics: true`.
+
 ## Metrics Filter
 
 To reduce the number of metric elements, it is possible to filter out results for metric processing. All available filters supporting wildcards and can be defined as include or exclude list.
@@ -143,6 +145,64 @@ policy_report_result{artifact_tag="",score="",status="pass"} 1
 ## API Reference
 
 List of available metrics and available labels.
+
+### Database metrics
+
+Policy Reporter exposes database metrics when `database.metrics` is enabled. They help to observe pool health, query latency, and write failures.
+
+#### policy_reporter_database_errors_total
+
+Counter: Total number of database errors.
+
+| Label | Description |
+|-------|-------------|
+| `operation` | Database operation that failed |
+| `table` | Database table involved in the failed operation |
+| `reason` | Error reason, for example `timeout`, `connection_refused`, or `unknown` |
+
+#### database_connections
+
+Gauge: Current number of open database connections.
+
+#### database_max_open_connections
+
+Gauge: Maximum number of open database connections.
+
+#### database_idle_connections
+
+Gauge: Current number of idle database connections.
+
+#### database_max_idle_time_closed
+
+Gauge: Number of connections closed because they exceeded the idle time limit.
+
+#### database_max_idle_closed
+
+Gauge: Number of connections closed because they exceeded the maximum idle limit.
+
+#### database_max_lifetime_closed
+
+Gauge: Number of connections closed because they exceeded the maximum lifetime.
+
+#### database_in_use
+
+Gauge: Number of connections currently in use.
+
+#### database_wait_count
+
+Gauge: Total number of waits for a free connection.
+
+#### database_wait_duration
+
+Gauge: Total time spent waiting for a free connection.
+
+#### database_query_timing
+
+Histogram: Timing of processed queries in milliseconds.
+
+#### database metric labels
+
+Database metrics share the labels `database` and `system`. The query histogram also includes `operation` and `table`.
 
 ### cluster_policy_report_result
 

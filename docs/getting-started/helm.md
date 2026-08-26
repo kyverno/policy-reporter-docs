@@ -23,6 +23,21 @@ By default most available features are disabled. So it's up to the user to enabl
 See the complete [values.yaml](https://github.com/kyverno/policy-reporter/blob/main/charts/policy-reporter/values.yaml) for reference.
 :::
 
+### Core Configuration
+
+The chart now exposes a few core configuration areas that are worth knowing when you start customizing Policy Reporter:
+
+| Area | Common values | Purpose |
+|------|---------------|---------|
+| Database | `database.type`, `database.dsn`, `database.secretRef`, `database.mountedSecret`, `database.metrics` | Use SQLite by default or switch to PostgreSQL, MySQL, or MariaDB; enable DB connection/query metrics if needed. |
+| Redis cache | `redis.enabled`, `redis.address`, `redis.database`, `redis.prefix`, `redis.secretRef`, `redis.skipTLS` | Use Redis as an external result cache instead of the default in-memory cache. |
+| Report filtering | `reportFilter`, `sourceFilters`, `sourceConfig` | Filter which reports are processed and tune source-specific reconditioning and namespace handling. |
+| Email reports | `emailReports.clusterName`, `emailReports.titlePrefix`, `emailReports.smtp`, `emailReports.graphAPI` | Send summary and violation reports by SMTP or Microsoft Graph API. |
+| Runtime behavior | `metrics`, `profiling`, `leaderElection`, `periodicSync`, `autoMemoryLimit` | Control metrics, profiling, HA coordination, periodic sync, and memory tuning. |
+| Deployment helpers | `sqliteVolume`, `tmpVolume`, `extraVolumes`, `envVars` | Adjust storage, temporary space, and extra runtime environment variables. |
+
+The same core groups are also reflected in the generated chart values documentation in the upstream repository.
+
 ## Structure
 
 The Helm Chart consists of:
@@ -98,6 +113,25 @@ ingress:
       paths:
         - path: '/(.*)'
           pathType: ImplementationSpecific
+```
+
+### Gateway API
+
+As an alternative to Ingress, the chart can expose Policy Reporter through Gateway API by enabling `httproute.enabled`. This requires Gateway API CRDs to be installed in the cluster and an existing `Gateway` resource to reference in `httproute.parentRefs`.
+
+```yaml
+httproute:
+  enabled: true
+  hostnames:
+    - domain.com
+  parentRefs:
+    - name: public-gateway
+      namespace: gateway-system
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
 ```
 
 ## Policy Reporter UI
@@ -255,6 +289,27 @@ ui:
 
 Importantly, the trailing slash _must_ be specified in order for the web resources to be fetched correctly, i.e, you must access the Policy Reporter UI at `http(s)://domain.com/policy-reporter-ui/`.
 
+### Gateway API
+
+The UI can also be exposed via Gateway API instead of Ingress by enabling `ui.httproute.enabled`. Use `ui.httproute.parentRefs` to point to an existing Gateway and `ui.httproute.hostnames` to define the hostnames served by the HTTPRoute.
+
+```yaml
+ui:
+  enabled: true
+  httproute:
+    enabled: true
+    parentRefs:
+      - name: public-gateway
+        namespace: gateway-system
+    hostnames:
+      - domain.com
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /policy-reporter-ui/
+```
+
 ## Kyverno Plugin
 
 Details on configuring the various functions can be found on the respective function pages.
@@ -340,6 +395,28 @@ plugin:
               pathType: ImplementationSpecific
 ```
 
+### Gateway API
+
+The Kyverno Plugin supports the same Gateway API-based exposure pattern through `plugin.kyverno.httproute.enabled`. This is useful when you want to route traffic through an existing Gateway rather than manage an Ingress resource.
+
+```yaml
+plugin:
+  kyverno:
+    enabled: true
+    httproute:
+      enabled: true
+      parentRefs:
+        - name: public-gateway
+          namespace: gateway-system
+      hostnames:
+        - domain.com
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+```
+
 ## Trivy Plugin
 
 Details on configuring the various functions can be found on the respective function pages.
@@ -410,6 +487,28 @@ plugin:
           paths:
             - path: '/(.*)'
               pathType: ImplementationSpecific
+```
+
+### Gateway API
+
+The Trivy Plugin can also be exposed via Gateway API by enabling `plugin.trivy.httproute.enabled`. The HTTPRoute should reference an existing Gateway and can reuse the same hostnames you would otherwise configure for Ingress.
+
+```yaml
+plugin:
+  trivy:
+    enabled: true
+    httproute:
+      enabled: true
+      parentRefs:
+        - name: public-gateway
+          namespace: gateway-system
+      hostnames:
+        - domain.com
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
 ```
 
 ## Monitoring
