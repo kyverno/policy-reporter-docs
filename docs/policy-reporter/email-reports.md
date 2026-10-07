@@ -19,7 +19,7 @@ You can filter by:
 * include or exclude list of sources (like Kyverno, Trivy, Falco, etc.)
 * disable ClusterPolicyReports
 
-The latest configuration also supports per-report output format via `format`, reusable report titles via `titlePrefix`, and Graph API specific options like CC, BCC, Azure AD endpoint overrides, and disabling Sent Items storage.
+The latest configuration also supports per-report output format via `format`, CSV attachments via `attachmentFormat`, reusable report titles via `titlePrefix`, and Graph API specific options like CC, BCC, Azure AD endpoint overrides, and disabling Sent Items storage.
 
 ## Configuration
 
@@ -51,6 +51,7 @@ emailReports:
   summary:
     to: ['receiver@email.com']
     format: html
+    attachmentFormat: ""
     filter:
       disableClusterReports: false
       namespaces:
@@ -63,6 +64,7 @@ emailReports:
   violations:
     to: ['receiver@email.com']
     format: html
+    attachmentFormat: ""
     filter:
       disableClusterReports: false
       namespaces:
@@ -73,6 +75,31 @@ emailReports:
         include: []
         exclude: []
 ```
+
+## CSV Attachments
+
+Set `attachmentFormat: csv` on a summary or violations report to attach the results as a CSV file instead of including the report details in the email body. CSV attachments work with both SMTP and Microsoft Graph API. Omitting the setting or leaving it empty keeps the existing email format; `format` continues to control the email body format.
+
+The setting can also be configured independently for each channel. Channels do not inherit the report-level attachment format:
+
+```yaml
+emailReports:
+  violations:
+    to: ['security@example.com']
+    attachmentFormat: csv
+    channels:
+    - to: ['team-a@example.com']
+      attachmentFormat: csv
+      filter:
+        namespaces:
+          include: ['team-a']
+    - to: ['team-b@example.com']
+      filter:
+        namespaces:
+          include: ['team-b']
+```
+
+In this example, the main recipient and team A receive `violations.csv`; team B keeps the regular detailed email. Summary CSV files contain result counts by source and namespace, including cluster-scoped results. Violations CSV files contain the violation details, including resource, policy, rule, status, severity, and message. Only an empty value or `csv` is supported.
 
 ## Examples
 

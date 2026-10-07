@@ -224,6 +224,75 @@ spec:
 
 :::
 
+#### Resource Label Selector
+
+Use `filter.labelSelector` to filter results based on the labels of the Kubernetes resource referenced by the result. Unlike `namespaces.selector` and `reportLabels`, this filter evaluates resource labels, not namespace or PolicyReport labels.
+
+The selector is a map of label keys to string values. All entries must match (AND semantics), and the selector can be combined with the other target filters.
+
+| Selector entry | Matches resources where |
+| -------------- | ----------------------- |
+| `app: 'frontend'` | The `app` label equals `frontend`. |
+| `owner: '*'` | The `owner` label exists, regardless of its value. |
+| `disabled: '!*'` | The `disabled` label does not exist. |
+| `environment: 'production,staging'` | The `environment` label equals either `production` or `staging`. |
+
+Quote `'*'` and `'!*'` in YAML. Comma-separated values must be provided as a single string, not a YAML list. The selector does not support partial wildcard matching such as `prod*`.
+
+If the result has no resource reference or the resource metadata cannot be retrieved, the result is not sent to this target.
+
+##### Example
+
+The following configuration forwards results only for resources with `app=frontend`, an `owner` label, no `disabled` label, and an `environment` label set to either `production` or `staging`.
+
+::: code-group
+
+```yaml [values.yaml]
+target:
+  loki:
+    host: 'http://loki.monitoring:3000'
+    skipExistingOnStartup: true
+    filter:
+      labelSelector:
+        app: 'frontend'
+        owner: '*'
+        disabled: '!*'
+        environment: 'production,staging'
+```
+
+```yaml [config.yaml]
+target:
+  loki:
+    config:
+      host: 'http://loki.monitoring:3000'
+    skipExistingOnStartup: true
+    filter:
+      labelSelector:
+        app: 'frontend'
+        owner: '*'
+        disabled: '!*'
+        environment: 'production,staging'
+```
+
+```yaml [target config resource]
+apiVersion: policyreporter.kyverno.io/v1alpha1
+kind: TargetConfig
+metadata:
+  name: loki-resource-labels-example
+spec:
+  loki:
+    host: 'http://loki.monitoring:3000'
+  skipExistingOnStartup: true
+  filter:
+    labelSelector:
+      app: 'frontend'
+      owner: '*'
+      disabled: '!*'
+      environment: 'production,staging'
+```
+
+:::
+
 ### Channels
 
 With the `channels` option, you can define several configurations of the same type for one target. In combination with filters, this allows you to forward your notifications to different target configurations. Channels have the same configuration properties as the main configuration of the target.

@@ -12,6 +12,49 @@ The only difference between `CustomBoard` and `NamespaceCustomBoard` is that you
 Short names: `CustomBoard` → `cb`, `NamespaceCustomBoard` → `ncb`
 :::
 
+## Cluster Filter
+
+Restrict a `CustomBoard` to one or more configured clusters with the `clusters` field. Use the cluster `slug` values from the UI configuration, not the cluster display names. Matching is exact and case-sensitive. If multiple clusters are listed, the board is available on any of them. Omitting `clusters` or setting it to an empty list makes the board available on all clusters.
+
+This field is supported for `CustomBoard` resources and static UI configuration. It is not available on `NamespaceCustomBoard` yet. On clusters that do not match, the board is hidden from navigation and its board-specific API routes return `404`. Existing access controls still apply.
+
+::: code-group
+
+```yaml [values.yaml]
+ui:
+  enabled: true
+
+  customBoards:
+    - name: Production
+      clusters: [production]
+      namespaces:
+        list: [team-a]
+```
+
+```yaml [config.yaml]
+customBoards:
+  - name: Production
+    clusters: [production]
+    namespaces:
+      list: [team-a]
+```
+
+```yaml [CustomBoard CRD]
+kind: CustomBoard
+apiVersion: ui.policyreporter.kyverno.io/v1alpha1
+metadata:
+  name: production-board
+spec:
+  title: Production
+  clusters: [production]
+  namespaces:
+    list: [team-a]
+```
+
+:::
+
+Install the updated `CustomBoard` CRD before setting `spec.clusters`, so Kubernetes retains the field.
+
 
 ## Namespace List
 

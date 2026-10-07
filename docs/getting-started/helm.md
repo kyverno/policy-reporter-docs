@@ -511,6 +511,46 @@ plugin:
                 value: /
 ```
 
+## VAP Plugin
+
+The ValidatingAdmissionPolicy (VAP) Plugin is available as an optional component of the chart. It receives Kubernetes API server audit events over an HTTPS webhook and stores results as OpenReports. Before enabling it, configure the API server's audit policy and webhook kubeconfig as described in the [VAP Plugin guide](../plugin-system/vap-plugin).
+
+### Enable and Configure
+
+Enable the plugin and configure TLS for the audit webhook receiver. The API server's audit webhook requires HTTPS, so use cert-manager with an issuer or provide an existing TLS Secret containing `tls.crt` and `tls.key`.
+
+```yaml
+plugin:
+  vap:
+    enabled: true
+    tls:
+      certManager:
+        enabled: true
+        issuerRef:
+          name: vap-issuer
+          kind: ClusterIssuer
+    report:
+      # Persist results from requests blocked by a Deny action.
+      reportDenied: false
+      severity: high
+      category: best-practices
+    reconcile:
+      interval: 10m
+      orphanTTL: 24h
+```
+
+Alternatively, use a pre-provisioned Secret instead of cert-manager:
+
+```yaml
+plugin:
+  vap:
+    enabled: true
+    tls:
+      existingSecret: vap-plugin-tls
+```
+
+The chart also enables the plugin API by default on port `8080`; add it to the UI cluster's `plugins` configuration to display VAP policy details. See [Configure Policy Reporter UI](../plugin-system/vap-plugin#configure-policy-reporter-ui) for an example. Result reporting defaults and supported policy annotations are documented in [Reported Results](../plugin-system/vap-plugin#reported-results).
+
 ## Monitoring
 
 The Monitoring Subchart integrates Policy Reporter into the [Prometheus Operator](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack).

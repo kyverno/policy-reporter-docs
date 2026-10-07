@@ -40,6 +40,7 @@ export default defineConfig({
           { text: 'Integrations | Targets', link: '/policy-reporter/integrations' },
           { text: 'Metrics', link: '/policy-reporter/metrics' },
           { text: 'E-Mail Reports', link: '/policy-reporter/email-reports' },
+          { text: 'MCP Server', link: '/policy-reporter/mcp' },
         ]
       },
       {
@@ -60,6 +61,7 @@ export default defineConfig({
           { text: 'Introduction', link: '/plugin-system/introduction' },
           { text: 'Kyverno Plugin', link: '/plugin-system/kyverno-plugin' },
           { text: 'Trivy Plugin', link: '/plugin-system/trivy-plugin' },
+          { text: 'ValidationAdmissionPolicy Plugin', link: '/plugin-system/vap-plugin' },
         ]
       }
     ],
