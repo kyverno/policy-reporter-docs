@@ -551,6 +551,82 @@ plugin:
 
 The chart also enables the plugin API by default on port `8080`; add it to the UI cluster's `plugins` configuration to display VAP policy details. See [Configure Policy Reporter UI](../plugin-system/vap-plugin#configure-policy-reporter-ui) for an example. Result reporting defaults and supported policy annotations are documented in [Reported Results](../plugin-system/vap-plugin#reported-results).
 
+### High Available Setup
+
+The High Available setup adds an `PodDisruptionBudget` with a `minAvailable` of `1`. The `PodDisruptionBudget` can be configured to you personal needs.
+
+```yaml
+plugin:
+  vap:
+    enabled: true
+    replicaCount: 3
+    # enabled if replicaCount > 1
+    podDisruptionBudget:
+      # -- Configures the minimum available pods for policy-reporter disruptions.
+      # Cannot be used if `maxUnavailable` is set.
+      minAvailable: 1
+      # -- Configures the maximum unavailable pods for policy-reporter disruptions.
+      # Cannot be used if `minAvailable` is set.
+      maxUnavailable:
+```
+
+### NetworkPolicy
+
+If enabled, the Helm Chart creates a NetworkPolicy resource to allow the VAP Plugin egress traffic to the Kube API Server as well as ingress traffic to the Policy Reporter UI REST API. Ingress and egress rules can be extended as needed.
+
+::: info
+Make sure that your default network policy allows ingress traffic to the DNS service so that Policy Reporter and its components can resolve the DNS names used.
+:::
+
+```yaml
+plugin:
+  vap:
+    enabled: vap
+    networkPolicy:
+      enabled: true
+```
+
+### Ingress
+
+Serve the API over a hostname with the integrated Ingress support. This is mainly needed for the **Multi Tenant** feature of Policy Reporter UI. In this case make sure that the API is not reachable for the **outside world**.
+
+```yaml
+plugin:
+  vap:
+    enabled: true
+    ingress:
+      enabled: true
+      annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: /$1
+      hosts:
+        - host: domain.com
+          paths:
+            - path: '/(.*)'
+              pathType: ImplementationSpecific
+```
+
+### Gateway API
+
+The VAP Plugin can also be exposed via Gateway API by enabling `plugin.vap.httproute.enabled`. The HTTPRoute should reference an existing Gateway and can reuse the same hostnames you would otherwise configure for Ingress.
+
+```yaml
+plugin:
+  vap:
+    enabled: true
+    httproute:
+      enabled: true
+      parentRefs:
+        - name: public-gateway
+          namespace: gateway-system
+      hostnames:
+        - domain.com
+      rules:
+        - matches:
+            - path:
+                type: PathPrefix
+                value: /
+```
+
 ## Monitoring
 
 The Monitoring Subchart integrates Policy Reporter into the [Prometheus Operator](https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack).
