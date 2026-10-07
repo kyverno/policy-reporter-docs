@@ -6,6 +6,7 @@ You can also configure filter and how you want to display your results to reflec
 
 ::: info
 We support the `CustomBoard` and `NamespaceCustomBoard` CRD since Policy Reporter UI v2.5.0. You need to opt in by setting `ui.crds.customBoard` to `true` in the Helm Chart (since v3.7.0)
+:::
 
 The only difference between `CustomBoard` and `NamespaceCustomBoard` is that you can not set a namespace filter in `NamespaceCustomBoard` as always only show results for the namespace they are applied to. `NamespaceCustomBoard` also do not show cluster scoped results.
 

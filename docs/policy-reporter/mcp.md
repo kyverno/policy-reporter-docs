@@ -2,6 +2,7 @@
 
 ::: info
 We support the `MCP Server` feature since Policy Reporter v3.11.0.
+:::
 
 Policy Reporter provides an optional [Model Context Protocol (MCP)](https://modelcontextprotocol.io/) server. MCP-compatible clients can use it to query policy compliance data stored by Policy Reporter.
 

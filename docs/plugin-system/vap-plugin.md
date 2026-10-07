@@ -1,7 +1,8 @@
-# ValidationAdmissionPolicy Plugin
+# VAP Plugin
 
 ::: info
 We support the **VAP Plugin** since Helm Chart v3.11.0
+:::
 
 The [ValidationAdmissionPolicy (VAP) Plugin](https://github.com/kyverno/policy-reporter-plugins/tree/main/plugins/vap) makes results from Kubernetes' native `ValidatingAdmissionPolicy` available in Policy Reporter. Since Kubernetes does not create PolicyReports for VAP evaluations, the plugin receives API server audit events and stores the results as OpenReports `Report` and `ClusterReport` resources.
 

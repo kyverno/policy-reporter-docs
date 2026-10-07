@@ -6,6 +6,7 @@ Policy Reporter supports different targets to send new PolicyReport results. Thi
 Using CRDs for target configurations is off by default as of helm chart v3.1.0.
 To enable it set the following values in the chart
 
+
 ```
 target:
   # -- enable and install TargetConfig CRD
